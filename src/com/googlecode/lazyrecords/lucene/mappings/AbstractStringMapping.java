@@ -21,7 +21,7 @@ public abstract class AbstractStringMapping<T> extends AbstractMapping<T> {
         try {
             return new Field(name, toString(value), Field.Store.YES, index);
         } catch (Exception e) {
-            throw new LazyException(e);
+            throw LazyException.lazyException(e);
         }
     }
 
@@ -29,7 +29,7 @@ public abstract class AbstractStringMapping<T> extends AbstractMapping<T> {
         try {
             return fromString(fieldable.stringValue());
         } catch (Exception e) {
-            throw new LazyException(e);
+            throw LazyException.lazyException(e);
         }
     }
 

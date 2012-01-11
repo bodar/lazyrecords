@@ -15,7 +15,7 @@ public class SqlTransaction implements Transaction{
             // Start transaction
             this.connection.setAutoCommit(false);
         } catch (SQLException e) {
-            throw new LazyException("Could not begin transaction", e);
+            throw LazyException.lazyException(e);
         }
     }
 
@@ -23,7 +23,7 @@ public class SqlTransaction implements Transaction{
         try {
             connection.commit();
         } catch (SQLException e) {
-            throw new LazyException("Could not commit transaction", e);
+            throw LazyException.lazyException(e);
         }
     }
 
@@ -31,7 +31,7 @@ public class SqlTransaction implements Transaction{
         try {
             connection.rollback();
         } catch (SQLException e) {
-            throw new LazyException("Could not rollback transaction", e);
+            throw LazyException.lazyException(e);
         }
     }
 }

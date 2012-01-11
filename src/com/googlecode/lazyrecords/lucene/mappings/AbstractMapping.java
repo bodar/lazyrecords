@@ -8,7 +8,7 @@ public abstract class AbstractMapping<T> implements Mapping<T> {
         try {
             return newRange(name, null, null, true, true);
         } catch (Exception e) {
-            throw new LazyException(e);
+            throw LazyException.lazyException(e);
         }
     }
 
@@ -16,7 +16,7 @@ public abstract class AbstractMapping<T> implements Mapping<T> {
         try {
             return newRange(name, value, value, true, true);
         } catch (Exception e) {
-            throw new LazyException(e);
+            throw LazyException.lazyException(e);
         }
     }
 
@@ -24,7 +24,7 @@ public abstract class AbstractMapping<T> implements Mapping<T> {
         try {
             return newRange(name, value, null, false, true);
         } catch (Exception e) {
-            throw new LazyException(e);
+            throw LazyException.lazyException(e);
         }
     }
 
@@ -32,7 +32,7 @@ public abstract class AbstractMapping<T> implements Mapping<T> {
         try {
             return newRange(name, value, null, true, true);
         } catch (Exception e) {
-            throw new LazyException(e);
+            throw LazyException.lazyException(e);
         }
     }
 
@@ -40,7 +40,7 @@ public abstract class AbstractMapping<T> implements Mapping<T> {
         try {
             return newRange(name, null, value, true, false);
         } catch (Exception e) {
-            throw new LazyException(e);
+            throw LazyException.lazyException(e);
         }
     }
 
@@ -48,7 +48,7 @@ public abstract class AbstractMapping<T> implements Mapping<T> {
         try {
             return newRange(name, null, value, true, true);
         } catch (Exception e) {
-            throw new LazyException(e);
+            throw LazyException.lazyException(e);
         }
     }
 
@@ -56,7 +56,7 @@ public abstract class AbstractMapping<T> implements Mapping<T> {
         try {
             return newRange(name, lower, upper, true, true);
         } catch (Exception e) {
-            throw new LazyException(e);
+            throw LazyException.lazyException(e);
         }
     }
 

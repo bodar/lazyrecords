@@ -50,7 +50,7 @@ public class LuceneRecords extends AbstractRecords implements Queryable<Query>, 
         try {
             return storage.add(records.map(mappings.asDocument(recordName, definitions(recordName))));
         } catch (IOException e) {
-            throw new LazyException(e);
+            throw LazyException.lazyException(e);
         }
     }
 
@@ -66,7 +66,7 @@ public class LuceneRecords extends AbstractRecords implements Queryable<Query>, 
         try {
             return storage.delete(query);
         } catch (IOException e) {
-            throw new LazyException(e);
+            throw LazyException.lazyException(e);
         }
     }
 

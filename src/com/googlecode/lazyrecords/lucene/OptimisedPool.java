@@ -2,6 +2,7 @@ package com.googlecode.lazyrecords.lucene;
 
 import com.googlecode.totallylazy.Function;
 import com.googlecode.totallylazy.Function1;
+import org.apache.lucene.index.SegmentInfos;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.store.Directory;
 
@@ -21,6 +22,11 @@ import static com.googlecode.lazyrecords.lucene.OptimisedPool.PooledValue.dirty;
 public class OptimisedPool implements SearcherPool {
     private final List<PooledValue> pool = new CopyOnWriteArrayList<PooledValue>();
     private final Directory directory;
+
+    static {
+        // Lucene hack to avoid interrupted exception
+        SegmentInfos.setDefaultGenFileRetryPauseMsec(-1);
+    }
 
     public OptimisedPool(Directory directory) {
         this.directory = directory;
@@ -42,11 +48,20 @@ public class OptimisedPool implements SearcherPool {
         return new Function<Searcher>() {
             @Override
             public Searcher call() throws Exception {
-                PooledSearcher pooledSearcher = new PooledSearcher(new IndexSearcher(directory), checkIn());
-                pool.add(new PooledValue(pooledSearcher));
-                return pooledSearcher;
+                return create();
             }
         };
+    }
+
+    private synchronized Searcher create() throws IOException {
+        LuceneSearcher luceneSearcher = createLuceneSearcher();
+        PooledSearcher searcher = new PooledSearcher(new RecoveringSearcher(luceneSearcher, createNewLuceneSearcher()), checkIn());
+        pool.add(new PooledValue(searcher, luceneSearcher));
+        return searcher;
+    }
+
+    private LuceneSearcher createLuceneSearcher() throws IOException {
+        return new LuceneSearcher(new IndexSearcher(directory));
     }
 
     private Function1<Searcher, Void> checkIn() {
@@ -59,12 +74,25 @@ public class OptimisedPool implements SearcherPool {
         };
     }
 
+    private Function<Searcher> createNewLuceneSearcher() {
+        return new Function<Searcher>() {
+            @Override
+            public Searcher call() throws Exception {
+                return createLuceneSearcher();
+            }
+        };
+    }
+
     private synchronized void checkin(Searcher searcher) throws IOException {
-        PooledValue pooledValue = sequence(pool).find(where(PooledValue.searcher(), is(searcher))).get();
+        PooledValue pooledValue = findPooledValue(searcher);
         int count = pooledValue.checkin();
         if(count == 0 && pooledValue.dirty){
             closeAndRemove(pooledValue);
         }
+    }
+
+    private PooledValue findPooledValue(Searcher searcher) {
+        return sequence(pool).find(where(PooledValue.searcher(), is(searcher))).get();
     }
 
     @Override
@@ -87,26 +115,26 @@ public class OptimisedPool implements SearcherPool {
     }
 
     private void closeAndRemove(PooledValue pooledValue) throws IOException {
-        // TODO clean me up
-        pooledValue.searcher.searcher.close();
+        pooledValue.luceneSearcher.close();
         pool.remove(pooledValue);
     }
 
     @Override
     public void close() throws IOException {
-        // TODO clean me up
         for (PooledValue pooledValue : pool) {
-            pooledValue.searcher.searcher.close();
+            pooledValue.luceneSearcher.close();
         }
     }
 
     static class PooledValue {
-        private final PooledSearcher searcher;
+        private final Searcher searcher;
+        private final LuceneSearcher luceneSearcher;
         private boolean dirty = false;
         private int checkoutCount = 1;
 
-        private PooledValue(PooledSearcher searcher) {
+        private PooledValue(Searcher searcher, LuceneSearcher luceneSearcher) {
             this.searcher = searcher;
+            this.luceneSearcher = luceneSearcher;
         }
 
         public static Function1<PooledValue, Boolean> dirty() {

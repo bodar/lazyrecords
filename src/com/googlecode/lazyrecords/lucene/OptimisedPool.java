@@ -23,11 +23,6 @@ public class OptimisedPool implements SearcherPool {
     private final List<PooledValue> pool = new CopyOnWriteArrayList<PooledValue>();
     private final Directory directory;
 
-    static {
-        // Lucene hack to avoid interrupted exception
-        SegmentInfos.setDefaultGenFileRetryPauseMsec(-1);
-    }
-
     public OptimisedPool(Directory directory) {
         this.directory = directory;
     }

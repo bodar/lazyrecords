@@ -1,0 +1,16 @@
+syntax: glob
+jdbc*
+out
+*.iws
+build/artifacts
+.idea/workspace.xml
+.ant-targets-build.xml
+*.orig
+.DS_Store
+lib/build
+lib/runtime
+lib/optional
+lib/jcompilo.jar
+test/com/googlecode/lazyrecords/simpledb/AwsCredentials.properties
+test/com/googlecode/lazyrecords/sql/oracle.properties
+test/com/googlecode/lazyrecords/sql/mysql.properties

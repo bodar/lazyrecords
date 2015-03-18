@@ -20,7 +20,7 @@ Definitions are similar to schemas, they tell LazyRecords the name of the record
 
 Keywords are similar to Clojure keywords or Ruby symbols with the addition of type information. The type information is used in the conversion from Java types to the underlying datastore and back.
 
-```
+```java
 Keyword<Date> dob = keyword("dob", Date.class);
 Keyword<String> name = keyword("name", String.class);
 Definition people = definition("people", dob, name);
@@ -40,7 +40,7 @@ Records supports 3 different modification operations:
 
 Lets just add some data:
 
-```
+```java
 records.add(people,
     record(name, "dan", dob, date(1977, 1, 10)),
     record(name, "matt", dob, date(1975, 1, 10)),
@@ -51,7 +51,7 @@ records.add(people,
 
 To query our data we `get` our data from records and start using our favourite functional methods like `filter`, `map`, `reduce`
 
-```
+```java
 records.get(people); // returns 3 records with all fields
 records.get(people).filter(where(name, is("dan"))); // returns 1 record
 records.get(people).map(name); // returns "dan", "matt", "bob"

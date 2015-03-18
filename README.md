@@ -1,4 +1,4 @@
-Provides uniform functional methods to access data in [SQL, Lucene,, SimpleDB, Xml and in-memory](http://code.google.com/p/lazyrecords/source/browse/test/com/googlecode/lazyrecords/RecordsContract.java). Inspired by LINQ. Now you can map/reduce/join across different data sources.
+Provides uniform functional methods to access data in [SQL, Lucene,, SimpleDB, Xml and in-memory](/test/com/googlecode/lazyrecords/RecordsContract.java). Inspired by LINQ. Now you can map/reduce/join across different data sources.
 
 ## Quick Start
 

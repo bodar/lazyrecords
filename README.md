@@ -6,12 +6,12 @@ Choose an implementation:
 
 | **Implementations** | **Usage** | **Transactions** |
 |:--------------------|:----------|:-----------------|
-| [MemoryRecords](/bodar/lazyrecords/blob/master/src/com/googlecode/lazyrecords/memory/MemoryRecords.java) | Test      | No               |
-| [STMRecords](/bodar/lazyrecords/blob/master/src/com/googlecode/lazyrecords/memory/STMRecords.java) | Test      | Yes              |
-| [LuceneRecords](/bodar/lazyrecords/blob/master/src/com/googlecode/lazyrecords/lucene/LuceneRecords.java) | Production | No               |
-| [SqlRecords](/bodar/lazyrecords/blob/master/src/com/googlecode/lazyrecords/sql/SqlRecords.java) | Production | Yes              |
-| [SimpleDBRecords](/bodar/lazyrecords/blob/master/src/com/googlecode/lazyrecords/simpledb/SimpleDBRecords.java) | Production | No               |
-| [XmlRecords](/bodar/lazyrecords/blob/master/src/com/googlecode/lazyrecords/xml/XmlRecords.java) | Production | No               |
+| [MemoryRecords](/src/com/googlecode/lazyrecords/memory/MemoryRecords.java) | Test      | No               |
+| [STMRecords](/src/com/googlecode/lazyrecords/memory/STMRecords.java) | Test      | Yes              |
+| [LuceneRecords](/src/com/googlecode/lazyrecords/lucene/LuceneRecords.java) | Production | No               |
+| [SqlRecords](/src/com/googlecode/lazyrecords/sql/SqlRecords.java) | Production | Yes              |
+| [SimpleDBRecords](/src/com/googlecode/lazyrecords/simpledb/SimpleDBRecords.java) | Production | No |
+| [XmlRecords](/src/com/googlecode/lazyrecords/xml/XmlRecords.java) | Production | No               |
 
 
 ### Create Definitions and Keywords
@@ -59,7 +59,7 @@ records.get(people).reduce(maximum(dob)); // returns date(1977, 1, 10)
 records.get(people).sortBy(ascending(dob)); // returns 3 records sorted by `dob` 
 ```
 
-Obviously you can chain these together. [More examples...](/bodar/lazyrecords/blob/master/test/com/googlecode/lazyrecords/RecordsContract.java)
+Obviously you can chain these together. [More examples...](/test/com/googlecode/lazyrecords/RecordsContract.java)
 
 ### Java Support
 Version 1.1 requires Java 7 or higher. Version 293 is the last build that supports Java 6.

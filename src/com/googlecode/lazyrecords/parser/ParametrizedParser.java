@@ -1,16 +1,16 @@
 package com.googlecode.lazyrecords.parser;
 
-import com.googlecode.funclate.CompositeFunclate;
-import com.googlecode.funclate.Funclate;
-import com.googlecode.funclate.StringFunclate;
-import com.googlecode.totallylazy.Callable1;
-import com.googlecode.totallylazy.Predicate;
-import com.googlecode.totallylazy.Sequence;
 import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Record;
-import com.googlecode.totallylazy.time.DateConverter;
-import com.googlecode.totallylazy.time.Dates;
+import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Callers;
+import com.googlecode.totallylazy.Predicate;
+import com.googlecode.totallylazy.Sequence;
+import com.googlecode.totallylazy.template.Renderer;
+import com.googlecode.totallylazy.template.Template;
+import com.googlecode.totallylazy.template.Templates;
 
+import java.io.IOException;
 import java.util.Date;
 
 import static com.googlecode.totallylazy.Predicates.instanceOf;
@@ -36,12 +36,12 @@ public class ParametrizedParser implements PredicateParser {
 
     public Predicate<Record> parse(String query, Sequence<? extends Keyword<?>> implicits) throws IllegalArgumentException {
         try {
-            Funclate funclate = new StringFunclate(query);
-            funclate.add(instanceOf(Date.class), format(dateConverter));
+            Templates templates = Templates.defaultTemplates();
+            templates.add(instanceOf(Date.class), format(dateConverter));
+            parserFunctions.addTo(templates);
 
-            sequence(parserFunctions.functions()).fold(funclate, CompositeFunclate.functions.addCallable());
-
-            String newQuery = funclate.render(data.values());
+            Template template = Template.template(query, templates);
+            String newQuery = template.render(data.values());
             return parser.parse(newQuery, implicits);
         } catch (Exception e) {
             throw new IllegalArgumentException(e);

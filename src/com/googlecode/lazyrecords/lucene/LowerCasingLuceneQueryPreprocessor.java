@@ -1,7 +1,7 @@
 package com.googlecode.lazyrecords.lucene;
 
-import com.googlecode.funclate.internal.lazyparsec.functors.Unary;
 import com.googlecode.totallylazy.Sequence;
+import com.googlecode.totallylazy.Unary;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.FuzzyQuery;
 import org.apache.lucene.search.MultiPhraseQuery;
@@ -76,12 +76,7 @@ public class LowerCasingLuceneQueryPreprocessor extends DoNothingLuceneQueryPrep
     }
 
     private Unary<Term> asLowerCaseTerm() {
-        return new Unary<Term>() {
-            @Override
-            public Term call(Term term) throws Exception {
-                return asLowercaseTerm(term);
-            }
-        };
+        return LowerCasingLuceneQueryPreprocessor.this::asLowercaseTerm;
     }
 
     private Term asLowercaseTerm(Term originalTerm) {

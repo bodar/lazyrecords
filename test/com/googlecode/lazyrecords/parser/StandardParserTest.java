@@ -17,6 +17,7 @@ import com.googlecode.yatspec.junit.SpecRunner;
 import com.googlecode.yatspec.junit.Table;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.Query;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

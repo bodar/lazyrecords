@@ -1,6 +1,5 @@
 package com.googlecode.lazyrecords.parser;
 
-import com.googlecode.lazyparsec.error.ParserException;
 import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.mappings.DateMapping;
@@ -11,14 +10,9 @@ import com.googlecode.totallylazy.Predicate;
 import com.googlecode.totallylazy.Predicates;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Strings;
-import com.googlecode.totallylazy.time.DateConverter;
-import com.googlecode.totallylazy.time.DateFormatConverter;
-import com.googlecode.totallylazy.time.Dates;
+import com.googlecode.totallylazy.parser.Result;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import static com.googlecode.totallylazy.time.DateFormatConverter.defaultConverter;
 
 
 public class StandardParser implements PredicateParser {
@@ -39,15 +33,13 @@ public class StandardParser implements PredicateParser {
         this.mappings = mappings;
     }
 
-    public Predicate<Record> parse(String raw, Sequence<? extends Keyword<?>> implicits) throws IllegalArgumentException{
-        try {
-            final String query = raw.trim();
-            if (Strings.isEmpty(query)) {
-                return Predicates.all();
-            }
-            return Grammar.PARSER(implicits, mappings).parse(query);
-        } catch (ParserException e) {
-            throw new IllegalArgumentException(raw, e);
+    public Predicate<Record> parse(String raw, Sequence<? extends Keyword<?>> implicits) throws IllegalArgumentException {
+        final String query = raw.trim();
+        if (Strings.isEmpty(query)) {
+            return Predicates.all();
         }
+        Result<Predicate<Record>> result = Grammar.PARSER(implicits, mappings).parse(query);
+        if(!result.remainder().isEmpty()) throw new IllegalArgumentException("Query did not match the whole expression");
+        return result.value();
     }
 }

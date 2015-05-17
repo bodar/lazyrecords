@@ -1,8 +1,8 @@
 package com.googlecode.lazyrecords.parser;
 
-import com.googlecode.funclate.StringFunclate;
 import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Record;
+import com.googlecode.totallylazy.Callable1;
 import com.googlecode.totallylazy.Predicate;
 import com.googlecode.totallylazy.Predicates;
 import com.googlecode.totallylazy.Strings;
@@ -37,8 +37,8 @@ public class ParametrizedParserTest {
     @Test
     public void canInjectFunctions() {
         ParserFunctions parserFunctions = new ParserFunctions().
-                add("name", Predicates.always(), StringFunclate.functions.first(returnArgument(String.class).then(Strings.reverse()))).
-                add("shoeSize", Predicates.always(), StringFunclate.functions.first(returnArgument(String.class).then(Strings.reverse())));
+                add("name", Predicates.always(), (CharSequence characters) -> Strings.reverse(characters.toString())).
+                add("shoeSize", Predicates.always(), (CharSequence characters) -> Strings.reverse(characters.toString()));
 
         ParserDateConverter dateConverter = new ParserDateConverter();
         PredicateParser parser = new ParametrizedParser(new StandardParser(), dateConverter, parserFunctions, new ParserParameters());

@@ -1,28 +1,43 @@
 package com.googlecode.lazyrecords.parser;
 
-import com.googlecode.funclate.MatchingRenderer;
-import com.googlecode.funclate.Renderer;
 import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Callers;
 import com.googlecode.totallylazy.Predicate;
 import com.googlecode.totallylazy.Triple;
 import com.googlecode.totallylazy.collections.PersistentList;
+import com.googlecode.totallylazy.template.Renderer;
+import com.googlecode.totallylazy.template.Templates;
 
 import static com.googlecode.totallylazy.Unchecked.cast;
 import static com.googlecode.totallylazy.collections.PersistentList.constructors.empty;
 
 public class ParserFunctions {
-    private PersistentList<Triple<String, Predicate<?>, Callable1<?, String>>> functions = empty();
+    private PersistentList<Triple<String, Predicate<?>, Object>> functions = empty();
 
-    public <T> ParserFunctions add(String name, Predicate<? super T> predicate, Callable1<? super T, String> renderer) {
-        functions = functions.append(Triple.<String, Predicate<?>, Callable1<?, String>>triple(name, predicate, renderer));
+    public <T> ParserFunctions add(String name, Predicate<? super T> predicate, Callable1<? super T, ? extends CharSequence> renderer) {
+        functions = functions.append(Triple.<String, Predicate<?>, Object>triple(name, predicate, renderer));
         return this;
     }
 
     public <T> ParserFunctions add(String name, Predicate<? super T> predicate, Renderer<? super T> renderer) {
-        return add(name, predicate, MatchingRenderer.callable(renderer));
+        functions = functions.append(Triple.<String, Predicate<?>, Object>triple(name, predicate, renderer));
+        return this;
     }
 
-    public <T> Iterable<Triple<String, Predicate<? super T>, Callable1<? super T, String>>> functions() {
-        return cast(functions);
+    public Templates addTo(Templates templates) {
+        return functions.fold(templates, (accumulator, triple) ->
+                accumulator.add(triple.first(), cast(triple.second()), convert(triple.third())));
     }
+
+    private <T> Renderer<T> convert(Object function) {
+        if(function instanceof Renderer) return cast(function);
+        if(function instanceof Callable1) return renderer(cast(function));
+        throw new UnsupportedOperationException();
+    }
+
+    public static <T> Renderer<T> renderer(Callable1<? super T, ? extends CharSequence> callable) {
+        return (T instance, Appendable appendable) ->
+                appendable.append(Callers.call(callable, instance));
+    }
+
 }

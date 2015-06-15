@@ -15,7 +15,7 @@ import com.googlecode.lazyrecords.sql.expressions.ExpressionBuilder;
 import com.googlecode.lazyrecords.sql.expressions.Expressions;
 import com.googlecode.totallylazy.Callable1;
 import com.googlecode.totallylazy.Computation;
-import com.googlecode.totallylazy.Function;
+import com.googlecode.totallylazy.Returns;
 import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Maps;
 import com.googlecode.totallylazy.Predicate;
@@ -45,7 +45,7 @@ public class SimpleDBSequence<T> extends Sequence<T> {
         this.itemToRecord = itemToRecord;
         this.logger = logger;
         this.consistentRead = consistentRead;
-        this.data = new Function<Iterable<T>>() {
+        this.data = new Returns<Iterable<T>>() {
             @Override
             public Iterable<T> call() throws Exception {
                 return Computation.memorise(iterator(builder));

@@ -29,7 +29,7 @@ public class SqlSequence<T> extends Sequence<T> implements Expressible {
         this.selectBuilder = selectBuilder;
         this.logger = logger;
         this.callable = callable;
-        this.data = new Function<Sequence<T>>() {
+        this.data = new Returns<Sequence<T>>() {
             @Override
             public Sequence<T> call() throws Exception {
                 return execute(selectBuilder);

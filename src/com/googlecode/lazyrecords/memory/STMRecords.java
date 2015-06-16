@@ -10,7 +10,7 @@ import com.googlecode.lazyrecords.ToRecord;
 import com.googlecode.lazyrecords.Transaction;
 import com.googlecode.lazyrecords.mappings.StringMappings;
 import com.googlecode.totallylazy.Callables;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.Function;
 import com.googlecode.totallylazy.Function2;
 import com.googlecode.totallylazy.Mapper;
 import com.googlecode.totallylazy.Pair;
@@ -33,7 +33,7 @@ public class STMRecords extends AbstractRecords implements Transaction {
     private final StringMappings mappings;
     private final STM stm;
     private STM snapshot;
-    private PersistentList<Pair<Integer, Function1<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Pair<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Integer>>>> modifications;
+    private PersistentList<Pair<Integer, Function<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Pair<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Integer>>>> modifications;
 
     public STMRecords(STM stm, StringMappings mappings) {
         this.stm = stm;
@@ -74,7 +74,7 @@ public class STMRecords extends AbstractRecords implements Transaction {
 
     @Override
     public Number set(final Definition definition, final Sequence<? extends Pair<? extends Predicate<? super Record>, Record>> records) {
-        return modifyReturn(new Function1<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Pair<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Integer>>() {
+        return modifyReturn(new Function<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Pair<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Integer>>() {
             @Override
             public Pair<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Integer> call(PersistentMap<Definition, PersistentList<PersistentMap<String, String>>> database) throws Exception {
                 PersistentList<PersistentMap<String, String>> table = listFor(database, definition);
@@ -115,7 +115,7 @@ public class STMRecords extends AbstractRecords implements Transaction {
         modifications = PersistentList.constructors.empty();
     }
 
-    private Integer modifyReturn(Function1<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Pair<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Integer>> callable) {
+    private Integer modifyReturn(Function<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Pair<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Integer>> callable) {
         Integer modified = snapshot.modifyReturn(callable);
         modifications = modifications.cons(Pair.pair(modified, callable));
         return modified;
@@ -138,8 +138,8 @@ public class STMRecords extends AbstractRecords implements Transaction {
         return SourceRecord.record(data, definition.fields().map(values(data)));
     }
 
-    private Function1<Keyword<?>, Pair<Keyword<?>, Object>> values(final PersistentMap<String, String> map) {
-        return new Function1<Keyword<?>, Pair<Keyword<?>, Object>>() {
+    private Function<Keyword<?>, Pair<Keyword<?>, Object>> values(final PersistentMap<String, String> map) {
+        return new Function<Keyword<?>, Pair<Keyword<?>, Object>>() {
             @Override
             public Pair<Keyword<?>, Object> call(Keyword<?> keyword) throws Exception {
                 return Pair.<Keyword<?>, Object>pair(keyword, mappings.toValue(keyword.forClass(), map.lookup(keyword.name()).getOrNull()));
@@ -160,8 +160,8 @@ public class STMRecords extends AbstractRecords implements Transaction {
         return PersistentSortedMap.constructors.sortedMap(definition.fields().map(values(record)));
     }
 
-    private Function1<Keyword<?>, Pair<String, String>> values(final Record record) {
-        return new Function1<Keyword<?>, Pair<String, String>>() {
+    private Function<Keyword<?>, Pair<String, String>> values(final Record record) {
+        return new Function<Keyword<?>, Pair<String, String>>() {
             @Override
             public Pair<String, String> call(Keyword<?> keyword) throws Exception {
                 return pair(keyword.name(), mappings.toString(keyword.forClass(), record.get(keyword)));
@@ -169,13 +169,13 @@ public class STMRecords extends AbstractRecords implements Transaction {
         };
     }
 
-    private static <T, R> Function1<T, T> applyAll(final Iterable<? extends Pair<R, ? extends Function1<T, Pair<T, R>>>> callables) {
-        return new Function1<T, T>() {
+    private static <T, R> Function<T, T> applyAll(final Iterable<? extends Pair<R, ? extends Function<T, Pair<T, R>>>> callables) {
+        return new Function<T, T>() {
             @Override
             public T call(T data) throws Exception {
-                return sequence(callables).fold(data, new Function2<T, Pair<R, ? extends Function1<T, Pair<T, R>>>, T>() {
+                return sequence(callables).fold(data, new Function2<T, Pair<R, ? extends Function<T, Pair<T, R>>>, T>() {
                     @Override
-                    public T call(T t, Pair<R, ? extends Function1<T, Pair<T, R>>> modification) throws Exception {
+                    public T call(T t, Pair<R, ? extends Function<T, Pair<T, R>>> modification) throws Exception {
                         R expected = modification.first();
                         Pair<T, R> result = modification.second().call(t);
                         R actual = result.second();
@@ -189,8 +189,8 @@ public class STMRecords extends AbstractRecords implements Transaction {
         };
     }
 
-    private static <Fields extends PersistentMap<String, String>> Function1<PersistentMap<Definition, PersistentList<Fields>>, Pair<PersistentMap<Definition, PersistentList<Fields>>, Integer>> put(final Definition definition, final PersistentList<Fields> newRecords) {
-        return new Function1<PersistentMap<Definition, PersistentList<Fields>>, Pair<PersistentMap<Definition, PersistentList<Fields>>, Integer>>() {
+    private static <Fields extends PersistentMap<String, String>> Function<PersistentMap<Definition, PersistentList<Fields>>, Pair<PersistentMap<Definition, PersistentList<Fields>>, Integer>> put(final Definition definition, final PersistentList<Fields> newRecords) {
+        return new Function<PersistentMap<Definition, PersistentList<Fields>>, Pair<PersistentMap<Definition, PersistentList<Fields>>, Integer>>() {
             @Override
             public Pair<PersistentMap<Definition, PersistentList<Fields>>, Integer> call(PersistentMap<Definition, PersistentList<Fields>> data) throws Exception {
                 return Pair.pair(data.insert(definition, newRecords.joinTo(listFor(data, definition))), newRecords.size());
@@ -198,8 +198,8 @@ public class STMRecords extends AbstractRecords implements Transaction {
         };
     }
 
-    private Function1<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Pair<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Integer>> removeAll(final Definition definition, final Predicate<? super Record> predicate) {
-        return new Function1<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Pair<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Integer>>() {
+    private Function<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Pair<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Integer>> removeAll(final Definition definition, final Predicate<? super Record> predicate) {
+        return new Function<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Pair<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Integer>>() {
             @Override
             public Pair<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Integer> call(PersistentMap<Definition, PersistentList<PersistentMap<String, String>>> data) throws Exception {
                 PersistentList<PersistentMap<String, String>> rows = matches(data, definition, predicate);

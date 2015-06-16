@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords.sql.expressions;
 
 import com.googlecode.lazyrecords.sql.grammars.OracleGrammar;
 import com.googlecode.totallylazy.Callable1;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.Function;
 import com.googlecode.totallylazy.Option;
 import com.googlecode.totallylazy.Unary;
 import com.googlecode.totallylazy.UnaryFunction;
@@ -99,7 +99,7 @@ public class Qualifier extends AbstractQualifier {
     }
 
     @multimethod public OrderByClause qualify(OrderByClause orderByClause){
-        return AnsiOrderByClause.orderByClause(orderByClause.sortSpecifications().map(new Function1<SortSpecification, SortSpecification>() {
+        return AnsiOrderByClause.orderByClause(orderByClause.sortSpecifications().map(new Function<SortSpecification, SortSpecification>() {
             @Override
             public SortSpecification call(SortSpecification value) throws Exception {
                 return AnsiSortSpecification.sortSpecification(qualify(value.sortKey()), value.orderingSpecification());

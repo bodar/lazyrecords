@@ -14,7 +14,7 @@ public class Aggregates extends ReducerFunction<Record, Record> implements Value
 
     @Override
     public Record call(final Record accumulator, final Record nextRecord) throws Exception {
-        return aggregateRecord(new Function1<Aggregate<Object, Object>, Object>() {
+        return aggregateRecord(new Function<Aggregate<Object, Object>, Object>() {
             @Override
             public Object call(Aggregate<Object, Object> aggregate) throws Exception {
                 Object current = accumulator.get(aggregate);
@@ -26,7 +26,7 @@ public class Aggregates extends ReducerFunction<Record, Record> implements Value
 
     @Override
     public Record identity() {
-        return aggregateRecord(new Function1<Aggregate<Object, Object>, Object>() {
+        return aggregateRecord(new Function<Aggregate<Object, Object>, Object>() {
             @Override
             public Object call(Aggregate<Object, Object> aggregate) throws Exception {
                 return aggregate.identity();
@@ -34,8 +34,8 @@ public class Aggregates extends ReducerFunction<Record, Record> implements Value
         });
     }
 
-    private Record aggregateRecord(final Function1<Aggregate<Object, Object>, Object> valueFunc) {
-        return record(aggregates.map(new Function1<Aggregate<Object, Object>, Pair<Keyword<?>, Object>>() {
+    private Record aggregateRecord(final Function<Aggregate<Object, Object>, Object> valueFunc) {
+        return record(aggregates.map(new Function<Aggregate<Object, Object>, Pair<Keyword<?>, Object>>() {
             @Override
             public Pair<Keyword<?>, Object> call(Aggregate<Object, Object> aggregate) throws Exception {
                 return Pair.<Keyword<?>, Object>pair(aggregate, valueFunc.call(aggregate));

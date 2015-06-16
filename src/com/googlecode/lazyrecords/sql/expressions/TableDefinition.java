@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords.sql.expressions;
 
 import com.googlecode.lazyrecords.Definition;
 import com.googlecode.lazyrecords.Keyword;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.Function;
 
 import java.util.Map;
 
@@ -20,8 +20,8 @@ public class TableDefinition extends TextOnlyExpression {
         return new TableDefinition(definition, mappings);
     }
 
-    public static Function1<? super Keyword<?>, String> asColumn(final Map<Class, String> mappings) {
-        return new Function1<Keyword<?>, String>() {
+    public static Function<? super Keyword<?>, String> asColumn(final Map<Class, String> mappings) {
+        return new Function<Keyword<?>, String>() {
             public String call(Keyword<?> keyword) throws Exception {
                 return format("%s %s", Expressions.columnReference(keyword), type(keyword.forClass(), mappings));
             }

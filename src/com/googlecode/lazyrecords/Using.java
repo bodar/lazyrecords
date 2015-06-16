@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords;
 
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.Function;
 import com.googlecode.totallylazy.Predicate;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Sequences;
@@ -29,8 +29,8 @@ public class Using implements Joiner {
         return and(keywords.map(asPredicate(record)).toArray(Predicate.class));
     }
 
-    private Function1<Keyword<?>, Predicate<Record>> asPredicate(final Record record) {
-        return new Function1<Keyword<?>, Predicate<Record>>() {
+    private Function<Keyword<?>, Predicate<Record>> asPredicate(final Record record) {
+        return new Function<Keyword<?>, Predicate<Record>>() {
             public Predicate<Record> call(Keyword<?> keyword) throws Exception {
                 return where(keyword, is(record.get(keyword)));
             }

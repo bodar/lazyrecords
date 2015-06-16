@@ -10,16 +10,13 @@ import com.googlecode.lazyrecords.Queryable;
 import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.sql.expressions.AnsiSelectBuilder;
 import com.googlecode.lazyrecords.sql.expressions.Expression;
-import com.googlecode.lazyrecords.sql.expressions.Expressions;
 import com.googlecode.lazyrecords.sql.grammars.AnsiSqlGrammar;
 import com.googlecode.lazyrecords.sql.grammars.SqlGrammar;
 import com.googlecode.lazyrecords.sql.mappings.SqlMappings;
-import com.googlecode.totallylazy.Block;
 import com.googlecode.totallylazy.collections.CloseableList;
 import com.googlecode.totallylazy.Computation;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.Function;
 import com.googlecode.totallylazy.Functions;
-import com.googlecode.totallylazy.Iterators;
 import com.googlecode.totallylazy.LazyException;
 import com.googlecode.totallylazy.Maps;
 import com.googlecode.totallylazy.Option;
@@ -32,8 +29,6 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 import static com.googlecode.lazyrecords.Loggers.milliseconds;
 import static com.googlecode.lazyrecords.sql.grammars.SqlGrammar.functions.insertStatement;
@@ -117,7 +112,7 @@ public class SqlRecords extends AbstractRecords implements Queryable<Expression>
                 statement.addBatch();
             }
 
-            Number rowCount = sequence(statements.values()).map(new Function1<PreparedStatement, Number>() {
+            Number rowCount = sequence(statements.values()).map(new Function<PreparedStatement, Number>() {
                 public Number call(PreparedStatement statement) throws Exception {
                     Sequence<Number> counts = numbers(statement.executeBatch());
                     if (counts.contains(Statement.SUCCESS_NO_INFO)) return statement.getUpdateCount();
@@ -128,7 +123,7 @@ public class SqlRecords extends AbstractRecords implements Queryable<Expression>
 
             return rowCount;
         } catch (SQLException ex) {
-            String message = forwardOnly(ex.iterator()).map(new Function1<Throwable, String>() {
+            String message = forwardOnly(ex.iterator()).map(new Function<Throwable, String>() {
                 @Override
                 public String call(Throwable throwable) throws Exception {
                     return throwable.getMessage();

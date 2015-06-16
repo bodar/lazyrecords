@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords.sql.expressions;
 
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.Function;
 import com.googlecode.totallylazy.Sequence;
 
 import static com.googlecode.lazyrecords.sql.expressions.Expressions.textOnly;
@@ -11,7 +11,7 @@ public interface GroupByClause extends Expression {
     Sequence<DerivedColumn> groups();
 
     class functions {
-        public static Function1<GroupByClause, Sequence<DerivedColumn>> groups = new Function1<GroupByClause, Sequence<DerivedColumn>>() {
+        public static Function<GroupByClause, Sequence<DerivedColumn>> groups = new Function<GroupByClause, Sequence<DerivedColumn>>() {
             @Override
             public Sequence<DerivedColumn> call(GroupByClause groupByClause) throws Exception {
                 return groupByClause.groups();

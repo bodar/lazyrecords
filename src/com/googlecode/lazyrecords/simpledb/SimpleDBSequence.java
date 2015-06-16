@@ -16,7 +16,7 @@ import com.googlecode.lazyrecords.sql.expressions.Expressions;
 import com.googlecode.totallylazy.Callable1;
 import com.googlecode.totallylazy.Computation;
 import com.googlecode.totallylazy.Returns;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.Function;
 import com.googlecode.totallylazy.Maps;
 import com.googlecode.totallylazy.Predicate;
 import com.googlecode.totallylazy.Sequence;
@@ -63,8 +63,8 @@ public class SimpleDBSequence<T> extends Sequence<T> {
         return iterator(new SelectRequest(selectExpression, consistentRead)).map(itemToRecord).iterator();
     }
 
-    private Function1<Object, Object> value() {
-        return new Function1<Object, Object>() {
+    private Function<Object, Object> value() {
+        return new Function<Object, Object>() {
             public Object call(Object value) throws Exception {
                 return mappings.toString(value.getClass(), value);
             }
@@ -101,8 +101,8 @@ public class SimpleDBSequence<T> extends Sequence<T> {
         return super.map(callable);
     }
 
-    private <S> Function1<Item, S> itemToValue(final Keyword<S> keyword) {
-        return new Function1<Item, S>() {
+    private <S> Function<Item, S> itemToValue(final Keyword<S> keyword) {
+        return new Function<Item, S>() {
             public S call(Item item) throws Exception {
                 return ((Record) itemToRecord.call(item)).get(keyword);
             }

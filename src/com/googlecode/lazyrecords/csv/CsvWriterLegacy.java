@@ -4,7 +4,7 @@ import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.RecordTo;
 import com.googlecode.totallylazy.Callable1;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.Function;
 import com.googlecode.totallylazy.Function2;
 import com.googlecode.totallylazy.Iterators;
 import com.googlecode.totallylazy.Option;
@@ -50,8 +50,8 @@ public class CsvWriterLegacy {
         };
     }
 
-    private static Function1<String, String> escapeSpecialCharacters() {
-        return new Function1<String, String>() {
+    private static Function<String, String> escapeSpecialCharacters() {
+        return new Function<String, String>() {
             @Override
             public String call(String recordValue) throws Exception {
                 recordValue = recordValue.replace('\n', ' ');

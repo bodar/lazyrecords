@@ -1,7 +1,6 @@
 package com.googlecode.lazyrecords.sql.mappings;
 
 import com.googlecode.lazyrecords.mappings.StringMappings;
-import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Unchecked;
@@ -11,7 +10,6 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Map;

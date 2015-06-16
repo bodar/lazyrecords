@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords.lucene;
 
 import com.googlecode.lazyrecords.Definition;
 import com.googlecode.totallylazy.Files;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.Function;
 import com.googlecode.totallylazy.LazyException;
 import com.googlecode.totallylazy.collections.PersistentMap;
 import org.apache.lucene.analysis.Analyzer;
@@ -28,8 +28,8 @@ public interface PartitionedIndex extends Persistence {
     PersistentMap<String, LuceneStorage> partitions();
 
     public static class functions {
-        public static Function1<String, Directory> ramDirectory() {
-            return new Function1<String, Directory>() {
+        public static Function<String, Directory> ramDirectory() {
+            return new Function<String, Directory>() {
                 @Override
                 public Directory call(String notRequired) throws Exception {
                     return new RAMDirectory();
@@ -37,8 +37,8 @@ public interface PartitionedIndex extends Persistence {
             };
         }
 
-        public static Function1<String, Directory> noSyncDirectory(final File rootDirectory) {
-            return new Function1<String, Directory>() {
+        public static Function<String, Directory> noSyncDirectory(final File rootDirectory) {
+            return new Function<String, Directory>() {
                 @Override
                 public Directory call(String definition) throws Exception {
                     return new NoSyncDirectory(Files.directory(rootDirectory, definition));
@@ -46,8 +46,8 @@ public interface PartitionedIndex extends Persistence {
             };
         }
 
-        public static Function1<String, Directory> nioDirectory(final File rootDirectory) {
-            return new Function1<String, Directory>() {
+        public static Function<String, Directory> nioDirectory(final File rootDirectory) {
+            return new Function<String, Directory>() {
                 @Override
                 public Directory call(String definition) throws Exception {
                     return new NIOFSDirectory(Files.directory(rootDirectory, definition));
@@ -55,8 +55,8 @@ public interface PartitionedIndex extends Persistence {
             };
         }
 
-        public static Function1<String, Directory> mmapDirectory(final File rootDirectory) {
-            return new Function1<String, Directory>() {
+        public static Function<String, Directory> mmapDirectory(final File rootDirectory) {
+            return new Function<String, Directory>() {
                 @Override
                 public Directory call(String definition) throws Exception {
                     return new MMapDirectory(Files.directory(rootDirectory, definition));

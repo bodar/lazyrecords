@@ -11,7 +11,7 @@ import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.RecordTo;
 import com.googlecode.lazyrecords.sql.expressions.*;
 import com.googlecode.totallylazy.Callable1;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.Function;
 import com.googlecode.totallylazy.Mapper;
 import com.googlecode.totallylazy.Option;
 import com.googlecode.totallylazy.Pair;
@@ -99,8 +99,8 @@ public interface SqlGrammar {
             };
         }
 
-        public static Function1<Pair<? extends Predicate<? super Record>, Record>, Expression> updateStatement(final SqlGrammar grammar, final Definition definition) {
-            return new Function1<Pair<? extends Predicate<? super Record>, Record>, Expression>() {
+        public static Function<Pair<? extends Predicate<? super Record>, Record>, Expression> updateStatement(final SqlGrammar grammar, final Definition definition) {
+            return new Function<Pair<? extends Predicate<? super Record>, Record>, Expression>() {
                 public Expression call(Pair<? extends Predicate<? super Record>, Record> recordPair) throws Exception {
                     return grammar.updateStatement(definition, recordPair.first(), recordPair.second());
                 }

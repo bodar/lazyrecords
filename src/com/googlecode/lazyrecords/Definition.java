@@ -4,7 +4,7 @@ import com.googlecode.totallylazy.Callable1;
 import com.googlecode.totallylazy.Callables;
 import com.googlecode.totallylazy.Fields;
 import com.googlecode.totallylazy.First;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.Function;
 import com.googlecode.totallylazy.Mapper;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Unchecked;
@@ -66,7 +66,7 @@ public interface Definition extends Named, Metadata<Definition>, Comparable<Defi
             return record(record.fields().sortBy(sameOrderAs(definition)));
         }
 
-        private static Function1<First<Keyword<?>>, Integer> sameOrderAs(final Definition definition) {
+        private static Function<First<Keyword<?>>, Integer> sameOrderAs(final Definition definition) {
             return Callables.<Keyword<?>>first().then(indexIn(definition.fields()));
         }
 

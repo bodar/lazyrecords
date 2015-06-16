@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords;
 
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.Function;
 import com.googlecode.totallylazy.Sequence;
 
 import static com.googlecode.lazyrecords.Keyword.constructors.keyword;
@@ -31,9 +31,9 @@ public class Keywords {
         return Keyword.methods.matchKeyword(name, definitions);
     }
 
-    /** @deprecated Replaced by {@link Keyword.methods#matchKeyword(String, Sequence, Function1)}  } */
+    /** @deprecated Replaced by {@link Keyword.methods#matchKeyword(String, Sequence, Function)}  } */
     @Deprecated
-    public static Keyword<Object> matchKeyword(String shortName, Sequence<? extends Keyword<?>> definitions, Function1<Keyword<?>, String> extractor) {
+    public static Keyword<Object> matchKeyword(String shortName, Sequence<? extends Keyword<?>> definitions, Function<Keyword<?>, String> extractor) {
         return Keyword.methods.matchKeyword(shortName, definitions, extractor);
     }
 
@@ -51,19 +51,19 @@ public class Keywords {
 
     /** @deprecated Replaced by {@link Keyword.functions#name } */
     @Deprecated
-    public static Function1<Keyword<?>, String> name() {
+    public static Function<Keyword<?>, String> name() {
         return Keyword.functions.name;
     }
 
     /** @deprecated Replaced by {@link Keyword.functions#metadata(Keyword)}  } */
     @Deprecated
-    public static <T> Function1<Keyword<?>, T> metadata(final Keyword<T> metadataKey) {
+    public static <T> Function<Keyword<?>, T> metadata(final Keyword<T> metadataKey) {
         return Keyword.functions.metadata(metadataKey);
     }
 
     /** @deprecated Replaced by {@link Record.functions#keywords} */
     @Deprecated
-    public static Function1<Record, Sequence<Keyword<?>>> keywords() {
+    public static Function<Record, Sequence<Keyword<?>>> keywords() {
         return Record.functions.keywords;
     }
 }

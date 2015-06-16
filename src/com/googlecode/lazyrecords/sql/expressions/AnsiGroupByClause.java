@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords.sql.expressions;
 
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.Function;
 import com.googlecode.totallylazy.Sequence;
 
 import static com.googlecode.lazyrecords.sql.expressions.Expressions.textOnly;
@@ -28,7 +28,7 @@ public class AnsiGroupByClause extends CompoundExpression implements GroupByClau
     }
 
     public static class functions{
-        public static Function1<Sequence<DerivedColumn>, GroupByClause> groupByClause = new Function1<Sequence<DerivedColumn>, GroupByClause>() {
+        public static Function<Sequence<DerivedColumn>, GroupByClause> groupByClause = new Function<Sequence<DerivedColumn>, GroupByClause>() {
             @Override
             public GroupByClause call(Sequence<DerivedColumn> groups) throws Exception {
                 return AnsiGroupByClause.groupByClause(groups);

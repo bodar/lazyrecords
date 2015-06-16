@@ -154,16 +154,16 @@ public class Lucene {
         return not(newRange(keyword, null, null, true, true));
     }
 
-    private Function1<Object, Query> asQuery(final Keyword<?> keyword) {
-        return new Function1<Object, Query>() {
+    private Function<Object, Query> asQuery(final Keyword<?> keyword) {
+        return new Function<Object, Query>() {
             public Query call(Object o) throws Exception {
                 return equalTo(keyword, o);
             }
         };
     }
 
-    private Function1<Predicate<Record>, Query> asQuery() {
-        return new Function1<Predicate<Record>, Query>() {
+    private Function<Predicate<Record>, Query> asQuery() {
+        return new Function<Predicate<Record>, Query>() {
             public Query call(Predicate<Record> predicate) throws Exception {
                 return query(predicate);
             }

@@ -1,10 +1,8 @@
 package com.googlecode.lazyrecords.xml;
 
 import com.googlecode.lazyrecords.AliasedKeyword;
-import com.googlecode.lazyrecords.Keywords;
 import com.googlecode.lazyrecords.ToRecord;
 import com.googlecode.totallylazy.Callable2;
-import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Xml;
 import com.googlecode.lazyrecords.Keyword;

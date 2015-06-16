@@ -34,7 +34,7 @@ public interface Keyword<T> extends Named, Metadata<Keyword<T>>, Callable1<Recor
             return matchKeyword(name, definitions, Keyword.functions.name());
         }
 
-        public static Keyword<Object> matchKeyword(String shortName, Sequence<? extends Keyword<?>> definitions, Function1<Keyword<?>, String> extractor) {
+        public static Keyword<Object> matchKeyword(String shortName, Sequence<? extends Keyword<?>> definitions, Function<Keyword<?>, String> extractor) {
             return definitions.<Keyword<Object>>unsafeCast().find(where(extractor, equalIgnoringCase(shortName))).getOrElse(Keyword.constructors.keyword(shortName));
         }
 

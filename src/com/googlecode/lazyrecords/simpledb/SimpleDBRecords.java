@@ -9,7 +9,7 @@ import com.googlecode.lazyrecords.*;
 import com.googlecode.lazyrecords.simpledb.mappings.SimpleDBMappings;
 import com.googlecode.lazyrecords.sql.grammars.AnsiSqlGrammar;
 import com.googlecode.lazyrecords.sql.grammars.SqlGrammar;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.Function;
 import com.googlecode.totallylazy.Predicate;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Sequences;
@@ -80,16 +80,16 @@ public class SimpleDBRecords extends AbstractRecords {
         return result;
     }
 
-    private Function1<Value<Item>, DeletableItem> asItem() {
-        return new Function1<Value<Item>, DeletableItem>() {
+    private Function<Value<Item>, DeletableItem> asItem() {
+        return new Function<Value<Item>, DeletableItem>() {
             public DeletableItem call(Value<Item> value) throws Exception {
                 return new DeletableItem().withName(value.value().getName());
             }
         };
     }
 
-    private Function1<Sequence<Record>, Number> putAttributes(final Definition definition) {
-        return new Function1<Sequence<Record>, Number>() {
+    private Function<Sequence<Record>, Number> putAttributes(final Definition definition) {
+        return new Function<Sequence<Record>, Number>() {
             public Number call(Sequence<Record> batch) throws Exception {
                 sdb.batchPutAttributes(new BatchPutAttributesRequest(definition.name(), batch.map(mappings.toReplaceableItem()).toList()));
                 return batch.size();
@@ -97,8 +97,8 @@ public class SimpleDBRecords extends AbstractRecords {
         };
     }
 
-    private Function1<Sequence<Record>, Number> deleteAttributes(final Definition definition) {
-        return new Function1<Sequence<Record>, Number>() {
+    private Function<Sequence<Record>, Number> deleteAttributes(final Definition definition) {
+        return new Function<Sequence<Record>, Number>() {
             public Number call(Sequence<Record> batch) throws Exception {
                 List<DeletableItem> items = batch.<Value<Item>>unsafeCast().map(asItem()).toList();
                 sdb.batchDeleteAttributes(new BatchDeleteAttributesRequest(definition.name(), items));

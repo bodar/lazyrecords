@@ -1,7 +1,7 @@
 package com.googlecode.lazyrecords.lucene;
 
 import com.googlecode.totallylazy.Block;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.Function;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -21,8 +21,8 @@ public class PooledValue implements Closeable {
         checkoutCount = new AtomicInteger(1);
     }
 
-    public static Function1<PooledValue, Boolean> isDirty() {
-        return new Function1<PooledValue, Boolean>() {
+    public static Function<PooledValue, Boolean> isDirty() {
+        return new Function<PooledValue, Boolean>() {
             @Override
             public Boolean call(PooledValue value) {
                 return value.dirty();
@@ -38,8 +38,8 @@ public class PooledValue implements Closeable {
         this.dirty = value;
     }
 
-    public static Function1<PooledValue, Searcher> checkoutValue() {
-        return new Function1<PooledValue, Searcher>() {
+    public static Function<PooledValue, Searcher> checkoutValue() {
+        return new Function<PooledValue, Searcher>() {
             @Override
             public Searcher call(PooledValue pooledValue) throws Exception {
                 return pooledValue.checkout();
@@ -47,8 +47,8 @@ public class PooledValue implements Closeable {
         };
     }
 
-    public static Function1<PooledValue, Searcher> searcher() {
-        return new Function1<PooledValue, Searcher>() {
+    public static Function<PooledValue, Searcher> searcher() {
+        return new Function<PooledValue, Searcher>() {
             @Override
             public Searcher call(PooledValue pooledValue) throws Exception {
                 return pooledValue.searcher;
@@ -65,8 +65,8 @@ public class PooledValue implements Closeable {
         return searcher;
     }
 
-    public static Function1<PooledValue, Integer> theCheckoutCount() {
-        return new Function1<PooledValue, Integer>() {
+    public static Function<PooledValue, Integer> theCheckoutCount() {
+        return new Function<PooledValue, Integer>() {
             @Override
             public Integer call(PooledValue pooledValue) throws Exception {
                 return pooledValue.checkoutCount();

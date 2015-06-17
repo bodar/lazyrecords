@@ -67,8 +67,8 @@ public class Lucene {
         return sequence(queries).fold(seed, add(occur));
     }
 
-    private static Function2<BooleanQuery, Query, BooleanQuery> add(final BooleanClause.Occur occur) {
-        return new Function2<BooleanQuery, Query, BooleanQuery>() {
+    private static Curried2<BooleanQuery, Query, BooleanQuery> add(final BooleanClause.Occur occur) {
+        return new Curried2<BooleanQuery, Query, BooleanQuery>() {
             public BooleanQuery call(BooleanQuery booleanQuery, Query query) throws Exception {
                 booleanQuery.add(query, occur);
                 return booleanQuery;

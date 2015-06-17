@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords.parser;
 
-import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Callers;
 import com.googlecode.totallylazy.Predicate;
 import com.googlecode.totallylazy.Triple;
@@ -14,7 +14,7 @@ import static com.googlecode.totallylazy.collections.PersistentList.constructors
 public class ParserFunctions {
     private PersistentList<Triple<String, Predicate<?>, Object>> functions = empty();
 
-    public <T> ParserFunctions add(String name, Predicate<? super T> predicate, Callable1<? super T, ? extends CharSequence> renderer) {
+    public <T> ParserFunctions add(String name, Predicate<? super T> predicate, Function1<? super T, ? extends CharSequence> renderer) {
         functions = functions.append(Triple.<String, Predicate<?>, Object>triple(name, predicate, renderer));
         return this;
     }
@@ -31,11 +31,11 @@ public class ParserFunctions {
 
     private <T> Renderer<T> convert(Object function) {
         if(function instanceof Renderer) return cast(function);
-        if(function instanceof Callable1) return renderer(cast(function));
+        if(function instanceof Function1) return renderer(cast(function));
         throw new UnsupportedOperationException();
     }
 
-    public static <T> Renderer<T> renderer(Callable1<? super T, ? extends CharSequence> callable) {
+    public static <T> Renderer<T> renderer(Function1<? super T, ? extends CharSequence> callable) {
         return (T instance, Appendable appendable) ->
                 appendable.append(Callers.call(callable, instance));
     }

@@ -81,12 +81,12 @@ public interface Record {
             return constructors.record(original.fields().filter(where(Callables.<Keyword<?>>first(), is(in(fields)))));
         }
 
-        public static Sequence<Pair<Predicate<Record>, Record>> update(final Callable1<? super Record, Predicate<Record>> callable, final Record... records) {
+        public static Sequence<Pair<Predicate<Record>, Record>> update(final Function1<? super Record, Predicate<Record>> callable, final Record... records) {
             Sequence<Record> sequence = sequence(records);
             return update(callable, sequence);
         }
 
-        public static Sequence<Pair<Predicate<Record>, Record>> update(final Callable1<? super Record, Predicate<Record>> callable, final Sequence<Record> records) {
+        public static Sequence<Pair<Predicate<Record>, Record>> update(final Function1<? super Record, Predicate<Record>> callable, final Sequence<Record> records) {
             return records.map(functions.toPair(callable));
         }
 
@@ -96,8 +96,8 @@ public interface Record {
     }
 
     public static final class functions {
-        public static Function2<Record, Pair<Keyword<?>, Object>, Record> updateValues() {
-            return new Function2<Record, Pair<Keyword<?>, Object>, Record>() {
+        public static Curried2<Record, Pair<Keyword<?>, Object>, Record> updateValues() {
+            return new Curried2<Record, Pair<Keyword<?>, Object>, Record>() {
                 public Record call(Record record, Pair<Keyword<?>, Object> field) throws Exception {
                     return record.set(Unchecked.<Keyword<Object>>cast(field.first()), field.second());
                 }
@@ -154,7 +154,7 @@ public interface Record {
             };
         }
 
-        public static RecordTo<Pair<Predicate<Record>, Record>> toPair(final Callable1<? super Record, Predicate<Record>> callable) {
+        public static RecordTo<Pair<Predicate<Record>, Record>> toPair(final Function1<? super Record, Predicate<Record>> callable) {
             return new RecordTo<Pair<Predicate<Record>, Record>>() {
                 public Pair<Predicate<Record>, Record> call(Record record) throws Exception {
                     return Pair.pair(callable.call(record), record);
@@ -170,8 +170,8 @@ public interface Record {
             };
         }
 
-        public static Function2<Map<String, Object>, Pair<Keyword<?>, Object>, Map<String, Object>> intoMap() {
-            return new Function2<Map<String, Object>, Pair<Keyword<?>, Object>, Map<String, Object>>() {
+        public static Curried2<Map<String, Object>, Pair<Keyword<?>, Object>, Map<String, Object>> intoMap() {
+            return new Curried2<Map<String, Object>, Pair<Keyword<?>, Object>, Map<String, Object>>() {
                 public Map<String, Object> call(Map<String, Object> map, Pair<Keyword<?>, Object> pair) throws Exception {
                     map.put(pair.first().toString(), pair.second());
                     return map;

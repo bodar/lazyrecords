@@ -2,29 +2,17 @@ package com.googlecode.lazyrecords.sql.expressions;
 
 import com.googlecode.lazyrecords.Aggregate;
 import com.googlecode.lazyrecords.Aggregates;
-import com.googlecode.lazyrecords.Definition;
-import com.googlecode.lazyrecords.Join;
 import com.googlecode.lazyrecords.Keyword;
-import com.googlecode.lazyrecords.Keywords;
 import com.googlecode.lazyrecords.Record;
-import com.googlecode.lazyrecords.sql.grammars.SqlGrammar;
-import com.googlecode.totallylazy.Function2;
-import com.googlecode.totallylazy.Lazy;
 import com.googlecode.totallylazy.Option;
 import com.googlecode.totallylazy.Predicate;
 import com.googlecode.totallylazy.Reducer;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Sequences;
-import com.googlecode.totallylazy.UnaryFunction;
 import com.googlecode.totallylazy.Unchecked;
 
-import java.util.Comparator;
-
 import static com.googlecode.lazyrecords.Keyword.constructors.keyword;
-import static com.googlecode.lazyrecords.sql.expressions.AnsiSetQuantifier.ALL;
-import static com.googlecode.lazyrecords.sql.expressions.AnsiSetQuantifier.DISTINCT;
 import static com.googlecode.totallylazy.Option.none;
-import static com.googlecode.totallylazy.Option.some;
 import static com.googlecode.totallylazy.Predicates.and;
 import static com.googlecode.totallylazy.Sequences.join;
 import static com.googlecode.totallylazy.Sequences.sequence;

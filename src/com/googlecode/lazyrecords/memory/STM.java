@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords.memory;
 
 import com.googlecode.lazyrecords.Definition;
 import com.googlecode.totallylazy.Atomic;
-import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.collections.PersistentList;
 import com.googlecode.totallylazy.collections.PersistentMap;
@@ -22,13 +22,13 @@ public class STM implements Atomic<PersistentMap<Definition, PersistentList<Pers
     }
 
     @Override
-    public Atomic<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>> modify(Callable1<? super PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, ? extends PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>> callable) {
+    public Atomic<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>> modify(Function1<? super PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, ? extends PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>> callable) {
         return value.modify(callable);
     }
 
     @Override
-    public <R> R modifyReturn(Callable1<? super PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, ? extends Pair<? extends PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, ? extends R>> callable1) {
-        return value.modifyReturn(callable1);
+    public <R> R modifyReturn(Function1<? super PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, ? extends Pair<? extends PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, ? extends R>> function1) {
+        return value.modifyReturn(function1);
     }
 
     @Override

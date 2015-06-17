@@ -22,14 +22,14 @@ public class SqlSequence<T> extends Sequence<T> implements Expressible {
     private final ExpressionBuilder selectBuilder;
     private final Logger logger;
     private final Value<Sequence<T>> data;
-    private final Callable1<? super Record, ? extends T> callable;
+    private final Function1<? super Record, ? extends T> callable;
 
-    public SqlSequence(final SqlRecords records, final ExpressionBuilder selectBuilder, final Logger logger, Callable1<? super Record, ? extends T> callable) {
+    public SqlSequence(final SqlRecords records, final ExpressionBuilder selectBuilder, final Logger logger, Function1<? super Record, ? extends T> callable) {
         this.sqlRecords = records;
         this.selectBuilder = selectBuilder;
         this.logger = logger;
         this.callable = callable;
-        this.data = new Returns<Sequence<T>>() {
+        this.data = new Function0<Sequence<T>>() {
             @Override
             public Sequence<T> call() throws Exception {
                 return execute(selectBuilder);
@@ -58,15 +58,15 @@ public class SqlSequence<T> extends Sequence<T> implements Expressible {
     }
 
     @Override
-    public <S> Sequence<S> map(Callable1<? super T, ? extends S> callable) {
+    public <S> Sequence<S> map(Function1<? super T, ? extends S> callable) {
         if (callable instanceof ClientComputation) return super.map(callable);
 
-        Callable1 raw = (Callable1) callable;
+        Function1 raw = (Function1) callable;
         if (raw instanceof Keyword) {
             return build(Unchecked.<Keyword<S>>cast(raw));
         }
-        if (raw instanceof SelectCallable) {
-            return Unchecked.cast(build(selectBuilder.select(((SelectCallable) raw).keywords())));
+        if (raw instanceof SelectFunction) {
+            return Unchecked.cast(build(selectBuilder.select(((SelectFunction) raw).keywords())));
         }
         if (raw instanceof ReducingRecordsMapper) {
             ReducingRecordsMapper reducingRecordsMapper = (ReducingRecordsMapper) raw;
@@ -78,10 +78,10 @@ public class SqlSequence<T> extends Sequence<T> implements Expressible {
     }
 
     @Override
-    public <S> Sequence<S> flatMap(Callable1<? super T, ? extends Iterable<? extends S>> callable) {
+    public <S> Sequence<S> flatMap(Function1<? super T, ? extends Iterable<? extends S>> callable) {
         if (callable instanceof ClientComputation) return super.flatMap(callable);
 
-        Callable1 raw = (Callable1) callable;
+        Function1 raw = (Function1) callable;
         if (raw instanceof Join) {
             return Unchecked.cast(build(selectBuilder.join((Join) raw)));
         }
@@ -140,7 +140,7 @@ public class SqlSequence<T> extends Sequence<T> implements Expressible {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <S> S reduce(Callable2<? super S, ? super T, ? extends S> callable) {
+    public <S> S reduce(Function2<? super S, ? super T, ? extends S> callable) {
         if (callable instanceof ClientComputation) return super.reduce(callable);
 
         try {
@@ -186,14 +186,14 @@ public class SqlSequence<T> extends Sequence<T> implements Expressible {
 
     @Override
     public boolean exists(Predicate<? super T> predicate) {
-        return !filter(predicate).map(Unchecked.<Callable1<T, Integer>>cast(SqlSchema.one)).unique().isEmpty();
+        return !filter(predicate).map(Unchecked.<Function1<T, Integer>>cast(SqlSchema.one)).unique().isEmpty();
     }
 
     @Override
-    public <K> Sequence<Group<K, T>> groupBy(final Callable1<? super T, ? extends K> callable) {
+    public <K> Sequence<Group<K, T>> groupBy(final Function1<? super T, ? extends K> callable) {
         if (callable instanceof Keyword) {
             final Keyword<K> keyword = (Keyword) callable;
-            return Unchecked.cast(new SqlSequence<SqlGroup<K>>(sqlRecords, selectBuilder.groupBy(keyword), logger, new Callable1<Record, SqlGroup<K>>() {
+            return Unchecked.cast(new SqlSequence<SqlGroup<K>>(sqlRecords, selectBuilder.groupBy(keyword), logger, new Function1<Record, SqlGroup<K>>() {
                 @Override
                 public SqlGroup<K> call(Record record) throws Exception {
                     return new SqlGroup<K>(record.get(keyword), record);

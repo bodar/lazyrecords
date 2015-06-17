@@ -6,7 +6,7 @@ import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.lucene.mappings.LuceneMappings;
 import com.googlecode.lazyrecords.mappings.StringMappings;
-import com.googlecode.totallylazy.Callable2;
+import com.googlecode.totallylazy.Function2;
 import com.googlecode.totallylazy.Group;
 import com.googlecode.totallylazy.Mapper;
 import com.googlecode.totallylazy.Pair;
@@ -77,7 +77,7 @@ public class LuceneFacetedRecords implements FacetedRecords {
     }
 
     private <S extends Group<Keyword<?>, String>> DrillDownQuery drillDownQuery(Query processedQuery, Sequence<S> drillDowns) {
-        return drillDowns.fold(new DrillDownQuery(facetsConfig, processedQuery), new Callable2<DrillDownQuery, Group<Keyword<?>, String>, DrillDownQuery>() {
+        return drillDowns.fold(new DrillDownQuery(facetsConfig, processedQuery), new Function2<DrillDownQuery, Group<Keyword<?>, String>, DrillDownQuery>() {
             @Override
             public DrillDownQuery call(DrillDownQuery drillDownQuery, Group<Keyword<?>, String> drillDown) throws Exception {
                 for (String drillDownValue : drillDown) {

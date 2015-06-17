@@ -9,7 +9,7 @@ import com.googlecode.lazyrecords.Queryable;
 import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.lucene.mappings.LuceneMappings;
 import com.googlecode.totallylazy.collections.CloseableList;
-import com.googlecode.totallylazy.Returns;
+import com.googlecode.totallylazy.Function0;
 import com.googlecode.totallylazy.Function;
 import com.googlecode.totallylazy.LazyException;
 import com.googlecode.totallylazy.Pair;
@@ -65,7 +65,7 @@ public class LuceneRecords extends AbstractRecords implements Queryable<Query>, 
     }
 
     public Number add(final Definition definition, final Sequence<Record> records) {
-        return process(new Returns<Number>() {
+        return process(new Function0<Number>() {
             @Override
             public Number call() throws Exception {
                 return internalAdd(definition, records);
@@ -78,7 +78,7 @@ public class LuceneRecords extends AbstractRecords implements Queryable<Query>, 
     }
 
     public Number remove(final Definition definition, final Predicate<? super Record> predicate) {
-        return process(new Returns<Number>() {
+        return process(new Function0<Number>() {
             @Override
             public Number call() throws Exception {
                 return internalRemove(definition, predicate);
@@ -91,7 +91,7 @@ public class LuceneRecords extends AbstractRecords implements Queryable<Query>, 
     }
 
     public Number remove(final Definition definition) {
-        return process(new Returns<Number>() {
+        return process(new Function0<Number>() {
             @Override
             public Number call() throws Exception {
                 return storage.delete(record(definition));
@@ -101,7 +101,7 @@ public class LuceneRecords extends AbstractRecords implements Queryable<Query>, 
 
     @Override
     public Number put(final Definition definition, final Sequence<? extends Pair<? extends Predicate<? super Record>, Record>> records) {
-        return process(new Returns<Number>() {
+        return process(new Function0<Number>() {
             @Override
             public Number call() throws Exception {
                 return records.map(update(definition)).reduce(sum());

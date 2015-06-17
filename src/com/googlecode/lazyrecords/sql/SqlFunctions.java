@@ -3,7 +3,7 @@ package com.googlecode.lazyrecords.sql;
 import com.googlecode.lazyrecords.Logger;
 import com.googlecode.lazyrecords.Loggers;
 import com.googlecode.lazyrecords.sql.mappings.SqlMappings;
-import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.LazyException;
 import com.googlecode.totallylazy.Maps;
 
@@ -55,8 +55,8 @@ public class SqlFunctions {
         }));
     }
 
-    private Callable1<CallableStatement, Object> callStatement(final Method method, final Object[] args) {
-        return new Callable1<CallableStatement, Object>() {
+    private Function1<CallableStatement, Object> callStatement(final Method method, final Object[] args) {
+        return new Function1<CallableStatement, Object>() {
             @Override
             public Object call(CallableStatement statement) throws Exception {
                 statement.registerOutParameter(1, mappings.get(method.getReturnType()).type());

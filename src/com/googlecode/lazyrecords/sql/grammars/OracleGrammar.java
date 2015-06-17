@@ -12,7 +12,7 @@ import com.googlecode.lazyrecords.sql.expressions.CompoundExpression;
 import com.googlecode.lazyrecords.sql.expressions.Expressions;
 import com.googlecode.lazyrecords.sql.expressions.JoinSpecification;
 import com.googlecode.lazyrecords.sql.expressions.ValueExpression;
-import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.annotations.multimethod;
 import com.googlecode.totallylazy.multi;
 
@@ -43,7 +43,7 @@ public class OracleGrammar extends AnsiSqlGrammar {
 
     private static multi multiOracleVE;
     @Override
-    public ValueExpression valueExpression(Callable1<? super Record, ?> callable) {
+    public ValueExpression valueExpression(Function1<? super Record, ?> callable) {
         if (multiOracleVE == null) multiOracleVE = new multi() {};
         return multiOracleVE.<ValueExpression>methodOption(callable).getOrThrow(new UnsupportedOperationException("Unsupported reducer " + callable));
     }

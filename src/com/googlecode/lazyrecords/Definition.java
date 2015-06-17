@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords;
 
-import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Callables;
 import com.googlecode.totallylazy.Fields;
 import com.googlecode.totallylazy.First;
@@ -76,8 +76,8 @@ public interface Definition extends Named, Metadata<Definition>, Comparable<Defi
     }
 
     class functions {
-        public static Callable1<Record, Record> sortFields(final Definition definition) {
-            return new Callable1<Record, Record>() {
+        public static Function1<Record, Record> sortFields(final Definition definition) {
+            return new Function1<Record, Record>() {
                 @Override
                 public Record call(Record record) throws Exception {
                     return Definition.methods.sortFields(definition, record);

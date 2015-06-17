@@ -11,7 +11,7 @@ import com.googlecode.lazyrecords.Transaction;
 import com.googlecode.lazyrecords.mappings.StringMappings;
 import com.googlecode.totallylazy.Callables;
 import com.googlecode.totallylazy.Function;
-import com.googlecode.totallylazy.Function2;
+import com.googlecode.totallylazy.Curried2;
 import com.googlecode.totallylazy.Mapper;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.Predicate;
@@ -173,7 +173,7 @@ public class STMRecords extends AbstractRecords implements Transaction {
         return new Function<T, T>() {
             @Override
             public T call(T data) throws Exception {
-                return sequence(callables).fold(data, new Function2<T, Pair<R, ? extends Function<T, Pair<T, R>>>, T>() {
+                return sequence(callables).fold(data, new Curried2<T, Pair<R, ? extends Function<T, Pair<T, R>>>, T>() {
                     @Override
                     public T call(T t, Pair<R, ? extends Function<T, Pair<T, R>>> modification) throws Exception {
                         R expected = modification.first();

@@ -5,7 +5,7 @@ import com.googlecode.lazyrecords.Logger;
 import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.Records;
 import com.googlecode.lazyrecords.lucene.mappings.LuceneMappings;
-import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.collections.CloseableList;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.Predicate;
@@ -48,7 +48,7 @@ public class LucenePartitionedRecords implements Records, Closeable {
         }
     }
 
-    private Number process(Definition definition, Callable1<Records, Number> callable) {
+    private Number process(Definition definition, Function1<Records, Number> callable) {
         return using(createRecords(definition), callable);
     }
 

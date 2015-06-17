@@ -1,7 +1,7 @@
 package com.googlecode.lazyrecords.sql.expressions;
 
 import com.googlecode.lazyrecords.sql.grammars.OracleGrammar;
-import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Function;
 import com.googlecode.totallylazy.Option;
 import com.googlecode.totallylazy.Unary;
@@ -21,16 +21,16 @@ public class Qualifier extends AbstractQualifier {
     private final String tableAlias;
     private final UnaryFunction<String> qualified;
 
-    protected Qualifier(final String tableAlias, Callable1<? super String, String> qualified) {
+    protected Qualifier(final String tableAlias, Function1<? super String, String> qualified) {
         this.tableAlias = tableAlias;
-        this.qualified = Unary.constructors.unary(Unchecked.<Callable1<String, String>>cast(qualified));
+        this.qualified = Unary.constructors.unary(Unchecked.<Function1<String, String>>cast(qualified));
     }
 
     public static Qualifier qualifier(final String name) {
         return qualifier(name, constant(name));
     }
 
-    public static Qualifier qualifier(final String name, final Callable1<? super String, String> callable) {
+    public static Qualifier qualifier(final String name, final Function1<? super String, String> callable) {
         return new Qualifier(name, callable);
     }
 
@@ -84,8 +84,8 @@ public class Qualifier extends AbstractQualifier {
         return AnsiDerivedColumn.derivedColumn(qualifiedExpression, derivedColumn.asClause(), derivedColumn.forClass());
     }
 
-    private Callable1<String, Option<Qualifier>> columnQualifier(final UnaryFunction<String> qualified) {
-        return new Callable1<String, Option<Qualifier>>() {
+    private Function1<String, Option<Qualifier>> columnQualifier(final UnaryFunction<String> qualified) {
+        return new Function1<String, Option<Qualifier>>() {
             @Override
             public Option<Qualifier> call(String columnAlias) throws Exception {
                 final Option<String> resolvedQualifier = option(qualified.apply(columnAlias));

@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords.lucene;
 
 import com.googlecode.lazyrecords.Logger;
 import com.googlecode.lazyrecords.Record;
-import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.collections.CloseableList;
 import com.googlecode.totallylazy.Computation;
 import com.googlecode.totallylazy.Lazy;
@@ -27,7 +27,7 @@ public class LuceneSequence extends Sequence<Record> {
     private final Logger logger;
     private final Lucene lucene;
     private final LuceneQueryPreprocessor luceneQueryPreprocessor;
-    private final Callable1<? super Document, Record> documentToRecord;
+    private final Function1<? super Document, Record> documentToRecord;
     private final CloseableList closeables;
     private final Sort sort;
     private final Lazy<Iterable<Record>> data;
@@ -35,7 +35,7 @@ public class LuceneSequence extends Sequence<Record> {
     private final int end;
 
     private LuceneSequence(final Lucene lucene, final LuceneStorage storage, final Query query,
-                           final LuceneQueryPreprocessor luceneQueryPreprocessor, final Callable1<? super Document, Record> documentToRecord, final Logger logger,
+                           final LuceneQueryPreprocessor luceneQueryPreprocessor, final Function1<? super Document, Record> documentToRecord, final Logger logger,
                            final CloseableList<Closeable> closeables, final Sort sort, final int start, final int end) {
         this.lucene = lucene;
         this.storage = storage;
@@ -55,11 +55,11 @@ public class LuceneSequence extends Sequence<Record> {
         };
     }
 
-    public static Sequence<Record> luceneSequence(final Lucene lucene, final LuceneStorage storage, final Query query, LuceneQueryPreprocessor luceneQueryPreprocessor, final Callable1<? super Document, Record> documentToRecord, final Logger logger, CloseableList closeables) {
+    public static Sequence<Record> luceneSequence(final Lucene lucene, final LuceneStorage storage, final Query query, LuceneQueryPreprocessor luceneQueryPreprocessor, final Function1<? super Document, Record> documentToRecord, final Logger logger, CloseableList closeables) {
         return new LuceneSequence(lucene, storage, query, luceneQueryPreprocessor, documentToRecord, logger, closeables, Lucene.NO_SORT, 0, Integer.MAX_VALUE);
     }
 
-    public static Sequence<Record> luceneSequence(final Lucene lucene, final LuceneStorage storage, final Query query, LuceneQueryPreprocessor luceneQueryPreprocessor, final Callable1<? super Document, Record> documentToRecord, final Logger logger, final CloseableList closeables, final Sort sort, final int start, final int end) {
+    public static Sequence<Record> luceneSequence(final Lucene lucene, final LuceneStorage storage, final Query query, LuceneQueryPreprocessor luceneQueryPreprocessor, final Function1<? super Document, Record> documentToRecord, final Logger logger, final CloseableList closeables, final Sort sort, final int start, final int end) {
         if(end <= start) return Sequences.empty();
         return new LuceneSequence(lucene, storage, query, luceneQueryPreprocessor, documentToRecord, logger, closeables, sort, start, end);
     }

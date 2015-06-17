@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords;
 
-import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Callables;
 import com.googlecode.totallylazy.CombinerFunction;
 import com.googlecode.totallylazy.FirstCombiner;
@@ -232,20 +232,20 @@ public class Grammar {
         return leftJoin(records, using);
     }
 
-    public static Sequence<Pair<Predicate<Record>, Record>> update(final Callable1<? super Record, Predicate<Record>> callable, final Record... records) {
+    public static Sequence<Pair<Predicate<Record>, Record>> update(final Function1<? super Record, Predicate<Record>> callable, final Record... records) {
         return Record.methods.update(callable, records);
     }
 
-    public static Sequence<Pair<Predicate<Record>, Record>> update(final Callable1<? super Record, Predicate<Record>> callable, final Sequence<Record> records) {
+    public static Sequence<Pair<Predicate<Record>, Record>> update(final Function1<? super Record, Predicate<Record>> callable, final Sequence<Record> records) {
         return Record.methods.update(callable, records);
     }
 
-    public static Callable1<? super Record, Record> select(final Keyword<?>... keywords) {
-        return SelectCallable.select(keywords);
+    public static Function1<? super Record, Record> select(final Keyword<?>... keywords) {
+        return SelectFunction.select(keywords);
     }
 
-    public static Callable1<? super Record, Record> select(final Sequence<Keyword<?>> keywords) {
-        return SelectCallable.select(keywords);
+    public static Function1<? super Record, Record> select(final Sequence<Keyword<?>> keywords) {
+        return SelectFunction.select(keywords);
     }
 
     public static <T> On<T> on(Keyword<T> left, Keyword<T> right) {
@@ -264,11 +264,11 @@ public class Grammar {
         return Using.using(keyword);
     }
 
-    public static <T, R extends Comparable<? super R>> Comparator<T> ascending(final Callable1<? super T, ? extends R> callable) {
+    public static <T, R extends Comparable<? super R>> Comparator<T> ascending(final Function1<? super T, ? extends R> callable) {
         return Callables.ascending(callable);
     }
 
-    public static <T, R extends Comparable<? super R>> Comparator<T> descending(final Callable1<? super T, ? extends R> callable) {
+    public static <T, R extends Comparable<? super R>> Comparator<T> descending(final Function1<? super T, ? extends R> callable) {
         return Callables.descending(callable);
     }
 
@@ -348,7 +348,7 @@ public class Grammar {
         return Predicates.nullValue(type);
     }
 
-    public static <T, R> LogicalPredicate<T> where(final Callable1<? super T, ? extends R> callable, final Predicate<? super R> predicate) {
+    public static <T, R> LogicalPredicate<T> where(final Function1<? super T, ? extends R> callable, final Predicate<? super R> predicate) {
         return Predicates.where(callable, predicate);
     }
 

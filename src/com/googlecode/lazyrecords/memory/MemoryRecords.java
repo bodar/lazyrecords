@@ -6,7 +6,7 @@ import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.SourceRecord;
 import com.googlecode.lazyrecords.mappings.StringMappings;
-import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Callables;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.Predicate;
@@ -68,8 +68,8 @@ public class MemoryRecords extends AbstractRecords {
         return matches.size();
     }
 
-    private Callable1<Map<String, String>, Record> asRecord(final Definition definition) {
-        return new Callable1<Map<String, String>, Record>() {
+    private Function1<Map<String, String>, Record> asRecord(final Definition definition) {
+        return new Function1<Map<String, String>, Record>() {
             @Override
             public Record call(Map<String, String> data) throws Exception {
                 return SourceRecord.record(data, definition.fields().map(values(data)));
@@ -77,8 +77,8 @@ public class MemoryRecords extends AbstractRecords {
         };
     }
 
-    private Callable1<Keyword<?>, Pair<Keyword<?>, Object>> values(final Map<String, String> map) {
-        return new Callable1<Keyword<?>, Pair<Keyword<?>, Object>>() {
+    private Function1<Keyword<?>, Pair<Keyword<?>, Object>> values(final Map<String, String> map) {
+        return new Function1<Keyword<?>, Pair<Keyword<?>, Object>>() {
             @Override
             public Pair<Keyword<?>, Object> call(Keyword<?> keyword) throws Exception {
                 return Pair.<Keyword<?>, Object>pair(keyword, mappings.toValue(keyword.forClass(), map.get(keyword.name())));
@@ -86,8 +86,8 @@ public class MemoryRecords extends AbstractRecords {
         };
     }
 
-    private Callable1<Record, Map<String, String>> asMap(final Definition definition) {
-        return new Callable1<Record, Map<String, String>>() {
+    private Function1<Record, Map<String, String>> asMap(final Definition definition) {
+        return new Function1<Record, Map<String, String>>() {
             @Override
             public Map<String, String> call(Record record) throws Exception {
                 return map(definition.fields().map(values(record)));
@@ -95,8 +95,8 @@ public class MemoryRecords extends AbstractRecords {
         };
     }
 
-    private Callable1<Keyword<?>, Pair<String, String>> values(final Record record) {
-        return new Callable1<Keyword<?>, Pair<String, String>>() {
+    private Function1<Keyword<?>, Pair<String, String>> values(final Record record) {
+        return new Function1<Keyword<?>, Pair<String, String>>() {
             @Override
             public Pair<String, String> call(Keyword<?> keyword) throws Exception {
                 return Pair.pair(keyword.name(), mappings.toString(keyword.forClass(), record.get(keyword)));

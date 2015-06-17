@@ -42,9 +42,9 @@ public class Grammar {
         return new Grammar(keywords, mappings).PARTS;
     }
 
-    public Parser<Predicate<Record>> VALUE_ONLY = VALUE_PREDICATES.map(new Callable1<List<Pair<String, Callable1<Object, Predicate>>>, Predicate<Record>>() {
+    public Parser<Predicate<Record>> VALUE_ONLY = VALUE_PREDICATES.map(new Function1<List<Pair<String, Function1<Object, Predicate>>>, Predicate<Record>>() {
         @Override
-        public Predicate<Record> call(List<Pair<String, Callable1<Object, Predicate>>> pairs) throws Exception {
+        public Predicate<Record> call(List<Pair<String, Function1<Object, Predicate>>> pairs) throws Exception {
             List<Predicate<Record>> predicates = new ArrayList<>();
             for (final Keyword<?> keyword : keywords) {
                 predicates.add(toPredicate(keyword, pairs));
@@ -53,11 +53,11 @@ public class Grammar {
         }
     });
 
-    public final Parser<Predicate<Record>> NAME_AND_VALUE = Parsers.tuple(NAME, SEPARATORS, VALUE_PREDICATES).map(new Callable1<Triple<String, Void, List<Pair<String, Callable1<Object, Predicate>>>>, Predicate<Record>>() {
+    public final Parser<Predicate<Record>> NAME_AND_VALUE = Parsers.tuple(NAME, SEPARATORS, VALUE_PREDICATES).map(new Function1<Triple<String, Void, List<Pair<String, Function1<Object, Predicate>>>>, Predicate<Record>>() {
         @Override
-        public Predicate<Record> call(Triple<String, Void, List<Pair<String, Callable1<Object, Predicate>>>> triple) throws Exception {
+        public Predicate<Record> call(Triple<String, Void, List<Pair<String, Function1<Object, Predicate>>>> triple) throws Exception {
             final String name = triple.first();
-            final List<Pair<String, Callable1<Object, Predicate>>> values = triple.third();
+            final List<Pair<String, Function1<Object, Predicate>>> values = triple.third();
             return toPredicate(Keyword.methods.matchKeyword(name, keywords), values);
         }
     });
@@ -66,9 +66,9 @@ public class Grammar {
 
     public Parser<Predicate<Record>> PARTS = Parsers.or(GROUP, NAME_AND_VALUE, NAME_AND_WILDCARD, VALUE_ONLY).prefix(NEGATION).infixLeft(OR.or(AND));
 
-    Predicate<Record> toPredicate(final Keyword<?> keyword, final List<Pair<String, Callable1<Object, Predicate>>> values) throws Exception {
+    Predicate<Record> toPredicate(final Keyword<?> keyword, final List<Pair<String, Function1<Object, Predicate>>> values) throws Exception {
         List<Predicate<Record>> valuesPredicates = new ArrayList<>();
-        for (Pair<String, Callable1<Object, Predicate>> pair : values) {
+        for (Pair<String, Function1<Object, Predicate>> pair : values) {
             try {
                 Object actualValue = mappings.toValue(keyword.forClass(), pair.first());
                 Predicate<Record> where = where(keyword, pair.second().call(actualValue));
@@ -116,59 +116,59 @@ public class Grammar {
     public static final Parser<Binary<Predicate<Record>>> AND =
             Parsers.or(ws("AND"), isChar(' ').many()).map(ignore -> Predicates::and);
 
-    public static final Parser<Pair<String, Callable1<Object, Predicate>>> TEXT_STARTS_WITH = TEXT_ONLY.followedBy(WILDCARD).
+    public static final Parser<Pair<String, Function1<Object, Predicate>>> TEXT_STARTS_WITH = TEXT_ONLY.followedBy(WILDCARD).
             map(valueAndPredicateCreator(value -> startsWith(value.toString())));
 
-    public static final Parser<Pair<String, Callable1<Object, Predicate>>> TEXT_ENDS_WITH = WILDCARD.next(TEXT_ONLY).
+    public static final Parser<Pair<String, Function1<Object, Predicate>>> TEXT_ENDS_WITH = WILDCARD.next(TEXT_ONLY).
             map(valueAndPredicateCreator(value -> endsWith(value.toString())));
 
-    public static final Parser<Pair<String, Callable1<Object, Predicate>>> TEXT_CONTAINS = TEXT_ONLY.between(WILDCARD, WILDCARD).
+    public static final Parser<Pair<String, Function1<Object, Predicate>>> TEXT_CONTAINS = TEXT_ONLY.between(WILDCARD, WILDCARD).
             map(valueAndPredicateCreator(value -> contains(value.toString())));
 
     static Parser<Unary<Predicate<Record>>> NEGATION = ws('-').or(ws("NOT")).
             map(ignore -> Predicates::not);
 
-    public static final Parser<Pair<String, Callable1<Object, Predicate>>> DATE_IS = DATE.map(valueAndPredicateCreator(o -> {
+    public static final Parser<Pair<String, Function1<Object, Predicate>>> DATE_IS = DATE.map(valueAndPredicateCreator(o -> {
         Date dateWithoutTime = (Date) o;
         Date upper = Seconds.add(dateWithoutTime, (24 * 60 * 60) - 1);
         return Predicates.between(dateWithoutTime, upper);
     }));
 
-    public static final Parser<Pair<String, Callable1<Object, Predicate>>> DATE_TIME_IS = DATE_AND_TIME.map(valueAndPredicateCreator(value -> {
+    public static final Parser<Pair<String, Function1<Object, Predicate>>> DATE_TIME_IS = DATE_AND_TIME.map(valueAndPredicateCreator(value -> {
         Date dateWithoutMillis = (Date) value;
         Date upper = Dates.add(dateWithoutMillis, MILLISECOND, 999);
         return Predicates.between(dateWithoutMillis, upper);
     }));
 
-    public static final Parser<Pair<String, Callable1<Object, Predicate>>> GREATER_THAN =
+    public static final Parser<Pair<String, Function1<Object, Predicate>>> GREATER_THAN =
             operator(GT, value -> Predicates.greaterThan((Comparable) value));
 
-    public static final Parser<Pair<String, Callable1<Object, Predicate>>> GREATER_THAN_OR_EQUALS =
+    public static final Parser<Pair<String, Function1<Object, Predicate>>> GREATER_THAN_OR_EQUALS =
             operator(GTE, value -> Predicates.greaterThanOrEqualTo((Comparable) value));
 
-    public static final Parser<Pair<String, Callable1<Object, Predicate>>> LESS_THAN_OR_EQUALS =
+    public static final Parser<Pair<String, Function1<Object, Predicate>>> LESS_THAN_OR_EQUALS =
             operator(LTE, value -> Predicates.lessThanOrEqualTo((Comparable) value));
 
-    public static final Parser<Pair<String, Callable1<Object, Predicate>>> LESS_THAN =
+    public static final Parser<Pair<String, Function1<Object, Predicate>>> LESS_THAN =
             operator(LT, value -> Predicates.lessThan((Comparable) value));
 
-    public static final Parser<Pair<String, Callable1<Object, Predicate>>> IS_NULL =
+    public static final Parser<Pair<String, Function1<Object, Predicate>>> IS_NULL =
             NULL.map(valueAndPredicateCreator(value -> Predicates.nullValue()));
 
-    public static final Parser<Pair<String, Callable1<Object, Predicate>>> TEXT_IS =
+    public static final Parser<Pair<String, Function1<Object, Predicate>>> TEXT_IS =
             TEXT_ONLY.map(valueAndPredicateCreator(value -> is(value)));
 
-    static Parser<Pair<String, Callable1<Object, Predicate>>> operator(Parser<Void> type, Callable1<Object, Predicate> predicateCreator) {
+    static Parser<Pair<String, Function1<Object, Predicate>>> operator(Parser<Void> type, Function1<Object, Predicate> predicateCreator) {
         return type.next(VALUES).map(valueAndPredicateCreator(predicateCreator));
     }
 
-    static Callable1<String, Pair<String, Callable1<Object, Predicate>>> valueAndPredicateCreator(final Callable1<Object, Predicate> predicateCreator) {
+    static Function1<String, Pair<String, Function1<Object, Predicate>>> valueAndPredicateCreator(final Function1<Object, Predicate> predicateCreator) {
         return value -> Pair.pair(value, predicateCreator);
     }
 
-    public static Parser<Pair<String, Callable1<Object, Predicate>>> VALUE_PREDICATE =
+    public static Parser<Pair<String, Function1<Object, Predicate>>> VALUE_PREDICATE =
             Parsers.or(GREATER_THAN_OR_EQUALS, LESS_THAN_OR_EQUALS, GREATER_THAN, LESS_THAN, DATE_TIME_IS, DATE_IS,
                     TEXT_CONTAINS, TEXT_STARTS_WITH, TEXT_ENDS_WITH, IS_NULL, TEXT_IS);
 
-    public static Parser<List<Pair<String, Callable1<Object, Predicate>>>> VALUE_PREDICATES = VALUE_PREDICATE.sepBy1(ws(','));
+    public static Parser<List<Pair<String, Function1<Object, Predicate>>>> VALUE_PREDICATES = VALUE_PREDICATE.sepBy1(ws(','));
 }

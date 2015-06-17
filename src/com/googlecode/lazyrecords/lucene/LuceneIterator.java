@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords.lucene;
 
 import com.googlecode.lazyrecords.Logger;
 import com.googlecode.lazyrecords.Loggers;
-import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.collections.CloseableList;
 import com.googlecode.totallylazy.Maps;
 import com.googlecode.totallylazy.iterators.StatefulIterator;
@@ -26,7 +26,7 @@ public class LuceneIterator extends StatefulIterator<Record> implements Closeabl
     private final LuceneStorage storage;
     private final Query query;
     private final Sort sort;
-    private final Callable1<? super Document, Record> documentToRecord;
+    private final Function1<? super Document, Record> documentToRecord;
     private final CloseableList closeables;
     private final Logger logger;
     private ScoreDoc[] scoreDocs;
@@ -35,7 +35,7 @@ public class LuceneIterator extends StatefulIterator<Record> implements Closeabl
     private Searcher searcher;
     private boolean closed = false;
 
-    public LuceneIterator(LuceneStorage storage, Query query, Sort sort, Callable1<? super Document, Record> documentToRecord, int start, int end, CloseableList closeables, Logger logger) {
+    public LuceneIterator(LuceneStorage storage, Query query, Sort sort, Function1<? super Document, Record> documentToRecord, int start, int end, CloseableList closeables, Logger logger) {
         this.storage = storage;
         this.query = query;
         this.sort = sort;

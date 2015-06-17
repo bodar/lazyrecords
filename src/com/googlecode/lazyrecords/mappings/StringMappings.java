@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords.mappings;
 
 import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Record;
-import com.googlecode.totallylazy.Function2;
+import com.googlecode.totallylazy.Curried2;
 import com.googlecode.totallylazy.UnaryFunction;
 import com.googlecode.totallylazy.Unchecked;
 import com.googlecode.totallylazy.Uri;
@@ -77,7 +77,7 @@ public class StringMappings {
             return new UnaryFunction<Record>() {
                 @Override
                 public Record call(Record record) throws Exception {
-                    return sequence(keywords).fold(record, new Function2<Record, Keyword<?>, Record>() {
+                    return sequence(keywords).fold(record, new Curried2<Record, Keyword<?>, Record>() {
                         @Override
                         public Record call(Record record, Keyword<?> keyword) throws Exception {
                             String raw = record.get(keyword(keyword.name(), String.class));

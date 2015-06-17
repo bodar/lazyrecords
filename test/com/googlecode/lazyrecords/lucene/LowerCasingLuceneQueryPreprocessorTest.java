@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords.lucene;
 
-import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Function1;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.FuzzyQuery;
 import org.apache.lucene.search.MultiPhraseQuery;
@@ -117,7 +117,7 @@ public class LowerCasingLuceneQueryPreprocessorTest {
     }
 
     private List<Term> flatTerms(List<Term[]> terms) {
-        return sequence(terms).flatMap(new Callable1<Term[], Iterable<Term>>() {
+        return sequence(terms).flatMap(new Function1<Term[], Iterable<Term>>() {
             @Override
             public Iterable<Term> call(Term[] terms) throws Exception {
                 return sequence(terms);

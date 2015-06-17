@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords.lucene;
 
-import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Sequence;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CheckIndex;
@@ -19,7 +19,7 @@ public interface LuceneStorage extends Closeable, Flushable, Persistence {
 
     int count(Query query) throws IOException;
 
-    <T> T search(Callable1<Searcher, T> callable) throws IOException;
+    <T> T search(Function1<Searcher, T> callable) throws IOException;
 
     Searcher searcher() throws IOException;
 

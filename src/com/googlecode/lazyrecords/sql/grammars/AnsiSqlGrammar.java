@@ -139,7 +139,7 @@ public class AnsiSqlGrammar implements SqlGrammar {
 
     @Override
     public GroupByClause groupByClause(Sequence<? extends Keyword<?>> columns) {
-        return AnsiGroupByClause.groupByClause(sequence(columns).map(new Callable1<Keyword<?>, DerivedColumn>() {
+        return AnsiGroupByClause.groupByClause(sequence(columns).map(new Function1<Keyword<?>, DerivedColumn>() {
             @Override
             public DerivedColumn call(Keyword<?> keyword) throws Exception {
                 return derivedColumn(keyword);
@@ -173,7 +173,7 @@ public class AnsiSqlGrammar implements SqlGrammar {
     };
 
     @Override
-    public DerivedColumn derivedColumn(Callable1<? super Record, ?> callable) {
+    public DerivedColumn derivedColumn(Function1<? super Record, ?> callable) {
         ValueExpression expression = valueExpression(callable);
         Keyword<?> keyword = (Keyword<?>) callable;
         if (callable instanceof Aliased) {
@@ -188,7 +188,7 @@ public class AnsiSqlGrammar implements SqlGrammar {
     }
     private static multi multiVE;
     @Override
-    public ValueExpression valueExpression(Callable1<? super Record, ?> callable) {
+    public ValueExpression valueExpression(Function1<? super Record, ?> callable) {
         if(multiVE == null) multiVE = new multi(){};
         return multiVE.<ValueExpression>methodOption(callable).getOrThrow(new UnsupportedOperationException("Unsupported reducer " + callable));
     }

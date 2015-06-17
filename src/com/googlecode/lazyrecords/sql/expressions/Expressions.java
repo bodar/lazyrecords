@@ -122,7 +122,7 @@ public class Expressions {
         return empty().text().equals(join(expressions).text());
     }
 
-    public static String toString(Expression expression, Callable1<Object, Object> valueConverter) {
+    public static String toString(Expression expression, Function1<Object, Object> valueConverter) {
         return format(expression.text().replace("%", "%%").replace("?", "'%s'"), expression.parameters().map(valueConverter).toArray(Object.class));
     }
 

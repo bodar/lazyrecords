@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords.xml;
 
 import com.googlecode.lazyrecords.AliasedKeyword;
 import com.googlecode.lazyrecords.ToRecord;
-import com.googlecode.totallylazy.Callable2;
+import com.googlecode.totallylazy.Function2;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Xml;
 import com.googlecode.lazyrecords.Keyword;
@@ -38,8 +38,8 @@ public class XmlSequence extends Sequence<Record> {
         };
     }
 
-    private Callable2<Record, Keyword<?>, Record> populateFrom(final Node node) {
-        return new Callable2<Record, Keyword<?>, Record>() {
+    private Function2<Record, Keyword<?>, Record> populateFrom(final Node node) {
+        return new Function2<Record, Keyword<?>, Record>() {
             public Record call(Record nodeRecord, Keyword<?> keyword) throws Exception {
                 Sequence<Node> nodes = Xml.selectNodes(node, xpath(keyword));
                 if (nodes.isEmpty()) {

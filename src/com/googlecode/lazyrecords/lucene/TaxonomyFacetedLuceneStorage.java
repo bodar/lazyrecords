@@ -1,7 +1,7 @@
 package com.googlecode.lazyrecords.lucene;
 
 import com.googlecode.lazyrecords.lucene.mappings.DelegatingStorage;
-import com.googlecode.totallylazy.Callable2;
+import com.googlecode.totallylazy.Function2;
 import com.googlecode.totallylazy.Callers;
 import com.googlecode.totallylazy.Closeables;
 import com.googlecode.totallylazy.Lazy;
@@ -65,8 +65,8 @@ public class TaxonomyFacetedLuceneStorage extends DelegatingStorage implements F
         storage.close();
     }
 
-    private Callable2<Document, IndexableField, Document> withFacetFields() {
-        return new Callable2<Document, IndexableField, Document>() {
+    private Function2<Document, IndexableField, Document> withFacetFields() {
+        return new Function2<Document, IndexableField, Document>() {
             @Override
             public Document call(Document document, IndexableField indexableField) throws Exception {
                 if (facetingPolicy.value().matches(indexableField.name()) && !indexableField.stringValue().isEmpty()) {

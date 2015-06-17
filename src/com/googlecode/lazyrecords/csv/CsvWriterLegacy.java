@@ -3,9 +3,9 @@ package com.googlecode.lazyrecords.csv;
 import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.RecordTo;
-import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Function;
-import com.googlecode.totallylazy.Function2;
+import com.googlecode.totallylazy.Curried2;
 import com.googlecode.totallylazy.Iterators;
 import com.googlecode.totallylazy.Option;
 import com.googlecode.totallylazy.Sequence;
@@ -23,8 +23,8 @@ public class CsvWriterLegacy {
         Iterators.fold(Iterators.cons(headers(fields), Iterators.map(records, rowToString(fields))), writer, writeLine());
     }
 
-    private static Function2<Writer, String, Writer> writeLine() {
-        return new Function2<Writer, String, Writer>() {
+    private static Curried2<Writer, String, Writer> writeLine() {
+        return new Curried2<Writer, String, Writer>() {
             @Override
             public Writer call(Writer writer, String line) throws Exception {
                 return writer.append(line).append(ROW_SEPARATOR);
@@ -41,8 +41,8 @@ public class CsvWriterLegacy {
         };
     }
 
-    private static Callable1<Keyword<?>, String> fieldToString(final Record record) {
-        return new Callable1<Keyword<?>, String>() {
+    private static Function1<Keyword<?>, String> fieldToString(final Record record) {
+        return new Function1<Keyword<?>, String>() {
             @Override
             public String call(Keyword<?> keyword) throws Exception {
                 return Option.option(record.get(keyword)).map(toString).getOrElse("");

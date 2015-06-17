@@ -59,7 +59,7 @@ public class OptimisedStorage implements LuceneStorage {
 
     @Override
     public int count(final Query query) throws IOException {
-        return search(new Callable1<Searcher, Integer>() {
+        return search(new Function1<Searcher, Integer>() {
             @Override
             public Integer call(Searcher searcher) throws Exception {
                 return searcher.count(query);
@@ -68,7 +68,7 @@ public class OptimisedStorage implements LuceneStorage {
     }
 
     @Override
-    public <T> T search(Callable1<Searcher, T> callable) throws IOException {
+    public <T> T search(Function1<Searcher, T> callable) throws IOException {
         return using(searcher(), callable);
     }
 
@@ -109,8 +109,8 @@ public class OptimisedStorage implements LuceneStorage {
         return new NIOFSDirectory(file);
     }
 
-    public static Function2<Directory, Directory, Void> copy(final Collection<String> strings) {
-        return new Function2<Directory, Directory, Void>() {
+    public static Curried2<Directory, Directory, Void> copy(final Collection<String> strings) {
+        return new Curried2<Directory, Directory, Void>() {
             @Override
             public Void call(Directory source, Directory destination) throws Exception {
                 copy(source, destination, strings);

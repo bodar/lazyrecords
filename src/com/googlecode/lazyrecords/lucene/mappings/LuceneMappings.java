@@ -10,7 +10,7 @@ import com.googlecode.lazyrecords.lucene.Lucene;
 import com.googlecode.lazyrecords.mappings.StringMappings;
 import com.googlecode.totallylazy.Callables;
 import com.googlecode.totallylazy.Function;
-import com.googlecode.totallylazy.Function2;
+import com.googlecode.totallylazy.Curried2;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.Predicates;
 import com.googlecode.totallylazy.Sequence;
@@ -103,8 +103,8 @@ public class LuceneMappings {
         };
     }
 
-    public static Function2<? super Document, ? super IndexableField, Document> intoFields() {
-        return new Function2<Document, IndexableField, Document>() {
+    public static Curried2<? super Document, ? super IndexableField, Document> intoFields() {
+        return new Curried2<Document, IndexableField, Document>() {
             public Document call(Document document, IndexableField fieldable) throws Exception {
                 document.add(fieldable);
                 return document;

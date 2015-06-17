@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords.sql.expressions;
 
-import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Sequences;
 
@@ -24,7 +24,7 @@ public abstract class AbstractExpression implements Expression {
         return toString(returnArgument());
     }
 
-    public String toString(Callable1<Object, Object> valueConverter) {
+    public String toString(Function1<Object, Object> valueConverter) {
         return Expressions.toString(this, valueConverter);
     }
 }

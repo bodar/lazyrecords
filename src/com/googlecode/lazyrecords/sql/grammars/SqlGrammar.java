@@ -10,7 +10,7 @@ import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.RecordTo;
 import com.googlecode.lazyrecords.sql.expressions.*;
-import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Function;
 import com.googlecode.totallylazy.Mapper;
 import com.googlecode.totallylazy.Option;
@@ -44,9 +44,9 @@ public interface SqlGrammar {
 
     GroupByClause groupByClause(Sequence<? extends Keyword<?>> columns);
 
-    DerivedColumn derivedColumn(Callable1<? super Record, ?> callable);
+    DerivedColumn derivedColumn(Function1<? super Record, ?> callable);
 
-    ValueExpression valueExpression(Callable1<? super Record, ?> callable);
+    ValueExpression valueExpression(Function1<? super Record, ?> callable);
 
     ValueExpression concat(Sequence<? extends Keyword<?>> keywords);
 

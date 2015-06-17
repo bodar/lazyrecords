@@ -2,9 +2,8 @@ package com.googlecode.lazyrecords.lucene;
 
 import com.googlecode.lazyrecords.Named;
 import com.googlecode.lazyrecords.Record;
-import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Sequence;
-import com.googlecode.totallylazy.Unchecked;
 import com.googlecode.totallylazy.annotations.multimethod;
 import com.googlecode.totallylazy.comparators.AscendingComparator;
 import com.googlecode.totallylazy.comparators.CompositeComparator;
@@ -37,8 +36,8 @@ public class Sorting {
         return new Sort(sortFields.toArray(SortField.class));
     }
 
-    private static Callable1<Sort, Iterable<SortField>> sortFields() {
-        return new Callable1<Sort, Iterable<SortField>>() {
+    private static Function1<Sort, Iterable<SortField>> sortFields() {
+        return new Function1<Sort, Iterable<SortField>>() {
             @Override
             public Iterable<SortField> call(Sort sort) throws Exception {
                 return sequence(sort.getSort());
@@ -46,8 +45,8 @@ public class Sorting {
         };
     }
 
-    private static Callable1<Comparator<? super Record>, Sort> sort() {
-        return new Callable1<Comparator<? super Record>, Sort>() {
+    private static Function1<Comparator<? super Record>, Sort> sort() {
+        return new Function1<Comparator<? super Record>, Sort>() {
             @Override
             public Sort call(Comparator<? super Record> comparator) throws Exception {
                 return sort(comparator);
@@ -59,7 +58,7 @@ public class Sorting {
         return new Sort(new SortField(name, SortField.Type.STRING, reverse));
     }
 
-    private static String name(Callable1<?, ?> callable) {
+    private static String name(Function1<?, ?> callable) {
         if (callable instanceof Named) {
             return ((Named) callable).name();
         }

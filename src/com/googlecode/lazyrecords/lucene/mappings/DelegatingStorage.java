@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords.lucene.mappings;
 
 import com.googlecode.lazyrecords.lucene.LuceneStorage;
 import com.googlecode.lazyrecords.lucene.Searcher;
-import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Sequence;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CheckIndex;
@@ -34,7 +34,7 @@ public abstract class DelegatingStorage implements LuceneStorage {
     public int count(Query query) throws IOException {return storage.count(query);}
 
     @Override
-    public <T> T search(Callable1<Searcher, T> callable) throws IOException {return storage.search(callable);}
+    public <T> T search(Function1<Searcher, T> callable) throws IOException {return storage.search(callable);}
 
     @Override
     public Searcher searcher() throws IOException {return storage.searcher();}

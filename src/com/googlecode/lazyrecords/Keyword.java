@@ -6,7 +6,7 @@ import static com.googlecode.totallylazy.Functions.returns1;
 import static com.googlecode.totallylazy.Predicates.where;
 import static com.googlecode.totallylazy.Strings.equalIgnoringCase;
 
-public interface Keyword<T> extends Named, Metadata<Keyword<T>>, Callable1<Record, T>, GenericType<T>, Comparable<Keyword<T>> {
+public interface Keyword<T> extends Named, Metadata<Keyword<T>>, Function1<Record, T>, GenericType<T>, Comparable<Keyword<T>> {
     Record metadata();
 
     public String toString();

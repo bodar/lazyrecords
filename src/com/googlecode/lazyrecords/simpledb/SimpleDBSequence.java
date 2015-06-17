@@ -8,14 +8,14 @@ import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Logger;
 import com.googlecode.lazyrecords.Loggers;
 import com.googlecode.lazyrecords.Record;
-import com.googlecode.lazyrecords.SelectCallable;
+import com.googlecode.lazyrecords.SelectFunction;
 import com.googlecode.lazyrecords.mappings.StringMappings;
 import com.googlecode.lazyrecords.sql.expressions.Expression;
 import com.googlecode.lazyrecords.sql.expressions.ExpressionBuilder;
 import com.googlecode.lazyrecords.sql.expressions.Expressions;
-import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Computation;
-import com.googlecode.totallylazy.Returns;
+import com.googlecode.totallylazy.Function0;
 import com.googlecode.totallylazy.Function;
 import com.googlecode.totallylazy.Maps;
 import com.googlecode.totallylazy.Predicate;
@@ -33,19 +33,19 @@ public class SimpleDBSequence<T> extends Sequence<T> {
     private final AmazonSimpleDB sdb;
     private final ExpressionBuilder builder;
     private final StringMappings mappings;
-    private final Callable1<? super Item, T> itemToRecord;
+    private final Function1<? super Item, T> itemToRecord;
     private final Logger logger;
     private final boolean consistentRead;
     private final Value<Iterable<T>> data;
 
-    public SimpleDBSequence(AmazonSimpleDB sdb, final ExpressionBuilder builder, StringMappings mappings, Callable1<? super Item, T> itemToRecord, Logger logger, boolean consistentRead) {
+    public SimpleDBSequence(AmazonSimpleDB sdb, final ExpressionBuilder builder, StringMappings mappings, Function1<? super Item, T> itemToRecord, Logger logger, boolean consistentRead) {
         this.sdb = sdb;
         this.builder = builder;
         this.mappings = mappings;
         this.itemToRecord = itemToRecord;
         this.logger = logger;
         this.consistentRead = consistentRead;
-        this.data = new Returns<Iterable<T>>() {
+        this.data = new Function0<Iterable<T>>() {
             @Override
             public Iterable<T> call() throws Exception {
                 return Computation.memorise(iterator(builder));
@@ -88,14 +88,14 @@ public class SimpleDBSequence<T> extends Sequence<T> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <S> Sequence<S> map(final Callable1<? super T, ? extends S> callable) {
-        Callable1 raw = callable;
+    public <S> Sequence<S> map(final Function1<? super T, ? extends S> callable) {
+        Function1 raw = callable;
         if (raw instanceof Keyword) {
             final Keyword<S> keyword = (Keyword<S>) raw;
             return new SimpleDBSequence<S>(sdb, builder.select(keyword), mappings, itemToValue(keyword), logger, consistentRead);
         }
-        if (raw instanceof SelectCallable) {
-            return (Sequence<S>) new SimpleDBSequence(sdb, builder.select(((SelectCallable) raw).keywords()), mappings, itemToRecord, logger, consistentRead);
+        if (raw instanceof SelectFunction) {
+            return (Sequence<S>) new SimpleDBSequence(sdb, builder.select(((SelectFunction) raw).keywords()), mappings, itemToRecord, logger, consistentRead);
         }
         logger.log(Maps.map(pair(Loggers.TYPE, Loggers.SIMPLE_DB), pair(Loggers.MESSAGE, "Unsupported function passed to 'map', moving computation to client"), pair(Loggers.FUNCTION, callable)));
         return super.map(callable);

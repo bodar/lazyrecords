@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords;
 
-import com.googlecode.totallylazy.Callable1;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.collections.PersistentList;
 
 import java.util.Map;
@@ -50,8 +50,8 @@ public final class Loggers implements Logger {
     public static final String LUCENE = "Lucene";
     public static final String SIMPLE_DB = "SimpleDb";
 
-    public static Callable1<Number, Object> milliseconds(final Map<String, Object> log) {
-        return new Callable1<Number, Object>() {
+    public static Function1<Number, Object> milliseconds(final Map<String, Object> log) {
+        return new Function1<Number, Object>() {
             @Override
             public Object call(Number number) throws Exception {
                 return log.put(MILLISECONDS, number);

@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords.lucene;
 
-import com.googlecode.totallylazy.Returns;
+import com.googlecode.totallylazy.Function0;
 import com.googlecode.totallylazy.Value;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.search.SearcherManager;
@@ -36,7 +36,7 @@ public class LucenePool implements SearcherPool {
     }
 
     private Value<SearcherManager> createSearchManagerLazily(final IndexWriter writer) {
-        return new Returns<SearcherManager>() {
+        return new Function0<SearcherManager>() {
             @Override
             public SearcherManager call() throws Exception {
                 return new SearcherManager(writer, true, null);

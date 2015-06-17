@@ -65,12 +65,7 @@ public class LuceneRecords extends AbstractRecords implements Queryable<Query>, 
     }
 
     public Number add(final Definition definition, final Sequence<Record> records) {
-        return process(new Function0<Number>() {
-            @Override
-            public Number call() throws Exception {
-                return internalAdd(definition, records);
-            }
-        });
+        return process(() -> internalAdd(definition, records));
     }
 
     private Number internalAdd(Definition definition, Sequence<Record> records) throws IOException {
@@ -91,22 +86,12 @@ public class LuceneRecords extends AbstractRecords implements Queryable<Query>, 
     }
 
     public Number remove(final Definition definition) {
-        return process(new Function0<Number>() {
-            @Override
-            public Number call() throws Exception {
-                return storage.delete(record(definition));
-            }
-        });
+        return process(() -> storage.delete(record(definition)));
     }
 
     @Override
     public Number put(final Definition definition, final Sequence<? extends Pair<? extends Predicate<? super Record>, Record>> records) {
-        return process(new Function0<Number>() {
-            @Override
-            public Number call() throws Exception {
-                return records.map(update(definition)).reduce(sum());
-            }
-        });
+        return process(() -> records.map(update(definition)).reduce(sum()));
     }
 
     private Function1<Pair<? extends Predicate<? super Record>, Record>, Number> update(final Definition definition) {

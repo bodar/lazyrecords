@@ -139,12 +139,7 @@ public class AnsiSqlGrammar implements SqlGrammar {
 
     @Override
     public GroupByClause groupByClause(Sequence<? extends Keyword<?>> columns) {
-        return AnsiGroupByClause.groupByClause(sequence(columns).map(new Function1<Keyword<?>, DerivedColumn>() {
-            @Override
-            public DerivedColumn call(Keyword<?> keyword) throws Exception {
-                return derivedColumn(keyword);
-            }
-        }));
+        return AnsiGroupByClause.groupByClause(sequence(columns).map(AnsiSqlGrammar.this::derivedColumn));
     }
 
     private multi multiSS;

@@ -23,12 +23,7 @@ public class CsvWriterLegacy {
     }
 
     private static CurriedFunction2<Writer, String, Writer> writeLine() {
-        return new CurriedFunction2<Writer, String, Writer>() {
-            @Override
-            public Writer call(Writer writer, String line) throws Exception {
-                return writer.append(line).append(ROW_SEPARATOR);
-            }
-        };
+        return (writer, line) -> writer.append(line).append(ROW_SEPARATOR);
     }
 
     private static RecordTo<String> rowToString(final Sequence<? extends Keyword<?>> fields) {
@@ -41,24 +36,16 @@ public class CsvWriterLegacy {
     }
 
     private static Function1<Keyword<?>, String> fieldToString(final Record record) {
-        return new Function1<Keyword<?>, String>() {
-            @Override
-            public String call(Keyword<?> keyword) throws Exception {
-                return Option.option(record.get(keyword)).map(toString).getOrElse("");
-            }
-        };
+        return keyword -> Option.option(record.get(keyword)).map(toString).getOrElse("");
     }
 
     private static Function1<String, String> escapeSpecialCharacters() {
-        return new Function1<String, String>() {
-            @Override
-            public String call(String recordValue) throws Exception {
-                recordValue = recordValue.replace('\n', ' ');
-                if (recordValue.contains(",")) {
-                    return '"' + recordValue + '"';
-                }
-                return recordValue;
+        return recordValue -> {
+            recordValue = recordValue.replace('\n', ' ');
+            if (recordValue.contains(",")) {
+                return '"' + recordValue + '"';
             }
+            return recordValue;
         };
     }
 

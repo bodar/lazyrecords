@@ -36,11 +36,6 @@ public class LucenePool implements SearcherPool {
     }
 
     private Value<SearcherManager> createSearchManagerLazily(final IndexWriter writer) {
-        return new Function0<SearcherManager>() {
-            @Override
-            public SearcherManager call() throws Exception {
-                return new SearcherManager(writer, true, null);
-            }
-        }.lazy();
+        return ((Function0<SearcherManager>) () -> new SearcherManager(writer, true, null)).lazy();
     }
 }

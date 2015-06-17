@@ -23,12 +23,7 @@ public class FacetRequest extends Pair<Keyword<?>, Integer> {
 
     public static class constructors {
         public static Function1<Keyword<?>, FacetRequest> facetRequest() {
-            return new Function1<Keyword<?>, FacetRequest>() {
-                @Override
-                public FacetRequest call(Keyword<?> keyword) throws Exception {
-                    return FacetRequest.facetRequest(keyword);
-                }
-            };
+            return keyword -> FacetRequest.facetRequest(keyword);
         }
     }
 }

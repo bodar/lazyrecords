@@ -12,12 +12,7 @@ public interface Logger {
         private functions() {}
 
         public static Function1<Logger, Logger> log(final Map<String, ?> parameters){
-            return new Function1<Logger, Logger>() {
-                @Override
-                public Logger call(Logger logger) throws Exception {
-                    return logger.log(parameters);
-                }
-            };
+            return logger -> logger.log(parameters);
         }
     }
 

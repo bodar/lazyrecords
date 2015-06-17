@@ -25,75 +25,35 @@ public interface Records extends RecordsReader {
 
     class functions {
         public static Function1<Records, Number> add(final Definition definition, final Record... records) {
-            return new Function1<Records, Number>() {
-                @Override
-                public Number call(Records allRecords) throws Exception {
-                    return allRecords.add(definition, records);
-                }
-            };
+            return allRecords -> allRecords.add(definition, records);
         }
 
         public static Function1<Records, Number> add(final Definition definition, final Sequence<Record> records) {
-            return new Function1<Records, Number>() {
-                @Override
-                public Number call(Records allRecords) throws Exception {
-                    return allRecords.add(definition, records);
-                }
-            };
+            return allRecords -> allRecords.add(definition, records);
         }
 
         public static Function1<Records, Number> set(final Definition definition, final Pair<? extends Predicate<? super Record>, Record>... records) {
-            return new Function1<Records, Number>() {
-                @Override
-                public Number call(Records allRecords) throws Exception {
-                    return allRecords.set(definition, records);
-                }
-            };
+            return allRecords -> allRecords.set(definition, records);
         }
 
         public static Function1<Records, Number> set(final Definition definition, final Sequence<? extends Pair<? extends Predicate<? super Record>, Record>> records) {
-            return new Function1<Records, Number>() {
-                @Override
-                public Number call(Records allRecords) throws Exception {
-                    return allRecords.set(definition, records);
-                }
-            };
+            return allRecords -> allRecords.set(definition, records);
         }
 
         public static Function1<Records, Number> put(final Definition definition, final Pair<? extends Predicate<? super Record>, Record>... records) {
-            return new Function1<Records, Number>() {
-                @Override
-                public Number call(Records allRecords) throws Exception {
-                    return allRecords.put(definition, records);
-                }
-            };
+            return allRecords -> allRecords.put(definition, records);
         }
 
         public static Function1<Records, Number> put(final Definition definition, final Sequence<? extends Pair<? extends Predicate<? super Record>, Record>> records) {
-            return new Function1<Records, Number>() {
-                @Override
-                public Number call(Records allRecords) throws Exception {
-                    return allRecords.put(definition, records);
-                }
-            };
+            return allRecords -> allRecords.put(definition, records);
         }
 
         public static Function1<Records, Number> remove(final Definition definition, final Predicate<? super Record> predicate) {
-            return new Function1<Records, Number>() {
-                @Override
-                public Number call(Records allRecords) throws Exception {
-                    return allRecords.remove(definition, predicate);
-                }
-            };
+            return allRecords -> allRecords.remove(definition, predicate);
         }
 
         public static Function1<Records, Number> remove(final Definition definition) {
-            return new Function1<Records, Number>() {
-                @Override
-                public Number call(Records allRecords) throws Exception {
-                    return allRecords.remove(definition);
-                }
-            };
+            return allRecords -> allRecords.remove(definition);
         }
     }
 }

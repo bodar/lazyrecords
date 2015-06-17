@@ -32,12 +32,8 @@ public interface Definition extends Named, Metadata<Definition>, Comparable<Defi
 
         public static <T extends Definition> T definition(Class<T> definition, String name) {
             final RecordDefinition recordDefinition = new RecordDefinition(name, record(), fields(definition));
-            return Unchecked.<T>cast(Proxy.newProxyInstance(Definition.class.getClassLoader(), new Class[]{definition}, new InvocationHandler() {
-                @Override
-                public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                    return method.invoke(recordDefinition, args);
-                }
-            }));
+            return Unchecked.<T>cast(Proxy.newProxyInstance(Definition.class.getClassLoader(), new Class[]{definition},
+                    (proxy, method, args) -> method.invoke(recordDefinition, args)));
         }
 
         private static <T extends Definition> Sequence<Keyword<?>> fields(Class<T> definition) {
@@ -76,12 +72,7 @@ public interface Definition extends Named, Metadata<Definition>, Comparable<Defi
 
     class functions {
         public static Function1<Record, Record> sortFields(final Definition definition) {
-            return new Function1<Record, Record>() {
-                @Override
-                public Record call(Record record) throws Exception {
-                    return Definition.methods.sortFields(definition, record);
-                }
-            };
+            return record -> methods.sortFields(definition, record);
         }
 
         public static Mapper<Definition, Sequence<Keyword<?>>> fields = new Mapper<Definition, Sequence<Keyword<?>>>() {

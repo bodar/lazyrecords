@@ -11,12 +11,7 @@ public interface GroupByClause extends Expression {
     Sequence<DerivedColumn> groups();
 
     class functions {
-        public static Function1<GroupByClause, Sequence<DerivedColumn>> groups = new Function1<GroupByClause, Sequence<DerivedColumn>>() {
-            @Override
-            public Sequence<DerivedColumn> call(GroupByClause groupByClause) throws Exception {
-                return groupByClause.groups();
-            }
-        };
+        public static Function1<GroupByClause, Sequence<DerivedColumn>> groups = GroupByClause::groups;
     }
 
 }

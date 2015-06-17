@@ -117,11 +117,6 @@ public class LowerCasingLuceneQueryPreprocessorTest {
     }
 
     private List<Term> flatTerms(List<Term[]> terms) {
-        return sequence(terms).flatMap(new Function1<Term[], Iterable<Term>>() {
-            @Override
-            public Iterable<Term> call(Term[] terms) throws Exception {
-                return sequence(terms);
-            }
-        }).toList();
+        return sequence(terms).flatMap(terms1 -> sequence(terms1)).toList();
     }
 }

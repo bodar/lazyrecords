@@ -123,11 +123,7 @@ public interface Record {
         }
 
         public static Function1<Record, Record> merge(final Sequence<Pair<Keyword<?>, Object>> fields) {
-            return new Function1<Record, Record>() {
-                public Record call(Record record) throws Exception {
-                    return fields.fold(record, updateValues());
-                }
-            };
+            return record -> fields.fold(record, updateValues());
         }
 
         public static <T> RecordTo<Option<T>> getOption(final Keyword<T> keyword) {
@@ -139,11 +135,7 @@ public interface Record {
         }
 
         public static Function1<Keyword<?>, Object> getFrom(final Record record) {
-            return new Function1<Keyword<?>, Object>() {
-                public Object call(Keyword<?> keyword) throws Exception {
-                    return record.get(keyword);
-                }
-            };
+            return keyword -> record.get(keyword);
         }
 
         public static <T> RecordTo<Sequence<T>> getValuesFor(final Sequence<? extends Keyword<? extends T>> fields) {

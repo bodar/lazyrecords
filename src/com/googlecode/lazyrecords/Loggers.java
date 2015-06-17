@@ -51,11 +51,6 @@ public final class Loggers implements Logger {
     public static final String SIMPLE_DB = "SimpleDb";
 
     public static Function1<Number, Object> milliseconds(final Map<String, Object> log) {
-        return new Function1<Number, Object>() {
-            @Override
-            public Object call(Number number) throws Exception {
-                return log.put(MILLISECONDS, number);
-            }
-        };
+        return number -> log.put(MILLISECONDS, number);
     }
 }

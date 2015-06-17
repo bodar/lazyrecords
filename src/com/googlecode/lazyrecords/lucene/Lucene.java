@@ -155,18 +155,10 @@ public class Lucene {
     }
 
     private Function1<Object, Query> asQuery(final Keyword<?> keyword) {
-        return new Function1<Object, Query>() {
-            public Query call(Object o) throws Exception {
-                return equalTo(keyword, o);
-            }
-        };
+        return o -> equalTo(keyword, o);
     }
 
     private Function1<Predicate<Record>, Query> asQuery() {
-        return new Function1<Predicate<Record>, Query>() {
-            public Query call(Predicate<Record> predicate) throws Exception {
-                return query(predicate);
-            }
-        };
+        return predicate -> query(predicate);
     }
 }

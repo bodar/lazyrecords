@@ -30,11 +30,7 @@ public class Using implements Joiner {
     }
 
     private Function1<Keyword<?>, Predicate<Record>> asPredicate(final Record record) {
-        return new Function1<Keyword<?>, Predicate<Record>>() {
-            public Predicate<Record> call(Keyword<?> keyword) throws Exception {
-                return where(keyword, is(record.get(keyword)));
-            }
-        };
+        return keyword -> where(keyword, is(record.get(keyword)));
     }
 
     public Sequence<Keyword<?>> keywords() {

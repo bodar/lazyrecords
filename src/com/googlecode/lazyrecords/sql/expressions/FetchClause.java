@@ -7,21 +7,11 @@ public interface FetchClause extends Expression {
 
     class functions {
         public static Function1<FetchClause, Integer> number() {
-            return new Function1<FetchClause, Integer>() {
-                @Override
-                public Integer call(FetchClause fetchClause) throws Exception {
-                    return fetchClause.number();
-                }
-            };
+            return fetchClause -> fetchClause.number();
         }
 
         public static Function1<Integer, FetchClause> fetchClause() {
-            return new Function1<Integer, FetchClause>() {
-                @Override
-                public FetchClause call(Integer integer) throws Exception {
-                    return new AnsiFetchClause(integer);
-                }
-            };
+            return integer -> new AnsiFetchClause(integer);
         }
     }
 }

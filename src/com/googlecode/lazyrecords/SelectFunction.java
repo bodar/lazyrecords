@@ -15,12 +15,7 @@ public class SelectFunction implements Function1<Record, Record> {
     }
 
     public Record call(final Record source) throws Exception {
-        return keywords.fold(Record.constructors.record(), new Function2<Record, Keyword<?>, Record>() {
-            @Override
-            public Record call(Record record, Keyword<?> keyword) throws Exception {
-                return record.set(Unchecked.<Keyword<Object>>cast(keyword), keyword.call(source));
-            }
-        });
+        return keywords.fold(Record.constructors.record(), (record, keyword) -> record.set(Unchecked.<Keyword<Object>>cast(keyword), keyword.call(source)));
     }
 
     public Sequence<Keyword<?>> keywords() {

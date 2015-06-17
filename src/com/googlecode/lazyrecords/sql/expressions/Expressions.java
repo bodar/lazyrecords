@@ -13,19 +13,11 @@ import static java.lang.String.format;
 
 public class Expressions {
     public static Function1<? super Expression, Iterable<Object>> parameters() {
-        return new Function1<Expression, Iterable<Object>>() {
-            public Iterable<Object> call(Expression expression) throws Exception {
-                return expression.parameters();
-            }
-        };
+        return expression -> expression.parameters();
     }
 
     public static Function1<? super Expression, String> text() {
-        return new Function1<Expression, String>() {
-            public String call(Expression expression) throws Exception {
-                return expression.text();
-            }
-        };
+        return expression -> expression.text();
     }
 
     public static TextOnlyExpression textOnly(String expression, Object... args) {

@@ -28,11 +28,6 @@ public class AnsiGroupByClause extends CompoundExpression implements GroupByClau
     }
 
     public static class functions{
-        public static Function1<Sequence<DerivedColumn>, GroupByClause> groupByClause = new Function1<Sequence<DerivedColumn>, GroupByClause>() {
-            @Override
-            public GroupByClause call(Sequence<DerivedColumn> groups) throws Exception {
-                return AnsiGroupByClause.groupByClause(groups);
-            }
-        };
+        public static Function1<Sequence<DerivedColumn>, GroupByClause> groupByClause = groups1 -> AnsiGroupByClause.groupByClause(groups1);
     }
 }

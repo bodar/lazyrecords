@@ -9,7 +9,7 @@ import com.googlecode.lazyrecords.ToRecord;
 import com.googlecode.lazyrecords.lucene.Lucene;
 import com.googlecode.lazyrecords.mappings.StringMappings;
 import com.googlecode.totallylazy.Callables;
-import com.googlecode.totallylazy.Function;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Curried2;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.Predicates;
@@ -65,8 +65,8 @@ public class LuceneMappings {
         };
     }
 
-    public Function<IndexableField, Pair<Keyword<?>, Object>> asPair(final Sequence<Keyword<?>> definitions) {
-        return new Function<IndexableField, Pair<Keyword<?>, Object>>() {
+    public Function1<IndexableField, Pair<Keyword<?>, Object>> asPair(final Sequence<Keyword<?>> definitions) {
+        return new Function1<IndexableField, Pair<Keyword<?>, Object>>() {
             public Pair<Keyword<?>, Object> call(IndexableField fieldable) throws Exception {
                 String name = fieldable.name();
                 Keyword<?> keyword = Keyword.methods.matchKeyword(name, definitions);
@@ -75,8 +75,8 @@ public class LuceneMappings {
         };
     }
 
-    public Function<Pair<Keyword<?>, Object>, IndexableField> asField(final Sequence<Keyword<?>> definitions) {
-        return new Function<Pair<Keyword<?>, Object>, IndexableField>() {
+    public Function1<Pair<Keyword<?>, Object>, IndexableField> asField(final Sequence<Keyword<?>> definitions) {
+        return new Function1<Pair<Keyword<?>, Object>, IndexableField>() {
             public IndexableField call(Pair<Keyword<?>, Object> pair) throws Exception {
                 if (pair.second() == null) {
                     return null;

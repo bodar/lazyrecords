@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords;
 
-import com.googlecode.totallylazy.Function;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.Predicate;
 import com.googlecode.totallylazy.Sequence;
@@ -32,8 +32,8 @@ public abstract class AbstractRecords implements Records {
         return records.map(update(definition, true)).reduce(sum());
     }
 
-    protected Function<Pair<? extends Predicate<? super Record>, Record>, Number> update(final Definition definition, final boolean add) {
-        return new Function<Pair<? extends Predicate<? super Record>, Record>, Number>() {
+    protected Function1<Pair<? extends Predicate<? super Record>, Record>, Number> update(final Definition definition, final boolean add) {
+        return new Function1<Pair<? extends Predicate<? super Record>, Record>, Number>() {
             public Number call(Pair<? extends Predicate<? super Record>, Record> pair) throws Exception {
                 Predicate<? super Record> predicate = pair.first();
                 Sequence<Record> matched = get(definition).filter(predicate).realise();

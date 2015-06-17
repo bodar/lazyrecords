@@ -12,16 +12,16 @@ import static com.googlecode.totallylazy.Sequences.sequence;
 import static java.lang.String.format;
 
 public class Expressions {
-    public static Function<? super Expression, Iterable<Object>> parameters() {
-        return new Function<Expression, Iterable<Object>>() {
+    public static Function1<? super Expression, Iterable<Object>> parameters() {
+        return new Function1<Expression, Iterable<Object>>() {
             public Iterable<Object> call(Expression expression) throws Exception {
                 return expression.parameters();
             }
         };
     }
 
-    public static Function<? super Expression, String> text() {
-        return new Function<Expression, String>() {
+    public static Function1<? super Expression, String> text() {
+        return new Function1<Expression, String>() {
             public String call(Expression expression) throws Exception {
                 return expression.text();
             }

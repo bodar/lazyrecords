@@ -1,17 +1,9 @@
 package com.googlecode.lazyrecords.memory;
 
-import com.googlecode.lazyrecords.AbstractRecords;
-import com.googlecode.lazyrecords.Definition;
-import com.googlecode.lazyrecords.Keyword;
+import com.googlecode.lazyrecords.*;
 import com.googlecode.lazyrecords.Record;
-import com.googlecode.lazyrecords.SourceRecord;
 import com.googlecode.lazyrecords.mappings.StringMappings;
-import com.googlecode.totallylazy.Function1;
-import com.googlecode.totallylazy.Callables;
-import com.googlecode.totallylazy.Pair;
-import com.googlecode.totallylazy.Predicate;
-import com.googlecode.totallylazy.Sequence;
-import com.googlecode.totallylazy.Value;
+import com.googlecode.totallylazy.*;
 
 import java.util.List;
 import java.util.Map;
@@ -40,7 +32,7 @@ public class MemoryRecords extends AbstractRecords {
     }
 
     private List<Map<String, String>> recordsFor(Definition definition) {
-        data.putIfAbsent(definition.name(), new CopyOnWriteArrayList<Map<String, String>>());
+        data.putIfAbsent(definition.name(), new CopyOnWriteArrayList<>());
         return data.get(definition.name());
     }
 
@@ -69,38 +61,18 @@ public class MemoryRecords extends AbstractRecords {
     }
 
     private Function1<Map<String, String>, Record> asRecord(final Definition definition) {
-        return new Function1<Map<String, String>, Record>() {
-            @Override
-            public Record call(Map<String, String> data) throws Exception {
-                return SourceRecord.record(data, definition.fields().map(values(data)));
-            }
-        };
+        return data1 -> SourceRecord.record(data1, definition.fields().map(values(data1)));
     }
 
     private Function1<Keyword<?>, Pair<Keyword<?>, Object>> values(final Map<String, String> map) {
-        return new Function1<Keyword<?>, Pair<Keyword<?>, Object>>() {
-            @Override
-            public Pair<Keyword<?>, Object> call(Keyword<?> keyword) throws Exception {
-                return Pair.<Keyword<?>, Object>pair(keyword, mappings.toValue(keyword.forClass(), map.get(keyword.name())));
-            }
-        };
+        return keyword -> Pair.<Keyword<?>, Object>pair(keyword, mappings.toValue(keyword.forClass(), map.get(keyword.name())));
     }
 
     private Function1<Record, Map<String, String>> asMap(final Definition definition) {
-        return new Function1<Record, Map<String, String>>() {
-            @Override
-            public Map<String, String> call(Record record) throws Exception {
-                return map(definition.fields().map(values(record)));
-            }
-        };
+        return record -> map(definition.fields().map(values(record)));
     }
 
     private Function1<Keyword<?>, Pair<String, String>> values(final Record record) {
-        return new Function1<Keyword<?>, Pair<String, String>>() {
-            @Override
-            public Pair<String, String> call(Keyword<?> keyword) throws Exception {
-                return Pair.pair(keyword.name(), mappings.toString(keyword.forClass(), record.get(keyword)));
-            }
-        };
+        return keyword -> Pair.pair(keyword.name(), mappings.toString(keyword.forClass(), record.get(keyword)));
     }
 }

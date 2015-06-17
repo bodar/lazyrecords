@@ -1,9 +1,9 @@
 package com.googlecode.lazyrecords;
 
-import com.googlecode.totallylazy.Function;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Sequence;
 
-public class ReducingRecordsMapper extends Function<Sequence<Record>, Record> {
+public class ReducingRecordsMapper implements Function1<Sequence<Record>, Record> {
     private Aggregates aggregates;
 
     public ReducingRecordsMapper(Aggregates aggregates) {

@@ -10,7 +10,7 @@ import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.lucene.mappings.LuceneMappings;
 import com.googlecode.totallylazy.collections.CloseableList;
 import com.googlecode.totallylazy.Function0;
-import com.googlecode.totallylazy.Function;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.LazyException;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.Predicate;
@@ -109,8 +109,8 @@ public class LuceneRecords extends AbstractRecords implements Queryable<Query>, 
         });
     }
 
-    private Function<Pair<? extends Predicate<? super Record>, Record>, Number> update(final Definition definition) {
-        return new Function<Pair<? extends Predicate<? super Record>, Record>, Number>() {
+    private Function1<Pair<? extends Predicate<? super Record>, Record>, Number> update(final Definition definition) {
+        return new Function1<Pair<? extends Predicate<? super Record>, Record>, Number>() {
             public Number call(Pair<? extends Predicate<? super Record>, Record> pair) throws Exception {
                 Predicate<? super Record> predicate = pair.first();
                 Sequence<Record> matched = getAll(definition).filter(predicate).realise();

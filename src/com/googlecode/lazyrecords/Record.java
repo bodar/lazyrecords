@@ -118,12 +118,12 @@ public interface Record {
             };
         }
 
-        public static Function<Record, Record> merge(final Record other) {
+        public static Function1<Record, Record> merge(final Record other) {
             return merge(other.fields());
         }
 
-        public static Function<Record, Record> merge(final Sequence<Pair<Keyword<?>, Object>> fields) {
-            return new Function<Record, Record>() {
+        public static Function1<Record, Record> merge(final Sequence<Pair<Keyword<?>, Object>> fields) {
+            return new Function1<Record, Record>() {
                 public Record call(Record record) throws Exception {
                     return fields.fold(record, updateValues());
                 }
@@ -138,8 +138,8 @@ public interface Record {
             };
         }
 
-        public static Function<Keyword<?>, Object> getFrom(final Record record) {
-            return new Function<Keyword<?>, Object>() {
+        public static Function1<Keyword<?>, Object> getFrom(final Record record) {
+            return new Function1<Keyword<?>, Object>() {
                 public Object call(Keyword<?> keyword) throws Exception {
                     return record.get(keyword);
                 }

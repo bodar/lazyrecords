@@ -9,7 +9,7 @@ import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.ToRecord;
 import com.googlecode.lazyrecords.mappings.StringMappings;
-import com.googlecode.totallylazy.Function;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Curried2;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.Sequence;
@@ -66,8 +66,8 @@ public class SimpleDBMappings {
         };
     }
 
-    public Function<Pair<Keyword<?>, Object>, ReplaceableAttribute> asAttribute() {
-        return new Function<Pair<Keyword<?>, Object>, ReplaceableAttribute>() {
+    public Function1<Pair<Keyword<?>, Object>, ReplaceableAttribute> asAttribute() {
+        return new Function1<Pair<Keyword<?>, Object>, ReplaceableAttribute>() {
             public ReplaceableAttribute call(Pair<Keyword<?>, Object> pair) throws Exception {
                 Keyword<?> keyword = pair.first();
                 Object value = pair.second();

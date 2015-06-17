@@ -4,7 +4,6 @@ import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Callables;
 import com.googlecode.totallylazy.CombinerFunction;
 import com.googlecode.totallylazy.FirstCombiner;
-import com.googlecode.totallylazy.Function;
 import com.googlecode.totallylazy.LastCombiner;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.Predicate;
@@ -364,7 +363,7 @@ public class Grammar {
         return Strings.endsWith(value);
     }
 
-    public static Function<Sequence<Record>, Record> reduce(final Aggregates aggregates) {
+    public static Function1<Sequence<Record>, Record> reduce(final Aggregates aggregates) {
         return new ReducingRecordsMapper(aggregates);
     }
 

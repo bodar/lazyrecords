@@ -7,7 +7,7 @@ import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.sql.expressions.Expression;
 import com.googlecode.lazyrecords.sql.mappings.SqlMappings;
 import com.googlecode.totallylazy.Callables;
-import com.googlecode.totallylazy.Function;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Lazy;
 import com.googlecode.totallylazy.LazyException;
 import com.googlecode.totallylazy.Maps;
@@ -68,7 +68,7 @@ public class SqlIterator extends StatefulIterator<Record> implements Closeable {
             @Override
             protected Sequence<Pair<Integer, Keyword<Object>>> get() throws Exception {
                 final ResultSetMetaData metaData = resultSet.value().getMetaData();
-                return range(1).take(metaData.getColumnCount()).safeCast(Integer.class).map(new Function<Integer, Pair<Integer, Keyword<Object>>>() {
+                return range(1).take(metaData.getColumnCount()).safeCast(Integer.class).map(new Function1<Integer, Pair<Integer, Keyword<Object>>>() {
                     @Override
                     public Pair<Integer, Keyword<Object>> call(Integer index) throws Exception {
                         final String name = metaData.getColumnLabel(index);
@@ -88,7 +88,7 @@ public class SqlIterator extends StatefulIterator<Record> implements Closeable {
             return finished();
         }
 
-        return record(keywords.value().map(new Function<Pair<Integer, Keyword<Object>>, Pair<Keyword<Object>, Object>>() {
+        return record(keywords.value().map(new Function1<Pair<Integer, Keyword<Object>>, Pair<Keyword<Object>, Object>>() {
             @Override
             public Pair<Keyword<Object>, Object> call(Pair<Integer, Keyword<Object>> pair) throws Exception {
                 Keyword<Object> keyword = pair.second();

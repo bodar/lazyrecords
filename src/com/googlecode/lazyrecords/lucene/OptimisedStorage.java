@@ -109,8 +109,8 @@ public class OptimisedStorage implements LuceneStorage {
         return new NIOFSDirectory(file);
     }
 
-    public static Curried2<Directory, Directory, Void> copy(final Collection<String> strings) {
-        return new Curried2<Directory, Directory, Void>() {
+    public static CurriedFunction2<Directory, Directory, Void> copy(final Collection<String> strings) {
+        return new CurriedFunction2<Directory, Directory, Void>() {
             @Override
             public Void call(Directory source, Directory destination) throws Exception {
                 copy(source, destination, strings);

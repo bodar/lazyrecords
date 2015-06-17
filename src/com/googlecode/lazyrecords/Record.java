@@ -96,8 +96,8 @@ public interface Record {
     }
 
     public static final class functions {
-        public static Curried2<Record, Pair<Keyword<?>, Object>, Record> updateValues() {
-            return new Curried2<Record, Pair<Keyword<?>, Object>, Record>() {
+        public static CurriedFunction2<Record, Pair<Keyword<?>, Object>, Record> updateValues() {
+            return new CurriedFunction2<Record, Pair<Keyword<?>, Object>, Record>() {
                 public Record call(Record record, Pair<Keyword<?>, Object> field) throws Exception {
                     return record.set(Unchecked.<Keyword<Object>>cast(field.first()), field.second());
                 }
@@ -170,8 +170,8 @@ public interface Record {
             };
         }
 
-        public static Curried2<Map<String, Object>, Pair<Keyword<?>, Object>, Map<String, Object>> intoMap() {
-            return new Curried2<Map<String, Object>, Pair<Keyword<?>, Object>, Map<String, Object>>() {
+        public static CurriedFunction2<Map<String, Object>, Pair<Keyword<?>, Object>, Map<String, Object>> intoMap() {
+            return new CurriedFunction2<Map<String, Object>, Pair<Keyword<?>, Object>, Map<String, Object>>() {
                 public Map<String, Object> call(Map<String, Object> map, Pair<Keyword<?>, Object> pair) throws Exception {
                     map.put(pair.first().toString(), pair.second());
                     return map;

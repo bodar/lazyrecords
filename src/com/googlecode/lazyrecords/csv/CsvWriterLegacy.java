@@ -4,7 +4,7 @@ import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.RecordTo;
 import com.googlecode.totallylazy.Function1;
-import com.googlecode.totallylazy.Curried2;
+import com.googlecode.totallylazy.CurriedFunction2;
 import com.googlecode.totallylazy.Iterators;
 import com.googlecode.totallylazy.Option;
 import com.googlecode.totallylazy.Sequence;
@@ -22,8 +22,8 @@ public class CsvWriterLegacy {
         Iterators.fold(Iterators.cons(headers(fields), Iterators.map(records, rowToString(fields))), writer, writeLine());
     }
 
-    private static Curried2<Writer, String, Writer> writeLine() {
-        return new Curried2<Writer, String, Writer>() {
+    private static CurriedFunction2<Writer, String, Writer> writeLine() {
+        return new CurriedFunction2<Writer, String, Writer>() {
             @Override
             public Writer call(Writer writer, String line) throws Exception {
                 return writer.append(line).append(ROW_SEPARATOR);

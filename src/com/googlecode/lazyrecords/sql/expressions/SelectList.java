@@ -1,7 +1,7 @@
 package com.googlecode.lazyrecords.sql.expressions;
 
 import com.googlecode.lazyrecords.Keyword;
-import com.googlecode.totallylazy.Mapper;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Sequences;
 
@@ -17,7 +17,7 @@ public interface SelectList extends Expression {
         }
 
         public static Sequence<Keyword<?>> fields(final Sequence<DerivedColumn> columns) {
-            return columns.flatMap(new Mapper<DerivedColumn, Sequence<Keyword<?>>>() {
+            return columns.flatMap(new Function1<DerivedColumn, Sequence<Keyword<?>>>() {
                 @Override
                 public Sequence<Keyword<?>> call(final DerivedColumn column) throws Exception {
                     if (!column.asClause().isEmpty())
@@ -27,8 +27,8 @@ public interface SelectList extends Expression {
             });
         }
 
-        private static Mapper<ColumnReference, Keyword<?>> asKeyword(final DerivedColumn column) {
-            return new Mapper<ColumnReference, Keyword<?>>() {
+        private static Function1<ColumnReference, Keyword<?>> asKeyword(final DerivedColumn column) {
+            return new Function1<ColumnReference, Keyword<?>>() {
                 @Override
                 public Keyword<?> call(final ColumnReference columnReference) throws Exception {
                     return keyword(removeQuotes(columnReference.name()), column.forClass());

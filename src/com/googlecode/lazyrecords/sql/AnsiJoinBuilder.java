@@ -13,7 +13,7 @@ import com.googlecode.lazyrecords.sql.expressions.SelectList;
 import com.googlecode.lazyrecords.sql.expressions.WhereClause;
 import com.googlecode.lazyrecords.sql.grammars.AnsiSqlGrammar;
 import com.googlecode.lazyrecords.sql.grammars.SqlGrammar;
-import com.googlecode.totallylazy.Mapper;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Maps;
 import com.googlecode.totallylazy.Predicate;
 import com.googlecode.totallylazy.Reducer;
@@ -27,7 +27,6 @@ import static com.googlecode.lazyrecords.sql.expressions.AnsiSelectBuilder.from;
 import static com.googlecode.lazyrecords.sql.expressions.DerivedColumn.methods.columnReferences;
 import static com.googlecode.lazyrecords.sql.expressions.GroupByClause.functions.groups;
 import static com.googlecode.lazyrecords.sql.expressions.SelectBuilder.aggregates;
-import static com.googlecode.totallylazy.Option.some;
 import static com.googlecode.totallylazy.Sequences.empty;
 import static com.googlecode.totallylazy.Sequences.sequence;
 
@@ -149,8 +148,8 @@ public class AnsiJoinBuilder implements ExpressionBuilder {
         return Qualifier.qualifier("ignored", lookup(existingQualifiers()));
     }
 
-    private Mapper<String, String> lookup(final Map<String, String> existingNames) {
-        return new Mapper<String, String>() {
+    private Function1<String, String> lookup(final Map<String, String> existingNames) {
+        return new Function1<String, String>() {
             @Override
             public String call(final String column) throws Exception {
                 return existingNames.get(column);
@@ -160,7 +159,7 @@ public class AnsiJoinBuilder implements ExpressionBuilder {
 
     private Map<String, String> existingQualifiers() {
         final Sequence<DerivedColumn> interestedColumns = expression.selectList().derivedColumns().join(expression.groupByClause().map(groups).getOrElse(empty(DerivedColumn.class)));
-        return Maps.mapValues(interestedColumns.toMap(name()), new Mapper<List<DerivedColumn>, String>() {
+        return Maps.mapValues(interestedColumns.toMap(name()), new Function1<List<DerivedColumn>, String>() {
             @Override
             public String call(final List<DerivedColumn> columns) throws Exception {
                 return columnReferences(columns.get(0)).head().qualifier().get();
@@ -168,8 +167,8 @@ public class AnsiJoinBuilder implements ExpressionBuilder {
         });
     }
 
-    private Mapper<DerivedColumn, String> name() {
-        return new Mapper<DerivedColumn, String>() {
+    private Function1<DerivedColumn, String> name() {
+        return new Function1<DerivedColumn, String>() {
             @Override
             public String call(final DerivedColumn column) throws Exception {
                 return name(column);

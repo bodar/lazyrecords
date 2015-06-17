@@ -11,7 +11,6 @@ import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.RecordTo;
 import com.googlecode.lazyrecords.sql.expressions.*;
 import com.googlecode.totallylazy.Function1;
-import com.googlecode.totallylazy.Mapper;
 import com.googlecode.totallylazy.Option;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.Predicate;
@@ -81,8 +80,8 @@ public interface SqlGrammar {
 
 
     class functions {
-        public static Mapper<Predicate<? super Record>, WhereClause> whereClause(final SqlGrammar grammar) {
-            return new Mapper<Predicate<? super Record>, WhereClause>() {
+        public static Function1<Predicate<? super Record>, WhereClause> whereClause(final SqlGrammar grammar) {
+            return new Function1<Predicate<? super Record>, WhereClause>() {
                 @Override
                 public WhereClause call(Predicate<? super Record> recordPredicate) throws Exception {
                     return grammar.whereClause(recordPredicate);
@@ -106,16 +105,16 @@ public interface SqlGrammar {
             };
         }
 
-        public static Mapper<Keyword<?>, DerivedColumn> derivedColumn(final SqlGrammar grammar) {
-            return new Mapper<Keyword<?>, DerivedColumn>() {
+        public static Function1<Keyword<?>, DerivedColumn> derivedColumn(final SqlGrammar grammar) {
+            return new Function1<Keyword<?>, DerivedColumn>() {
                 public DerivedColumn call(Keyword<?> keyword) throws Exception {
                     return grammar.derivedColumn(keyword);
                 }
             };
         }
 
-        public static Mapper<? super Comparator<? super Record>,OrderByClause> orderByClause(final SqlGrammar grammar) {
-            return new Mapper<Comparator<? super Record>, OrderByClause>() {
+        public static Function1<? super Comparator<? super Record>,OrderByClause> orderByClause(final SqlGrammar grammar) {
+            return new Function1<Comparator<? super Record>, OrderByClause>() {
                 @Override
                 public OrderByClause call(Comparator<? super Record> comparator) throws Exception {
                     return grammar.orderByClause(comparator);
@@ -123,8 +122,8 @@ public interface SqlGrammar {
             };
         }
 
-        public static Mapper<? super Sequence<? extends Keyword<?>>,GroupByClause> groupByClause(final SqlGrammar grammar) {
-            return new Mapper<Sequence<? extends Keyword<?>>, GroupByClause>() {
+        public static Function1<? super Sequence<? extends Keyword<?>>,GroupByClause> groupByClause(final SqlGrammar grammar) {
+            return new Function1<Sequence<? extends Keyword<?>>, GroupByClause>() {
                 @Override
                 public GroupByClause call(Sequence<? extends Keyword<?>> groups) throws Exception {
                     return grammar.groupByClause(groups);

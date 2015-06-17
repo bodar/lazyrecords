@@ -181,8 +181,8 @@ public interface Record {
             return keywords;
         }
 
-        public static <T> Mapper<T, Record> set(final Record record, final Keyword<T> keyword) {
-            return new Mapper<T, Record>() {
+        public static <T> Function1<T, Record> set(final Record record, final Keyword<T> keyword) {
+            return new Function1<T, Record>() {
                 @Override
                 public Record call(T value) throws Exception {
                     return record.set(keyword, value);

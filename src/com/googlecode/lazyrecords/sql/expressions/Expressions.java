@@ -36,8 +36,8 @@ public class Expressions {
         return TableName.tableName(definition.name(), definition.metadata(qualifier));
     }
 
-    public static Mapper<Keyword<?>, ColumnReference> columnReference() {
-        return new Mapper<Keyword<?>, ColumnReference>() {
+    public static Function1<Keyword<?>, ColumnReference> columnReference() {
+        return new Function1<Keyword<?>, ColumnReference>() {
             @Override
             public ColumnReference call(Keyword<?> keyword) throws Exception {
                 return columnReference(keyword);
@@ -62,7 +62,7 @@ public class Expressions {
         }
     };
 
-    public static Mapper<String, TextOnlyExpression> quotedText = new Mapper<String, TextOnlyExpression>() {
+    public static Function1<String, TextOnlyExpression> quotedText = new Function1<String, TextOnlyExpression>() {
         @Override
         public TextOnlyExpression call(String value) throws Exception {
             return quotedText(value);

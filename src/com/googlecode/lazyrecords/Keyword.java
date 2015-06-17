@@ -48,17 +48,17 @@ public interface Keyword<T> extends Named, Metadata<Keyword<T>>, Function1<Recor
     }
 
     class functions {
-        public static Mapper<Keyword<?>, String> name = new Mapper<Keyword<?>, String>() {
+        public static Function1<Keyword<?>, String> name = new Function1<Keyword<?>, String>() {
             @Override
             public String call(Keyword<?> keyword) throws Exception {
                 return keyword.name();
             }
         };
 
-        public static Mapper<Keyword<?>, String> name() { return name; }
+        public static Function1<Keyword<?>, String> name() { return name; }
 
-        public static <T> Mapper<Keyword<?>, T> metadata(final Keyword<T> metadataKey) {
-            return new Mapper<Keyword<?>, T>() {
+        public static <T> Function1<Keyword<?>, T> metadata(final Keyword<T> metadataKey) {
+            return new Function1<Keyword<?>, T>() {
                 public T call(Keyword<?> keyword) throws Exception {
                     return keyword.metadata().get(metadataKey);
                 }

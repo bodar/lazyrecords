@@ -8,7 +8,7 @@ import com.googlecode.lazyrecords.lucene.mappings.LuceneMappings;
 import com.googlecode.lazyrecords.mappings.StringMappings;
 import com.googlecode.totallylazy.Function2;
 import com.googlecode.totallylazy.Group;
-import com.googlecode.totallylazy.Mapper;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.Predicate;
 import com.googlecode.totallylazy.Sequence;
@@ -61,7 +61,7 @@ public class LuceneFacetedRecords implements FacetedRecords {
         final DrillDownQuery drillDownQuery = drillDownQuery(processedQuery, drillDowns);
         final DrillSidewaysResult drillSidewaysResult = drillSideways.search(drillDownQuery, new TotalHitCountCollector());
 
-        return facetsRequests.map(new Mapper<Pair<Keyword<?>, Integer>, Facet<FacetEntry>>() {
+        return facetsRequests.map(new Function1<Pair<Keyword<?>, Integer>, Facet<FacetEntry>>() {
             @Override
             public Facet<FacetEntry> call(Pair<Keyword<?>, Integer> facetRequest) throws Exception {
                 final FacetResult facetResult = drillSidewaysResult.facets.getTopChildren(facetRequest.second(), facetRequest.first().name());
@@ -88,8 +88,8 @@ public class LuceneFacetedRecords implements FacetedRecords {
         });
     }
 
-    private Mapper<LabelAndValue, FacetEntry> toLabelAndCountPair(final Keyword<?> facetKeyword) {
-        return new Mapper<LabelAndValue, FacetEntry>() {
+    private Function1<LabelAndValue, FacetEntry> toLabelAndCountPair(final Keyword<?> facetKeyword) {
+        return new Function1<LabelAndValue, FacetEntry>() {
             @Override
             public FacetEntry call(LabelAndValue labelAndValue) throws Exception {
                 return FacetEntry.facetEntry(stringMappings.toValue(facetKeyword.forClass(), labelAndValue.label), labelAndValue.value);

@@ -74,7 +74,7 @@ public class STMRecords extends AbstractRecords implements Transaction {
 
                 final int[] count = {0};
 
-                PersistentList<PersistentMap<String, String>> result = table.map(new Mapper<PersistentMap<String, String>, PersistentMap<String, String>>() {
+                PersistentList<PersistentMap<String, String>> result = table.map(new Function1<PersistentMap<String, String>, PersistentMap<String, String>>() {
                     @Override
                     public PersistentMap<String, String> call(PersistentMap<String, String> row) throws Exception {
                         for (Pair<? extends Predicate<? super Record>, Record> pair : records) {

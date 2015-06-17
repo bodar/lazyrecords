@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords.sql.expressions;
 
 import com.googlecode.lazyrecords.Keywords;
 import com.googlecode.lazyrecords.Metadata;
-import com.googlecode.totallylazy.Mapper;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Option;
 
 import static com.googlecode.lazyrecords.sql.expressions.Expressions.expression;
@@ -42,7 +42,7 @@ public class AnsiAsClause extends CompoundExpression implements AsClause {
     }
 
     public static class functions {
-        public static Mapper<String, AsClause> asClause = new Mapper<String, AsClause>() {
+        public static Function1<String, AsClause> asClause = new Function1<String, AsClause>() {
             @Override
             public AsClause call(String s) throws Exception {
                 return asClause(s);

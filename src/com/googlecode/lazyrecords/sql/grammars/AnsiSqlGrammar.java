@@ -160,7 +160,7 @@ public class AnsiSqlGrammar implements SqlGrammar {
         return comparator.comparators().flatMap(sortSpecification);
     }
 
-    public Mapper<Comparator<? super Record>, Sequence<SortSpecification>> sortSpecification = new Mapper<Comparator<? super Record>, Sequence<SortSpecification>>() {
+    public Function1<Comparator<? super Record>, Sequence<SortSpecification>> sortSpecification = new Function1<Comparator<? super Record>, Sequence<SortSpecification>>() {
         @Override
         public Sequence<SortSpecification> call(Comparator<? super Record> comparator) throws Exception {
             return sortSpecification(comparator);
@@ -226,8 +226,8 @@ public class AnsiSqlGrammar implements SqlGrammar {
         return predicate.map(whereClause());
     }
 
-    public Mapper<Predicate<? super Record>, WhereClause> whereClause() {
-        return new Mapper<Predicate<? super Record>, WhereClause>() {
+    public Function1<Predicate<? super Record>, WhereClause> whereClause() {
+        return new Function1<Predicate<? super Record>, WhereClause>() {
             public WhereClause call(Predicate<? super Record> predicate) throws Exception {
                 return whereClause(predicate);
             }
@@ -317,7 +317,7 @@ public class AnsiSqlGrammar implements SqlGrammar {
         return predicates.map(toSql);
     }
 
-    public Mapper<Predicate<?>, Expression> toSql = new Mapper<Predicate<?>, Expression>() {
+    public Function1<Predicate<?>, Expression> toSql = new Function1<Predicate<?>, Expression>() {
         public Expression call(Predicate<?> predicate) throws Exception {
             return toSql(predicate);
         }

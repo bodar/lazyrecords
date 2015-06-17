@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords.sql.expressions;
 
-import com.googlecode.totallylazy.Mapper;
+import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Option;
 
 public interface AsClause extends Expression {
@@ -10,8 +10,8 @@ public interface AsClause extends Expression {
     String alias();
 
     public static class functions {
-        public static Mapper<AsClause, String> alias() {
-            return new Mapper<AsClause, String>() {
+        public static Function1<AsClause, String> alias() {
+            return new Function1<AsClause, String>() {
                 @Override
                 public String call(AsClause asClause) throws Exception {
                     return asClause.alias();

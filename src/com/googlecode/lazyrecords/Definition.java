@@ -4,12 +4,9 @@ import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Callables;
 import com.googlecode.totallylazy.Fields;
 import com.googlecode.totallylazy.First;
-import com.googlecode.totallylazy.Mapper;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Unchecked;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 import static com.googlecode.lazyrecords.Definition.constructors.definition;
@@ -75,25 +72,25 @@ public interface Definition extends Named, Metadata<Definition>, Comparable<Defi
             return record -> methods.sortFields(definition, record);
         }
 
-        public static Mapper<Definition, Sequence<Keyword<?>>> fields = new Mapper<Definition, Sequence<Keyword<?>>>() {
+        public static Function1<Definition, Sequence<Keyword<?>>> fields = new Function1<Definition, Sequence<Keyword<?>>>() {
             @Override
             public Sequence<Keyword<?>> call(Definition definition) throws Exception {
                 return definition.fields();
             }
         };
 
-        public static Mapper<Definition, Sequence<Keyword<?>>> fields() {
+        public static Function1<Definition, Sequence<Keyword<?>>> fields() {
             return fields;
         }
 
-        public static Mapper<Named, String> name = new Mapper<Named, String>() {
+        public static Function1<Named, String> name = new Function1<Named, String>() {
             @Override
             public String call(Named definition) throws Exception {
                 return definition.name();
             }
         };
 
-        public static Mapper<Named, String> name() {
+        public static Function1<Named, String> name() {
             return name;
         }
     }

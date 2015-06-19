@@ -3,7 +3,6 @@ package com.googlecode.lazyrecords.sql.expressions;
 import com.googlecode.lazyrecords.sql.grammars.OracleGrammar;
 import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Option;
-import com.googlecode.totallylazy.Unary;
 import com.googlecode.totallylazy.UnaryFunction;
 import com.googlecode.totallylazy.Unchecked;
 import com.googlecode.totallylazy.annotations.multimethod;
@@ -22,7 +21,7 @@ public class Qualifier extends AbstractQualifier {
 
     protected Qualifier(final String tableAlias, Function1<? super String, String> qualified) {
         this.tableAlias = tableAlias;
-        this.qualified = Unary.constructors.unary(Unchecked.<Function1<String, String>>cast(qualified));
+        this.qualified = qualified::call;
     }
 
     public static Qualifier qualifier(final String name) {
@@ -84,12 +83,9 @@ public class Qualifier extends AbstractQualifier {
     }
 
     private Function1<String, Option<Qualifier>> columnQualifier(final UnaryFunction<String> qualified) {
-        return new Function1<String, Option<Qualifier>>() {
-            @Override
-            public Option<Qualifier> call(String columnAlias) throws Exception {
-                final Option<String> resolvedQualifier = option(qualified.apply(columnAlias));
-                return resolvedQualifier.isDefined() ? some(qualifier(resolvedQualifier.get())) : none(Qualifier.class);
-            }
+        return columnAlias -> {
+            final Option<String> resolvedQualifier = option(qualified.apply(columnAlias));
+            return resolvedQualifier.isDefined() ? some(qualifier(resolvedQualifier.get())) : none(Qualifier.class);
         };
     }
 
@@ -98,21 +94,12 @@ public class Qualifier extends AbstractQualifier {
     }
 
     @multimethod public OrderByClause qualify(OrderByClause orderByClause){
-        return AnsiOrderByClause.orderByClause(orderByClause.sortSpecifications().map(new Function1<SortSpecification, SortSpecification>() {
-            @Override
-            public SortSpecification call(SortSpecification value) throws Exception {
-                return AnsiSortSpecification.sortSpecification(qualify(value.sortKey()), value.orderingSpecification());
-            }
-        }));
+        return AnsiOrderByClause.orderByClause(orderByClause.sortSpecifications().
+                map(value -> AnsiSortSpecification.sortSpecification(qualify(value.sortKey()), value.orderingSpecification())));
     }
 
     @multimethod public GroupByClause qualify(GroupByClause groupByClause){
-        return AnsiGroupByClause.groupByClause(groupByClause.groups().map(new Unary<DerivedColumn>() {
-            @Override
-            public DerivedColumn call(DerivedColumn expression) throws Exception {
-                return qualify(expression);
-            }
-        }));
+        return AnsiGroupByClause.groupByClause(groupByClause.groups().map(Qualifier.this::qualify));
     }
 
 }

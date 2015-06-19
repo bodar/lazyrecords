@@ -18,11 +18,6 @@ public abstract class AbstractQualifier {
     }
 
     private <T extends Expression> UnaryFunction<T> qualify() {
-        return new UnaryFunction<T>() {
-            @Override
-            public T call(T expression) throws Exception {
-                return qualify(expression);
-            }
-        };
+        return AbstractQualifier.this::qualify;
     }
 }

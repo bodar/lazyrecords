@@ -74,19 +74,11 @@ public class StringMappings {
 
     public static class functions {
         public static UnaryFunction<Record> fromString(final StringMappings mappings, final Iterable<? extends Keyword<?>> keywords) {
-            return new UnaryFunction<Record>() {
-                @Override
-                public Record call(Record record) throws Exception {
-                    return sequence(keywords).fold(record, new CurriedFunction2<Record, Keyword<?>, Record>() {
-                        @Override
-                        public Record call(Record record, Keyword<?> keyword) throws Exception {
-                            String raw = record.get(keyword(keyword.name(), String.class));
-                            Object value = mappings.toValue(keyword.forClass(), raw);
-                            return record.set(keyword(keyword.name()), value);
-                        }
-                    });
-                }
-            };
+            return record -> sequence(keywords).fold(record, (accumulator, keyword) -> {
+                String raw = accumulator.get(keyword(keyword.name(), String.class));
+                Object value = mappings.toValue(keyword.forClass(), raw);
+                return accumulator.set(keyword(keyword.name()), value);
+            });
         }
 
     }

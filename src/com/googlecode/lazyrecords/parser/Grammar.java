@@ -125,7 +125,7 @@ public class Grammar {
     public static final Parser<Pair<String, Function1<Object, Predicate>>> TEXT_CONTAINS = TEXT_ONLY.between(WILDCARD, WILDCARD).
             map(valueAndPredicateCreator(value -> contains(value.toString())));
 
-    static Parser<Unary<Predicate<Record>>> NEGATION = ws('-').or(ws("NOT")).
+    static Parser<UnaryFunction<Predicate<Record>>> NEGATION = ws('-').or(ws("NOT")).
             map(ignore -> Predicates::not);
 
     public static final Parser<Pair<String, Function1<Object, Predicate>>> DATE_IS = DATE.map(valueAndPredicateCreator(o -> {

@@ -24,7 +24,7 @@ public interface Record {
 
     <T> Sequence<T> valuesFor(Sequence<? extends Keyword<? extends T>> keywords);
 
-    public static final class constructors {
+    final class constructors {
         public static Record record() {
             return new PersistentRecord();
         }

@@ -41,13 +41,10 @@ public class TaxonomyFacetedLuceneStorage extends DelegatingStorage implements F
 
     @Override
     public Number add(Sequence<Document> documents) throws IOException {
-        final Sequence<Document> facetedDocuments = documents.map(new UnaryFunction<Document>() {
-            @Override
-            public Document call(Document document) throws Exception {
-                final Document facetedDocument = sequence(document.getFields()).fold(new Document(), withFacetFields());
-                final DirectoryTaxonomyWriter taxonomyWriter = Callers.call(lazyTaxonomyWriter);
-                return facetsConfig.build(taxonomyWriter, facetedDocument);
-            }
+        final Sequence<Document> facetedDocuments = documents.map(document -> {
+            final Document facetedDocument = sequence(document.getFields()).fold(new Document(), withFacetFields());
+            final DirectoryTaxonomyWriter taxonomyWriter = Callers.call(lazyTaxonomyWriter);
+            return facetsConfig.build(taxonomyWriter, facetedDocument);
         }).realise();
 
         return storage.add(facetedDocuments);

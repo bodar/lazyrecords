@@ -59,12 +59,7 @@ public class PooledValue implements Closeable {
     }
 
     public static Block<PooledValue> markAsDirty() {
-        return new Block<PooledValue>() {
-            @Override
-            public void execute(PooledValue pooledValue) throws Exception {
-                pooledValue.dirty(true);
-            }
-        };
+        return pooledValue -> pooledValue.dirty(true);
     }
 
     @Override

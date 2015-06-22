@@ -39,15 +39,13 @@ public class XmlSequence extends Sequence<Record> {
     }
 
     private Function2<Record, Keyword<?>, Record> populateFrom(final Node node) {
-        return new Function2<Record, Keyword<?>, Record>() {
-            public Record call(Record nodeRecord, Keyword<?> keyword) throws Exception {
-                Sequence<Node> nodes = Xml.selectNodes(node, xpath(keyword));
-                if (nodes.isEmpty()) {
-                    return nodeRecord;
-                }
-                Object value = mappings.get(keyword.forClass()).from(nodes);
-                return nodeRecord.set(keyword(keyword), value);
+        return (nodeRecord, keyword) -> {
+            Sequence<Node> nodes1 = Xml.selectNodes(node, xpath(keyword));
+            if (nodes1.isEmpty()) {
+                return nodeRecord;
             }
+            Object value = mappings.get(keyword.forClass()).from(nodes1);
+            return nodeRecord.set(keyword(keyword), value);
         };
     }
 

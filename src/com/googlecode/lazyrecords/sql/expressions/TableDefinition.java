@@ -21,11 +21,7 @@ public class TableDefinition extends TextOnlyExpression {
     }
 
     public static Function1<? super Keyword<?>, String> asColumn(final Map<Class, String> mappings) {
-        return new Function1<Keyword<?>, String>() {
-            public String call(Keyword<?> keyword) throws Exception {
-                return format("%s %s", Expressions.columnReference(keyword), type(keyword.forClass(), mappings));
-            }
-        };
+        return keyword -> format("%s %s", Expressions.columnReference(keyword), type(keyword.forClass(), mappings));
     }
 
     public static String type(Class<?> aClass, Map<Class, String> mappings) {

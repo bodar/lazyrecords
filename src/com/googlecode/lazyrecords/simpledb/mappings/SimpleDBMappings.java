@@ -48,11 +48,9 @@ public class SimpleDBMappings {
     }
 
     public CurriedFunction2<Record, Attribute, Record> asField(final Sequence<Keyword<?>> definitions) {
-        return new CurriedFunction2<Record, Attribute, Record>() {
-            public Record call(Record mapRecord, Attribute attribute) throws Exception {
-                Keyword<?> keyword = Keyword.methods.matchKeyword(attribute.getName(), definitions);
-                return mapRecord.set(Unchecked.<Keyword<Object>>cast(keyword), stringMappings.toValue(keyword.forClass(), attribute.getValue()));
-            }
+        return (mapRecord, attribute) -> {
+            Keyword<?> keyword = Keyword.methods.matchKeyword(attribute.getName(), definitions);
+            return mapRecord.set(Unchecked.<Keyword<Object>>cast(keyword), stringMappings.toValue(keyword.forClass(), attribute.getValue()));
         };
     }
 
@@ -67,13 +65,11 @@ public class SimpleDBMappings {
     }
 
     public Function1<Pair<Keyword<?>, Object>, ReplaceableAttribute> asAttribute() {
-        return new Function1<Pair<Keyword<?>, Object>, ReplaceableAttribute>() {
-            public ReplaceableAttribute call(Pair<Keyword<?>, Object> pair) throws Exception {
-                Keyword<?> keyword = pair.first();
-                Object value = pair.second();
-                String valueAsString = SimpleDBMappings.this.stringMappings.toString(Unchecked.<Class<Object>>cast(keyword.forClass()), value);
-                return new ReplaceableAttribute(keyword.name(), valueAsString, true);
-            }
+        return pair -> {
+            Keyword<?> keyword = pair.first();
+            Object value = pair.second();
+            String valueAsString = SimpleDBMappings.this.stringMappings.toString(Unchecked.<Class<Object>>cast(keyword.forClass()), value);
+            return new ReplaceableAttribute(keyword.name(), valueAsString, true);
         };
     }
 

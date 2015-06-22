@@ -81,12 +81,7 @@ public interface SqlGrammar {
 
     class functions {
         public static Function1<Predicate<? super Record>, WhereClause> whereClause(final SqlGrammar grammar) {
-            return new Function1<Predicate<? super Record>, WhereClause>() {
-                @Override
-                public WhereClause call(Predicate<? super Record> recordPredicate) throws Exception {
-                    return grammar.whereClause(recordPredicate);
-                }
-            };
+            return grammar::whereClause;
         }
 
         public static RecordTo<Expression> insertStatement(final SqlGrammar grammar, final Definition definition) {
@@ -98,37 +93,19 @@ public interface SqlGrammar {
         }
 
         public static Function1<Pair<? extends Predicate<? super Record>, Record>, Expression> updateStatement(final SqlGrammar grammar, final Definition definition) {
-            return new Function1<Pair<? extends Predicate<? super Record>, Record>, Expression>() {
-                public Expression call(Pair<? extends Predicate<? super Record>, Record> recordPair) throws Exception {
-                    return grammar.updateStatement(definition, recordPair.first(), recordPair.second());
-                }
-            };
+            return recordPair -> grammar.updateStatement(definition, recordPair.first(), recordPair.second());
         }
 
         public static Function1<Keyword<?>, DerivedColumn> derivedColumn(final SqlGrammar grammar) {
-            return new Function1<Keyword<?>, DerivedColumn>() {
-                public DerivedColumn call(Keyword<?> keyword) throws Exception {
-                    return grammar.derivedColumn(keyword);
-                }
-            };
+            return grammar::derivedColumn;
         }
 
         public static Function1<? super Comparator<? super Record>,OrderByClause> orderByClause(final SqlGrammar grammar) {
-            return new Function1<Comparator<? super Record>, OrderByClause>() {
-                @Override
-                public OrderByClause call(Comparator<? super Record> comparator) throws Exception {
-                    return grammar.orderByClause(comparator);
-                }
-            };
+            return grammar::orderByClause;
         }
 
         public static Function1<? super Sequence<? extends Keyword<?>>,GroupByClause> groupByClause(final SqlGrammar grammar) {
-            return new Function1<Sequence<? extends Keyword<?>>, GroupByClause>() {
-                @Override
-                public GroupByClause call(Sequence<? extends Keyword<?>> groups) throws Exception {
-                    return grammar.groupByClause(groups);
-                }
-            };
+            return grammar::groupByClause;
         }
     }
 }

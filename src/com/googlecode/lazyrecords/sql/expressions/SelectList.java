@@ -17,23 +17,15 @@ public interface SelectList extends Expression {
         }
 
         public static Sequence<Keyword<?>> fields(final Sequence<DerivedColumn> columns) {
-            return columns.flatMap(new Function1<DerivedColumn, Sequence<Keyword<?>>>() {
-                @Override
-                public Sequence<Keyword<?>> call(final DerivedColumn column) throws Exception {
-                    if (!column.asClause().isEmpty())
-                        return Sequences.<Keyword<?>>one(keyword(removeQuotes(column.asClause().get().alias()), column.forClass()));
-                    return columnReferences(column).map(asKeyword(column));
-                }
+            return columns.flatMap(column -> {
+                if (!column.asClause().isEmpty())
+                    return Sequences.<Keyword<?>>one(keyword(removeQuotes(column.asClause().get().alias()), column.forClass()));
+                return columnReferences(column).map(asKeyword(column));
             });
         }
 
         private static Function1<ColumnReference, Keyword<?>> asKeyword(final DerivedColumn column) {
-            return new Function1<ColumnReference, Keyword<?>>() {
-                @Override
-                public Keyword<?> call(final ColumnReference columnReference) throws Exception {
-                    return keyword(removeQuotes(columnReference.name()), column.forClass());
-                }
-            };
+            return columnReference -> keyword(removeQuotes(columnReference.name()), column.forClass());
         }
 
         public static String removeQuotes(String s) {

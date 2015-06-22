@@ -73,12 +73,7 @@ public class LuceneRecords extends AbstractRecords implements Queryable<Query>, 
     }
 
     public Number remove(final Definition definition, final Predicate<? super Record> predicate) {
-        return process(new Function0<Number>() {
-            @Override
-            public Number call() throws Exception {
-                return internalRemove(definition, predicate);
-            }
-        });
+        return process(() -> internalRemove(definition, predicate));
     }
 
     private Number internalRemove(Definition definition, Predicate<? super Record> predicate) throws IOException {
@@ -95,17 +90,15 @@ public class LuceneRecords extends AbstractRecords implements Queryable<Query>, 
     }
 
     private Function1<Pair<? extends Predicate<? super Record>, Record>, Number> update(final Definition definition) {
-        return new Function1<Pair<? extends Predicate<? super Record>, Record>, Number>() {
-            public Number call(Pair<? extends Predicate<? super Record>, Record> pair) throws Exception {
-                Predicate<? super Record> predicate = pair.first();
-                Sequence<Record> matched = getAll(definition).filter(predicate).realise();
-                Record updatedFields = Record.methods.filter(pair.second(), definition.fields());
-                if (matched.isEmpty()) {
-                    return internalAdd(definition, one(updatedFields));
-                }
-                storage.deleteNoCount(query(definition, predicate));
-                return internalAdd(definition, matched.map(merge(updatedFields)));
+        return pair -> {
+            Predicate<? super Record> predicate = pair.first();
+            Sequence<Record> matched = getAll(definition).filter(predicate).realise();
+            Record updatedFields = Record.methods.filter(pair.second(), definition.fields());
+            if (matched.isEmpty()) {
+                return internalAdd(definition, one(updatedFields));
             }
+            storage.deleteNoCount(query(definition, predicate));
+            return internalAdd(definition, matched.map(merge(updatedFields)));
         };
     }
 

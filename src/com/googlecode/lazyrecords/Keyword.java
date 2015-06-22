@@ -48,37 +48,20 @@ public interface Keyword<T> extends Named, Metadata<Keyword<T>>, Function1<Recor
     }
 
     class functions {
-        public static Function1<Keyword<?>, String> name = new Function1<Keyword<?>, String>() {
-            @Override
-            public String call(Keyword<?> keyword) throws Exception {
-                return keyword.name();
-            }
-        };
+        public static Function1<Keyword<?>, String> name = Named::name;
 
         public static Function1<Keyword<?>, String> name() { return name; }
 
         public static <T> Function1<Keyword<?>, T> metadata(final Keyword<T> metadataKey) {
-            return new Function1<Keyword<?>, T>() {
-                public T call(Keyword<?> keyword) throws Exception {
-                    return keyword.metadata().get(metadataKey);
-                }
-            };
+            return keyword -> keyword.metadata().get(metadataKey);
         }
 
         public static <T> UnaryFunction<Keyword<T>> metadata(final Record metadata) {
-            return new UnaryFunction<Keyword<T>>() {
-                public Keyword<T> call(Keyword<T> keyword) throws Exception {
-                    return keyword.metadata(metadata);
-                }
-            };
+            return keyword -> keyword.metadata(metadata);
         }
 
         public static <T, M> UnaryFunction<Keyword<T>> metadata(final Keyword<M> name, final M value) {
-            return new UnaryFunction<Keyword<T>>() {
-                public Keyword<T> call(Keyword<T> keyword) throws Exception {
-                    return keyword.metadata(name, value);
-                }
-            };
+            return keyword -> keyword.metadata(name, value);
         }
 
         public static UnaryFunction<Keyword<?>> replace(Keyword<?> from, Keyword<?> to) {

@@ -16,6 +16,7 @@ import com.googlecode.lazyrecords.sql.expressions.Expressions;
 import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Computation;
 import com.googlecode.totallylazy.Function0;
+import com.googlecode.totallylazy.Lazy;
 import com.googlecode.totallylazy.Maps;
 import com.googlecode.totallylazy.Predicate;
 import com.googlecode.totallylazy.Sequence;
@@ -44,12 +45,7 @@ public class SimpleDBSequence<T> extends Sequence<T> {
         this.itemToRecord = itemToRecord;
         this.logger = logger;
         this.consistentRead = consistentRead;
-        this.data = new Function0<Iterable<T>>() {
-            @Override
-            public Iterable<T> call() throws Exception {
-                return Computation.memorise(iterator(builder));
-            }
-        }.lazy();
+        this.data = Lazy.lazy(() -> Computation.memorise(iterator(builder)));
     }
 
     public Iterator<T> iterator() {
@@ -63,11 +59,7 @@ public class SimpleDBSequence<T> extends Sequence<T> {
     }
 
     private Function1<Object, Object> value() {
-        return new Function1<Object, Object>() {
-            public Object call(Object value) throws Exception {
-                return mappings.toString(value.getClass(), value);
-            }
-        };
+        return value -> mappings.toString(value.getClass(), value);
     }
 
     private Sequence<Item> iterator(final SelectRequest selectRequest) {
@@ -101,11 +93,7 @@ public class SimpleDBSequence<T> extends Sequence<T> {
     }
 
     private <S> Function1<Item, S> itemToValue(final Keyword<S> keyword) {
-        return new Function1<Item, S>() {
-            public S call(Item item) throws Exception {
-                return ((Record) itemToRecord.call(item)).get(keyword);
-            }
-        };
+        return item -> ((Record) itemToRecord.call(item)).get(keyword);
     }
 
     @Override

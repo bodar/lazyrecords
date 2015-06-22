@@ -27,45 +27,25 @@ public interface PartitionedIndex extends Persistence {
 
     PersistentMap<String, LuceneStorage> partitions();
 
-    public static class functions {
+    class functions {
         public static Function1<String, Directory> ramDirectory() {
-            return new Function1<String, Directory>() {
-                @Override
-                public Directory call(String notRequired) throws Exception {
-                    return new RAMDirectory();
-                }
-            };
+            return notRequired -> new RAMDirectory();
         }
 
         public static Function1<String, Directory> noSyncDirectory(final File rootDirectory) {
-            return new Function1<String, Directory>() {
-                @Override
-                public Directory call(String definition) throws Exception {
-                    return new NoSyncDirectory(Files.directory(rootDirectory, definition));
-                }
-            };
+            return definition -> new NoSyncDirectory(Files.directory(rootDirectory, definition));
         }
 
         public static Function1<String, Directory> nioDirectory(final File rootDirectory) {
-            return new Function1<String, Directory>() {
-                @Override
-                public Directory call(String definition) throws Exception {
-                    return new NIOFSDirectory(Files.directory(rootDirectory, definition));
-                }
-            };
+            return definition -> new NIOFSDirectory(Files.directory(rootDirectory, definition));
         }
 
         public static Function1<String, Directory> mmapDirectory(final File rootDirectory) {
-            return new Function1<String, Directory>() {
-                @Override
-                public Directory call(String definition) throws Exception {
-                    return new MMapDirectory(Files.directory(rootDirectory, definition));
-                }
-            };
+            return definition -> new MMapDirectory(Files.directory(rootDirectory, definition));
         }
     }
 
-    public static class methods {
+    class methods {
         public static IndexWriter indexWriter(Directory directory) {
             return indexWriter(directory, new KeywordAnalyzer());
         }

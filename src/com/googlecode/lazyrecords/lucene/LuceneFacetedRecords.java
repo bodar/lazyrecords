@@ -89,11 +89,6 @@ public class LuceneFacetedRecords implements FacetedRecords {
     }
 
     private Function1<LabelAndValue, FacetEntry> toLabelAndCountPair(final Keyword<?> facetKeyword) {
-        return new Function1<LabelAndValue, FacetEntry>() {
-            @Override
-            public FacetEntry call(LabelAndValue labelAndValue) throws Exception {
-                return FacetEntry.facetEntry(stringMappings.toValue(facetKeyword.forClass(), labelAndValue.label), labelAndValue.value);
-            }
-        };
+        return labelAndValue -> FacetEntry.facetEntry(stringMappings.toValue(facetKeyword.forClass(), labelAndValue.label), labelAndValue.value);
     }
 }

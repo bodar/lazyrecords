@@ -9,14 +9,9 @@ public interface AsClause extends Expression {
     Option<Expression> as();
     String alias();
 
-    public static class functions {
+    class functions {
         public static Function1<AsClause, String> alias() {
-            return new Function1<AsClause, String>() {
-                @Override
-                public String call(AsClause asClause) throws Exception {
-                    return asClause.alias();
-                }
-            };
+            return AsClause::alias;
         }
     }
 }

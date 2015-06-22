@@ -35,37 +35,31 @@ public class SqlFunctions {
     }
 
     public <T> T get(Class<T> sqlFunction) {
-        return cast(newProxyInstance(getClass().getClassLoader(), new Class[]{sqlFunction}, new InvocationHandler() {
-            @Override
-            public Object invoke(Object proxy, final Method method, final Object[] args) throws Throwable {
-                String call = buildCall(method);
-                final Map<String, Object> log = Maps.<String, Object>map(pair(Loggers.TYPE, Loggers.SQL), pair(Loggers.EXPRESSION, call));
-                long start = System.nanoTime();
+        return cast(newProxyInstance(getClass().getClassLoader(), new Class[]{sqlFunction}, (proxy, method, args) -> {
+            String call = buildCall(method);
+            final Map<String, Object> log = Maps.<String, Object>map(pair(Loggers.TYPE, Loggers.SQL), pair(Loggers.EXPRESSION, call));
+            long start = System.nanoTime();
 
-                try {
-                    return using(connection.prepareCall(call), callStatement(method, args));
-                } catch (Exception e) {
-                    log.put(Loggers.MESSAGE, e.getMessage());
-                    throw LazyException.lazyException(e);
-                } finally {
-                    log.put(Loggers.MILLISECONDS, calculateMilliseconds(start, System.nanoTime()));
-                    logger.log(log);
-                }
+            try {
+                return using(connection.prepareCall(call), callStatement(method, args));
+            } catch (Exception e) {
+                log.put(Loggers.MESSAGE, e.getMessage());
+                throw LazyException.lazyException(e);
+            } finally {
+                log.put(Loggers.MILLISECONDS, calculateMilliseconds(start, System.nanoTime()));
+                logger.log(log);
             }
         }));
     }
 
     private Function1<CallableStatement, Object> callStatement(final Method method, final Object[] args) {
-        return new Function1<CallableStatement, Object>() {
-            @Override
-            public Object call(CallableStatement statement) throws Exception {
-                statement.registerOutParameter(1, mappings.get(method.getReturnType()).type());
-                for (int i = 0; i < (args == null ? 0 : args.length); i++) {
-                    mappings.get(method.getParameterTypes()[i]).setValue(statement, i + 2, args[i]);
-                }
-                statement.execute();
-                return mappings.get(method.getReturnType()).getValue(statement, 1);
+        return statement -> {
+            statement.registerOutParameter(1, mappings.get(method.getReturnType()).type());
+            for (int i = 0; i < (args == null ? 0 : args.length); i++) {
+                mappings.get(method.getParameterTypes()[i]).setValue(statement, i + 2, args[i]);
             }
+            statement.execute();
+            return mappings.get(method.getReturnType()).getValue(statement, 1);
         };
     }
 

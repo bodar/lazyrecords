@@ -29,12 +29,7 @@ public class SqlSequence<T> extends Sequence<T> implements Expressible {
         this.selectBuilder = selectBuilder;
         this.logger = logger;
         this.callable = callable;
-        this.data = new Function0<Sequence<T>>() {
-            @Override
-            public Sequence<T> call() throws Exception {
-                return execute(selectBuilder);
-            }
-        }.lazy();
+        this.data = Lazy.lazy(() -> execute(selectBuilder));
     }
 
     public Iterator<T> iterator() {
@@ -193,12 +188,8 @@ public class SqlSequence<T> extends Sequence<T> implements Expressible {
     public <K> Sequence<Group<K, T>> groupBy(final Function1<? super T, ? extends K> callable) {
         if (callable instanceof Keyword) {
             final Keyword<K> keyword = (Keyword) callable;
-            return Unchecked.cast(new SqlSequence<SqlGroup<K>>(sqlRecords, selectBuilder.groupBy(keyword), logger, new Function1<Record, SqlGroup<K>>() {
-                @Override
-                public SqlGroup<K> call(Record record) throws Exception {
-                    return new SqlGroup<K>(record.get(keyword), record);
-                }
-            }));
+            return Unchecked.cast(new SqlSequence<SqlGroup<K>>(sqlRecords, selectBuilder.groupBy(keyword), logger,
+                    record -> new SqlGroup<K>(record.get(keyword), record)));
         }
         logger.log(Maps.map(pair(Loggers.TYPE, Loggers.SQL), pair(Loggers.MESSAGE, "Unsupported function passed to 'groupBy', moving computation to client"), pair(Loggers.FUNCTION, callable)));
         return super.groupBy(callable);

@@ -59,12 +59,7 @@ public class OptimisedStorage implements LuceneStorage {
 
     @Override
     public int count(final Query query) throws IOException {
-        return search(new Function1<Searcher, Integer>() {
-            @Override
-            public Integer call(Searcher searcher) throws Exception {
-                return searcher.count(query);
-            }
-        });
+        return search(searcher -> searcher.count(query));
     }
 
     @Override
@@ -110,12 +105,9 @@ public class OptimisedStorage implements LuceneStorage {
     }
 
     public static CurriedFunction2<Directory, Directory, Void> copy(final Collection<String> strings) {
-        return new CurriedFunction2<Directory, Directory, Void>() {
-            @Override
-            public Void call(Directory source, Directory destination) throws Exception {
-                copy(source, destination, strings);
-                return VOID;
-            }
+        return (source, destination) -> {
+            copy(source, destination, strings);
+            return VOID;
         };
     }
 

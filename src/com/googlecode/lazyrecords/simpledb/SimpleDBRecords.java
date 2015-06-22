@@ -81,29 +81,21 @@ public class SimpleDBRecords extends AbstractRecords {
     }
 
     private Function1<Value<Item>, DeletableItem> asItem() {
-        return new Function1<Value<Item>, DeletableItem>() {
-            public DeletableItem call(Value<Item> value) throws Exception {
-                return new DeletableItem().withName(value.value().getName());
-            }
-        };
+        return value -> new DeletableItem().withName(value.value().getName());
     }
 
     private Function1<Sequence<Record>, Number> putAttributes(final Definition definition) {
-        return new Function1<Sequence<Record>, Number>() {
-            public Number call(Sequence<Record> batch) throws Exception {
-                sdb.batchPutAttributes(new BatchPutAttributesRequest(definition.name(), batch.map(mappings.toReplaceableItem()).toList()));
-                return batch.size();
-            }
+        return batch -> {
+            sdb.batchPutAttributes(new BatchPutAttributesRequest(definition.name(), batch.map(mappings.toReplaceableItem()).toList()));
+            return batch.size();
         };
     }
 
     private Function1<Sequence<Record>, Number> deleteAttributes(final Definition definition) {
-        return new Function1<Sequence<Record>, Number>() {
-            public Number call(Sequence<Record> batch) throws Exception {
-                List<DeletableItem> items = batch.<Value<Item>>unsafeCast().map(asItem()).toList();
-                sdb.batchDeleteAttributes(new BatchDeleteAttributesRequest(definition.name(), items));
-                return batch.size();
-            }
+        return batch -> {
+            List<DeletableItem> items = batch.<Value<Item>>unsafeCast().map(asItem()).toList();
+            sdb.batchDeleteAttributes(new BatchDeleteAttributesRequest(definition.name(), items));
+            return batch.size();
         };
     }
 }

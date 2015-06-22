@@ -68,11 +68,9 @@ public class Lucene {
     }
 
     private static CurriedFunction2<BooleanQuery, Query, BooleanQuery> add(final BooleanClause.Occur occur) {
-        return new CurriedFunction2<BooleanQuery, Query, BooleanQuery>() {
-            public BooleanQuery call(BooleanQuery booleanQuery, Query query) throws Exception {
-                booleanQuery.add(query, occur);
-                return booleanQuery;
-            }
+        return (booleanQuery, query) -> {
+            booleanQuery.add(query, occur);
+            return booleanQuery;
         };
     }
 

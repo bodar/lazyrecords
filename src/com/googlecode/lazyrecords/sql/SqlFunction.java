@@ -9,12 +9,7 @@ public @interface SqlFunction {
 
     class functions {
         public static Function1<SqlFunction, String> value() {
-            return new Function1<SqlFunction, String>() {
-                @Override
-                public String call(SqlFunction annotation) throws Exception {
-                    return annotation.value();
-                }
-            };
+            return SqlFunction::value;
         }
     }
 }

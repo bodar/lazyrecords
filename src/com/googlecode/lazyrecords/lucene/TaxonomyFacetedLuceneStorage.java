@@ -63,15 +63,12 @@ public class TaxonomyFacetedLuceneStorage extends DelegatingStorage implements F
     }
 
     private Function2<Document, IndexableField, Document> withFacetFields() {
-        return new Function2<Document, IndexableField, Document>() {
-            @Override
-            public Document call(Document document, IndexableField indexableField) throws Exception {
-                if (facetingPolicy.value().matches(indexableField.name()) && !indexableField.stringValue().isEmpty()) {
-                    document.add(new FacetField(indexableField.name(), indexableField.stringValue()));
-                }
-                document.add(indexableField);
-                return document;
+        return (document, indexableField) -> {
+            if (facetingPolicy.value().matches(indexableField.name()) && !indexableField.stringValue().isEmpty()) {
+                document.add(new FacetField(indexableField.name(), indexableField.stringValue()));
             }
+            document.add(indexableField);
+            return document;
         };
     }
 

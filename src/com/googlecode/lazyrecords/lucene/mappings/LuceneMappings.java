@@ -66,28 +66,24 @@ public class LuceneMappings {
     }
 
     public Function1<IndexableField, Pair<Keyword<?>, Object>> asPair(final Sequence<Keyword<?>> definitions) {
-        return new Function1<IndexableField, Pair<Keyword<?>, Object>>() {
-            public Pair<Keyword<?>, Object> call(IndexableField fieldable) throws Exception {
-                String name = fieldable.name();
-                Keyword<?> keyword = Keyword.methods.matchKeyword(name, definitions);
-                return Pair.<Keyword<?>, Object>pair(keyword, stringMappings.toValue(keyword.forClass(), fieldable.stringValue()));
-            }
+        return fieldable -> {
+            String name = fieldable.name();
+            Keyword<?> keyword = Keyword.methods.matchKeyword(name, definitions);
+            return Pair.<Keyword<?>, Object>pair(keyword, stringMappings.toValue(keyword.forClass(), fieldable.stringValue()));
         };
     }
 
     public Function1<Pair<Keyword<?>, Object>, IndexableField> asField(final Sequence<Keyword<?>> definitions) {
-        return new Function1<Pair<Keyword<?>, Object>, IndexableField>() {
-            public IndexableField call(Pair<Keyword<?>, Object> pair) throws Exception {
-                if (pair.second() == null) {
-                    return null;
-                }
-
-                String name = pair.first().name();
-                Keyword<?> keyword = Keyword.methods.matchKeyword(name, definitions);
-                FieldType fieldType = new FieldType(TextField.TYPE_STORED);
-                fieldType.setOmitNorms(false);
-                return new Field(name, LuceneMappings.this.stringMappings.toString(keyword.forClass(), pair.second()), fieldType);
+        return pair -> {
+            if (pair.second() == null) {
+                return null;
             }
+
+            String name = pair.first().name();
+            Keyword<?> keyword = Keyword.methods.matchKeyword(name, definitions);
+            FieldType fieldType = new FieldType(TextField.TYPE_STORED);
+            fieldType.setOmitNorms(false);
+            return new Field(name, LuceneMappings.this.stringMappings.toString(keyword.forClass(), pair.second()), fieldType);
         };
     }
 
@@ -104,11 +100,9 @@ public class LuceneMappings {
     }
 
     public static CurriedFunction2<? super Document, ? super IndexableField, Document> intoFields() {
-        return new CurriedFunction2<Document, IndexableField, Document>() {
-            public Document call(Document document, IndexableField fieldable) throws Exception {
-                document.add(fieldable);
-                return document;
-            }
+        return (document, fieldable) -> {
+            document.add(fieldable);
+            return document;
         };
     }
 

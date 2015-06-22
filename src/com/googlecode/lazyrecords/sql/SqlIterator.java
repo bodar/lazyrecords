@@ -68,12 +68,9 @@ public class SqlIterator extends StatefulIterator<Record> implements Closeable {
             @Override
             protected Sequence<Pair<Integer, Keyword<Object>>> get() throws Exception {
                 final ResultSetMetaData metaData = resultSet.value().getMetaData();
-                return range(1).take(metaData.getColumnCount()).safeCast(Integer.class).map(new Function1<Integer, Pair<Integer, Keyword<Object>>>() {
-                    @Override
-                    public Pair<Integer, Keyword<Object>> call(Integer index) throws Exception {
-                        final String name = metaData.getColumnLabel(index);
-                        return pair(index, matchKeyword(name, definitions));
-                    }
+                return range(1).take(metaData.getColumnCount()).safeCast(Integer.class).map(index -> {
+                    final String name = metaData.getColumnLabel(index);
+                    return pair(index, matchKeyword(name, definitions));
                 }).unique(Callables.<Keyword<Object>>second()).realise();
             }
         };
@@ -88,13 +85,10 @@ public class SqlIterator extends StatefulIterator<Record> implements Closeable {
             return finished();
         }
 
-        return record(keywords.value().map(new Function1<Pair<Integer, Keyword<Object>>, Pair<Keyword<Object>, Object>>() {
-            @Override
-            public Pair<Keyword<Object>, Object> call(Pair<Integer, Keyword<Object>> pair) throws Exception {
-                Keyword<Object> keyword = pair.second();
-                Integer index = pair.first();
-                return pair(keyword, mappings.getValue(result, index, keyword.forClass()));
-            }
+        return record(keywords.value().map(pair -> {
+            Keyword<Object> keyword = pair.second();
+            Integer index = pair.first();
+            return pair(keyword, mappings.getValue(result, index, keyword.forClass()));
         }).filter(where(second(Object.class), notNullValue())));
     }
 

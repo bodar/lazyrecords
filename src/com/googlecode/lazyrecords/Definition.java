@@ -72,23 +72,13 @@ public interface Definition extends Named, Metadata<Definition>, Comparable<Defi
             return record -> methods.sortFields(definition, record);
         }
 
-        public static Function1<Definition, Sequence<Keyword<?>>> fields = new Function1<Definition, Sequence<Keyword<?>>>() {
-            @Override
-            public Sequence<Keyword<?>> call(Definition definition) throws Exception {
-                return definition.fields();
-            }
-        };
+        public static Function1<Definition, Sequence<Keyword<?>>> fields = Definition::fields;
 
         public static Function1<Definition, Sequence<Keyword<?>>> fields() {
             return fields;
         }
 
-        public static Function1<Named, String> name = new Function1<Named, String>() {
-            @Override
-            public String call(Named definition) throws Exception {
-                return definition.name();
-            }
-        };
+        public static Function1<Named, String> name = Named::name;
 
         public static Function1<Named, String> name() {
             return name;

@@ -42,11 +42,6 @@ public class AnsiAsClause extends CompoundExpression implements AsClause {
     }
 
     public static class functions {
-        public static Function1<String, AsClause> asClause = new Function1<String, AsClause>() {
-            @Override
-            public AsClause call(String s) throws Exception {
-                return asClause(s);
-            }
-        };
+        public static Function1<String, AsClause> asClause = AnsiAsClause::asClause;
     }
 }

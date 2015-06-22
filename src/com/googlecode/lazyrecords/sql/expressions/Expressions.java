@@ -37,12 +37,7 @@ public class Expressions {
     }
 
     public static Function1<Keyword<?>, ColumnReference> columnReference() {
-        return new Function1<Keyword<?>, ColumnReference>() {
-            @Override
-            public ColumnReference call(Keyword<?> keyword) throws Exception {
-                return columnReference(keyword);
-            }
-        };
+        return Expressions::columnReference;
     }
 
     public static String names(Sequence<Keyword<?>> keywords) {
@@ -55,19 +50,9 @@ public class Expressions {
 
     private static final Regex legal = Regex.regex("[a-zA-Z0-9_$*#.@]+");
 
-    public static UnaryFunction<String> quote = new UnaryFunction<String>() {
-        @Override
-        public String call(String value) throws Exception {
-            return quote(value);
-        }
-    };
+    public static UnaryFunction<String> quote = Expressions::quote;
 
-    public static Function1<String, TextOnlyExpression> quotedText = new Function1<String, TextOnlyExpression>() {
-        @Override
-        public TextOnlyExpression call(String value) throws Exception {
-            return quotedText(value);
-        }
-    };
+    public static Function1<String, TextOnlyExpression> quotedText = Expressions::quotedText;
 
     public static TextOnlyExpression quotedText(String value) {
         return textOnly(quote(value));

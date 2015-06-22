@@ -149,31 +149,16 @@ public class AnsiJoinBuilder implements ExpressionBuilder {
     }
 
     private Function1<String, String> lookup(final Map<String, String> existingNames) {
-        return new Function1<String, String>() {
-            @Override
-            public String call(final String column) throws Exception {
-                return existingNames.get(column);
-            }
-        };
+        return existingNames::get;
     }
 
     private Map<String, String> existingQualifiers() {
         final Sequence<DerivedColumn> interestedColumns = expression.selectList().derivedColumns().join(expression.groupByClause().map(groups).getOrElse(empty(DerivedColumn.class)));
-        return Maps.mapValues(interestedColumns.toMap(name()), new Function1<List<DerivedColumn>, String>() {
-            @Override
-            public String call(final List<DerivedColumn> columns) throws Exception {
-                return columnReferences(columns.get(0)).head().qualifier().get();
-            }
-        });
+        return Maps.mapValues(interestedColumns.toMap(name()), columns -> columnReferences(columns.get(0)).head().qualifier().get());
     }
 
     private Function1<DerivedColumn, String> name() {
-        return new Function1<DerivedColumn, String>() {
-            @Override
-            public String call(final DerivedColumn column) throws Exception {
-                return name(column);
-            }
-        };
+        return AnsiJoinBuilder.this::name;
     }
 
     private String name(final DerivedColumn column) {

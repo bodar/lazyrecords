@@ -160,12 +160,7 @@ public class AnsiSqlGrammar implements SqlGrammar {
         return comparator.comparators().flatMap(sortSpecification);
     }
 
-    public Function1<Comparator<? super Record>, Sequence<SortSpecification>> sortSpecification = new Function1<Comparator<? super Record>, Sequence<SortSpecification>>() {
-        @Override
-        public Sequence<SortSpecification> call(Comparator<? super Record> comparator) throws Exception {
-            return sortSpecification(comparator);
-        }
-    };
+    public Function1<Comparator<? super Record>, Sequence<SortSpecification>> sortSpecification = AnsiSqlGrammar.this::sortSpecification;
 
     @Override
     public DerivedColumn derivedColumn(Function1<? super Record, ?> callable) {
@@ -227,11 +222,7 @@ public class AnsiSqlGrammar implements SqlGrammar {
     }
 
     public Function1<Predicate<? super Record>, WhereClause> whereClause() {
-        return new Function1<Predicate<? super Record>, WhereClause>() {
-            public WhereClause call(Predicate<? super Record> predicate) throws Exception {
-                return whereClause(predicate);
-            }
-        };
+        return predicate -> whereClause(predicate);
     }
 
     private multi multiToSql;
@@ -317,11 +308,7 @@ public class AnsiSqlGrammar implements SqlGrammar {
         return predicates.map(toSql);
     }
 
-    public Function1<Predicate<?>, Expression> toSql = new Function1<Predicate<?>, Expression>() {
-        public Expression call(Predicate<?> predicate) throws Exception {
-            return toSql(predicate);
-        }
-    };
+    public Function1<Predicate<?>, Expression> toSql = predicate -> toSql(predicate);
 
     @Override
     public Expression insertStatement(Definition definition, Record record) {

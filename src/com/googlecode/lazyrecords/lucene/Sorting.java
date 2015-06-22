@@ -37,21 +37,11 @@ public class Sorting {
     }
 
     private static Function1<Sort, Iterable<SortField>> sortFields() {
-        return new Function1<Sort, Iterable<SortField>>() {
-            @Override
-            public Iterable<SortField> call(Sort sort) throws Exception {
-                return sequence(sort.getSort());
-            }
-        };
+        return sort -> sequence(sort.getSort());
     }
 
     private static Function1<Comparator<? super Record>, Sort> sort() {
-        return new Function1<Comparator<? super Record>, Sort>() {
-            @Override
-            public Sort call(Comparator<? super Record> comparator) throws Exception {
-                return sort(comparator);
-            }
-        };
+        return Sorting::sort;
     }
 
     private static Sort sortBy(String name, boolean reverse) {

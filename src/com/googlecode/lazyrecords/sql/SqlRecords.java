@@ -23,6 +23,7 @@ import com.googlecode.totallylazy.Option;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.Predicate;
 import com.googlecode.totallylazy.Sequence;
+import com.googlecode.totallylazy.numbers.Numbers;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -112,23 +113,16 @@ public class SqlRecords extends AbstractRecords implements Queryable<Expression>
                 statement.addBatch();
             }
 
-            Number rowCount = sequence(statements.values()).map(new Function1<PreparedStatement, Number>() {
-                public Number call(PreparedStatement statement) throws Exception {
-                    Sequence<Number> counts = numbers(statement.executeBatch());
-                    if (counts.contains(Statement.SUCCESS_NO_INFO)) return statement.getUpdateCount();
-                    return counts.filter(not(Statement.SUCCESS_NO_INFO)).reduce(sum);
-                }
-            }.time(milliseconds(log))).reduce(sum);
+            Number rowCount = sequence(statements.values()).map(((Function1<PreparedStatement, Number>) statement -> {
+                Sequence<Number> counts = Numbers.numbers(statement.executeBatch());
+                if (counts.contains(Statement.SUCCESS_NO_INFO)) return statement.getUpdateCount();
+                return counts.filter(not(Statement.SUCCESS_NO_INFO)).reduce(sum);
+            }).time(milliseconds(log))).reduce(sum);
             log.put(Loggers.ROWS, rowCount);
 
             return rowCount;
         } catch (SQLException ex) {
-            String message = forwardOnly(ex.iterator()).map(new Function1<Throwable, String>() {
-                @Override
-                public String call(Throwable throwable) throws Exception {
-                    return throwable.getMessage();
-                }
-            }).toString("\n");
+            String message = forwardOnly(ex.iterator()).map(Throwable::getMessage).toString("\n");
             log.put(Loggers.MESSAGE, message);
             throw LazyException.lazyException(ex);
         } catch (Exception e) {

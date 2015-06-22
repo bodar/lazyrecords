@@ -22,12 +22,7 @@ public class PooledValue implements Closeable {
     }
 
     public static Function1<PooledValue, Boolean> isDirty() {
-        return new Function1<PooledValue, Boolean>() {
-            @Override
-            public Boolean call(PooledValue value) {
-                return value.dirty();
-            }
-        };
+        return PooledValue::dirty;
     }
 
     public boolean dirty() {
@@ -39,21 +34,11 @@ public class PooledValue implements Closeable {
     }
 
     public static Function1<PooledValue, Searcher> checkoutValue() {
-        return new Function1<PooledValue, Searcher>() {
-            @Override
-            public Searcher call(PooledValue pooledValue) throws Exception {
-                return pooledValue.checkout();
-            }
-        };
+        return PooledValue::checkout;
     }
 
     public static Function1<PooledValue, Searcher> searcher() {
-        return new Function1<PooledValue, Searcher>() {
-            @Override
-            public Searcher call(PooledValue pooledValue) throws Exception {
-                return pooledValue.searcher;
-            }
-        };
+        return pooledValue -> pooledValue.searcher;
     }
 
     public int checkoutCount() {
@@ -66,12 +51,7 @@ public class PooledValue implements Closeable {
     }
 
     public static Function1<PooledValue, Integer> theCheckoutCount() {
-        return new Function1<PooledValue, Integer>() {
-            @Override
-            public Integer call(PooledValue pooledValue) throws Exception {
-                return pooledValue.checkoutCount();
-            }
-        };
+        return PooledValue::checkoutCount;
     }
 
     public int checkin() {

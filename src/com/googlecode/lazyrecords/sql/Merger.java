@@ -55,12 +55,7 @@ public class Merger {
     }
 
     private Set<String> qualifiers(final TableReference... tables) {
-        return sequence(tables).flatMap(new Function1<TableReference, Iterable<String>>() {
-            @Override
-            public Iterable<String> call(final TableReference reference) throws Exception {
-                return qualifiers(reference);
-            }
-        }).toSet();
+        return sequence(tables).flatMap(Merger.this::qualifiers).toSet();
     }
 
     private Iterable<String> qualifiers(TableReference reference) {
@@ -134,10 +129,5 @@ public class Merger {
         return AnsiSelectList.selectList(sequence(primary, secondary).flatMap(derivedColumns));
     }
 
-    private static final Function1<SelectExpression, Sequence<DerivedColumn>> derivedColumns = new Function1<SelectExpression, Sequence<DerivedColumn>>() {
-        @Override
-        public Sequence<DerivedColumn> call(final SelectExpression expression) throws Exception {
-            return expression.selectList().derivedColumns();
-        }
-    };
+    private static final Function1<SelectExpression, Sequence<DerivedColumn>> derivedColumns = expression -> expression.selectList().derivedColumns();
 }

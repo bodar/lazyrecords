@@ -67,29 +67,21 @@ public class STMRecords extends AbstractRecords implements Transaction {
 
     @Override
     public Number set(final Definition definition, final Sequence<? extends Pair<? extends Predicate<? super Record>, Record>> records) {
-        return modifyReturn(new Function1<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Pair<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Integer>>() {
-            @Override
-            public Pair<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Integer> call(PersistentMap<Definition, PersistentList<PersistentMap<String, String>>> database) throws Exception {
-                PersistentList<PersistentMap<String, String>> table = listFor(database, definition);
-
-                final int[] count = {0};
-
-                PersistentList<PersistentMap<String, String>> result = table.map(new Function1<PersistentMap<String, String>, PersistentMap<String, String>>() {
-                    @Override
-                    public PersistentMap<String, String> call(PersistentMap<String, String> row) throws Exception {
-                        for (Pair<? extends Predicate<? super Record>, Record> pair : records) {
-                            Record original = asRecord(definition, row);
-                            if (pair.first().matches(original)) {
-                                row = asPersistentMap(definition, merge(filter(pair.second(), definition.fields())).call(original));
-                                count[0]++;
-                            }
-                        }
-                        return row;
+        return modifyReturn(database -> {
+            PersistentList<PersistentMap<String, String>> table = listFor(database, definition);
+            final int[] count = {0};
+            PersistentList<PersistentMap<String, String>> result = table.map(row -> {
+                for (Pair<? extends Predicate<? super Record>, Record> pair : records) {
+                    Record original = asRecord(definition, row);
+                    if (pair.first().matches(original)) {
+                        row = asPersistentMap(definition, merge(filter(pair.second(), definition.fields())).call(original));
+                        count[0]++;
                     }
-                });
+                }
+                return row;
+            });
 
-                return Pair.pair(database.insert(definition, result), count[0]);
-            }
+            return Pair.pair(database.insert(definition, result), count[0]);
         });
     }
 

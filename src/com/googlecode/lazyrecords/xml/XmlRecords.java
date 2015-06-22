@@ -43,18 +43,16 @@ public class XmlRecords extends AbstractRecords {
     }
 
     private CurriedFunction2<Element, Keyword<?>, Element> addNodes(final Record record) {
-        return new CurriedFunction2<Element, Keyword<?>, Element>() {
-            public Element call(Element container, Keyword<?> field) throws Exception {
-                Object value = record.get(field);
-                if (value != null) {
-                    XmlMapping<Object> objectMapping = mappings.get(field.forClass());
-                    Sequence<Node> nodes = objectMapping.to(root, field.name(), value);
-                    for (Node node : nodes) {
-                        container.appendChild(node);
-                    }
+        return (container, field) -> {
+            Object value = record.get(field);
+            if (value != null) {
+                XmlMapping<Object> objectMapping = mappings.get(field.forClass());
+                Sequence<Node> nodes = objectMapping.to(root, field.name(), value);
+                for (Node node : nodes) {
+                    container.appendChild(node);
                 }
-                return container;
             }
+            return container;
         };
     }
 

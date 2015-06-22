@@ -95,13 +95,9 @@ public interface Record {
         }
     }
 
-    public static final class functions {
+    class functions {
         public static CurriedFunction2<Record, Pair<Keyword<?>, Object>, Record> updateValues() {
-            return new CurriedFunction2<Record, Pair<Keyword<?>, Object>, Record>() {
-                public Record call(Record record, Pair<Keyword<?>, Object> field) throws Exception {
-                    return record.set(Unchecked.<Keyword<Object>>cast(field.first()), field.second());
-                }
-            };
+            return (record, field) -> record.set(Unchecked.<Keyword<Object>>cast(field.first()), field.second());
         }
 
         public static Reducer<Record, Record> merge() {
@@ -163,11 +159,9 @@ public interface Record {
         }
 
         public static CurriedFunction2<Map<String, Object>, Pair<Keyword<?>, Object>, Map<String, Object>> intoMap() {
-            return new CurriedFunction2<Map<String, Object>, Pair<Keyword<?>, Object>, Map<String, Object>>() {
-                public Map<String, Object> call(Map<String, Object> map, Pair<Keyword<?>, Object> pair) throws Exception {
-                    map.put(pair.first().toString(), pair.second());
-                    return map;
-                }
+            return (map, pair) -> {
+                map.put(pair.first().toString(), pair.second());
+                return map;
             };
         }
 
@@ -182,12 +176,7 @@ public interface Record {
         }
 
         public static <T> Function1<T, Record> set(final Record record, final Keyword<T> keyword) {
-            return new Function1<T, Record>() {
-                @Override
-                public Record call(T value) throws Exception {
-                    return record.set(keyword, value);
-                }
-            };
+            return value -> record.set(keyword, value);
         }
     }
 }

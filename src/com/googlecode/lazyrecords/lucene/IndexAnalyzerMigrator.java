@@ -44,9 +44,9 @@ public class IndexAnalyzerMigrator {
     }
 
     public static void migrateShardedIndex(final File oldDirectory, final File newDirectory, final Analyzer newAnalyzer) {
-        files(oldDirectory).filter(isDirectory()).each(block(oldShard -> {
+        files(oldDirectory).filter(isDirectory()).each(oldShard -> {
             final File newShard = new File(format("%s/%s", newDirectory, oldShard.getName()));
             migrate(oldShard, newShard, newAnalyzer);
-        }));
+        });
     }
 }

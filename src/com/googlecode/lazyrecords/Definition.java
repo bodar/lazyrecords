@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords;
 
 import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Callables;
-import com.googlecode.totallylazy.Fields;
+import com.googlecode.totallylazy.reflection.Fields;
 import com.googlecode.totallylazy.First;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Unchecked;

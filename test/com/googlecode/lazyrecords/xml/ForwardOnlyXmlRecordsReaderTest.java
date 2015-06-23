@@ -12,7 +12,7 @@ import org.w3c.dom.Document;
 import java.lang.ref.WeakReference;
 
 import static com.googlecode.lazyrecords.Keyword.constructors.keyword;
-import static com.googlecode.totallylazy.Xml.document;
+import static com.googlecode.totallylazy.xml.Xml.document;
 import static com.googlecode.totallylazy.matchers.NumberMatcher.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;

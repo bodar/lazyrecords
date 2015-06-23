@@ -8,7 +8,7 @@ import com.googlecode.lazyrecords.Records;
 import com.googlecode.lazyrecords.RecordsContract;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.Sequence;
-import com.googlecode.totallylazy.Xml;
+import com.googlecode.totallylazy.xml.Xml;
 import com.googlecode.totallylazy.matchers.NumberMatcher;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -16,7 +16,7 @@ import org.w3c.dom.Node;
 
 import static com.googlecode.lazyrecords.Definition.constructors.definition;
 import static com.googlecode.lazyrecords.Keyword.constructors.keyword;
-import static com.googlecode.totallylazy.Xml.document;
+import static com.googlecode.totallylazy.xml.Xml.document;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;

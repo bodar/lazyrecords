@@ -4,7 +4,7 @@ import com.googlecode.lazyrecords.AliasedKeyword;
 import com.googlecode.lazyrecords.ToRecord;
 import com.googlecode.totallylazy.Function2;
 import com.googlecode.totallylazy.Sequence;
-import com.googlecode.totallylazy.Xml;
+import com.googlecode.totallylazy.xml.Xml;
 import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.SourceRecord;

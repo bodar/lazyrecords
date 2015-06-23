@@ -7,7 +7,7 @@ import com.googlecode.totallylazy.CurriedFunction2;
 import com.googlecode.totallylazy.Predicate;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Value;
-import com.googlecode.totallylazy.Xml;
+import com.googlecode.totallylazy.xml.Xml;
 import com.googlecode.lazyrecords.AbstractRecords;
 import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Record;

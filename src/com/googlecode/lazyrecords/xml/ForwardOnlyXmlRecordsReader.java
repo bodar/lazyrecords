@@ -7,8 +7,7 @@ import com.googlecode.lazyrecords.xml.mappings.XmlMappings;
 import com.googlecode.totallylazy.Sequence;
 import org.w3c.dom.Document;
 
-import static com.googlecode.totallylazy.Xml.selectNodes;
-import static com.googlecode.totallylazy.Xml.selectNodesForwardOnly;
+import static com.googlecode.totallylazy.xml.Xml.selectNodesForwardOnly;
 
 public class ForwardOnlyXmlRecordsReader implements RecordsReader {
     private final XmlMappings mappings;

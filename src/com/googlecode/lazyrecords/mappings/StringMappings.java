@@ -79,8 +79,5 @@ public class StringMappings {
                 return accumulator.set(keyword(keyword.name()), value);
             });
         }
-
     }
-
-
 }

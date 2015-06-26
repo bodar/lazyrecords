@@ -200,7 +200,7 @@ public class AnsiSqlGrammar implements SqlGrammar {
 
     @Override @multimethod
     public ValueExpression valueExpression(CompositeKeyword<?> composite) {
-        Binary<?> combiner = composite.combiner();
+        BinaryFunction<?> combiner = composite.combiner();
         if (combiner instanceof JoinString) {
             return concat(composite.keywords());
         }

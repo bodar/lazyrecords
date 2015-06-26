@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords;
 
 import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Callables;
-import com.googlecode.totallylazy.CombinerFunction;
+import com.googlecode.totallylazy.CurriedMonoid;
 import com.googlecode.totallylazy.FirstCombiner;
 import com.googlecode.totallylazy.LastCombiner;
 import com.googlecode.totallylazy.Pair;
@@ -99,7 +99,7 @@ public class Grammar {
         return Record.constructors.record(fields);
     }
 
-    public static CombinerFunction<Number> average() {
+    public static CurriedMonoid<Number> average() {
         return Numbers.average();
     }
 
@@ -167,11 +167,11 @@ public class Grammar {
         return Aggregate.minimum(keyword);
     }
 
-    public static <T> CombinerFunction<T> first() {
+    public static <T> CurriedMonoid<T> first() {
         return FirstCombiner.first();
     }
 
-    public static <T> CombinerFunction<T> first(Class<T> aClass) {
+    public static <T> CurriedMonoid<T> first(Class<T> aClass) {
         return FirstCombiner.first();
     }
 
@@ -179,11 +179,11 @@ public class Grammar {
         return Aggregate.first(keyword);
     }
 
-    public static <T> CombinerFunction<T> last() {
+    public static <T> CurriedMonoid<T> last() {
         return LastCombiner.last();
     }
 
-    public static <T> CombinerFunction<T> last(Class<T> aClass) {
+    public static <T> CurriedMonoid<T> last(Class<T> aClass) {
         return LastCombiner.last();
     }
 
@@ -191,7 +191,7 @@ public class Grammar {
         return Aggregate.last(keyword);
     }
 
-    public static CombinerFunction<Number> sum() {
+    public static CurriedMonoid<Number> sum() {
         return Numbers.sum();
     }
 

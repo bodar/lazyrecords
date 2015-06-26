@@ -24,7 +24,7 @@ public interface Keyword<T> extends Named, Metadata<Keyword<T>>, Function1<Recor
             return keyword(keyword.name(), keyword.forClass()).metadata(keyword.metadata());
         }
 
-        public static <T> CompositeKeyword<T> compose(Binary<T> combiner, Sequence<? extends Keyword<T>> keywords) {
+        public static <T> CompositeKeyword<T> compose(BinaryFunction<T> combiner, Sequence<? extends Keyword<T>> keywords) {
             return CompositeKeyword.compose(combiner, keywords);
         }
     }

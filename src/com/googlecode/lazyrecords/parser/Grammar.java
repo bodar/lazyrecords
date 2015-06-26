@@ -110,10 +110,10 @@ public class Grammar {
     public static final Parser<Void> OPERATORS = Parsers.or(GTE, GT, LTE, LT);
     static final Parser<Void> SEPARATORS = ws(':').or(ws('=')).or(OPERATORS.peek());
 
-    public static final Parser<Binary<Predicate<Record>>> OR =
+    public static final Parser<BinaryFunction<Predicate<Record>>> OR =
             ws("OR ").map(ignore -> Predicates::or);
 
-    public static final Parser<Binary<Predicate<Record>>> AND =
+    public static final Parser<BinaryFunction<Predicate<Record>>> AND =
             Parsers.or(ws("AND"), isChar(' ').many()).map(ignore -> Predicates::and);
 
     public static final Parser<Pair<String, Function1<Object, Predicate>>> TEXT_STARTS_WITH = TEXT_ONLY.followedBy(WILDCARD).

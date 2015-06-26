@@ -7,7 +7,6 @@ import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.LazyException;
 import com.googlecode.totallylazy.Maps;
 
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -20,7 +19,7 @@ import static com.googlecode.totallylazy.Option.option;
 import static com.googlecode.totallylazy.Pair.pair;
 import static com.googlecode.totallylazy.Sequences.sequence;
 import static com.googlecode.totallylazy.Unchecked.cast;
-import static com.googlecode.totallylazy.callables.TimeCallable.calculateMilliseconds;
+import static com.googlecode.totallylazy.functions.TimeCallable.calculateMilliseconds;
 import static java.lang.reflect.Proxy.newProxyInstance;
 
 public class SqlFunctions {

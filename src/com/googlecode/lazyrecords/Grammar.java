@@ -12,7 +12,7 @@ import com.googlecode.totallylazy.CurriedReducer;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Sequences;
 import com.googlecode.totallylazy.Strings;
-import com.googlecode.totallylazy.callables.Count;
+import com.googlecode.totallylazy.functions.Count;
 import com.googlecode.totallylazy.collections.ListMap;
 import com.googlecode.totallylazy.collections.PersistentMap;
 import com.googlecode.totallylazy.comparators.Maximum;

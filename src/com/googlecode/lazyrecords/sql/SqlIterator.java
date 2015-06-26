@@ -7,7 +7,6 @@ import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.sql.expressions.Expression;
 import com.googlecode.lazyrecords.sql.mappings.SqlMappings;
 import com.googlecode.totallylazy.Callables;
-import com.googlecode.totallylazy.Function1;
 import com.googlecode.totallylazy.Lazy;
 import com.googlecode.totallylazy.LazyException;
 import com.googlecode.totallylazy.Maps;
@@ -29,7 +28,7 @@ import static com.googlecode.totallylazy.Callables.second;
 import static com.googlecode.totallylazy.Pair.pair;
 import static com.googlecode.totallylazy.Predicates.notNullValue;
 import static com.googlecode.totallylazy.Predicates.where;
-import static com.googlecode.totallylazy.callables.TimeCallable.calculateMilliseconds;
+import static com.googlecode.totallylazy.functions.TimeCallable.calculateMilliseconds;
 import static com.googlecode.totallylazy.numbers.Numbers.range;
 
 public class SqlIterator extends StatefulIterator<Record> implements Closeable {

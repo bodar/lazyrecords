@@ -3,7 +3,7 @@ package com.googlecode.lazyrecords.sql.expressions;
 import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.totallylazy.Callables;
 import com.googlecode.totallylazy.Reducer;
-import com.googlecode.totallylazy.callables.Count;
+import com.googlecode.totallylazy.functions.Count;
 import com.googlecode.totallylazy.comparators.Maximum;
 import com.googlecode.totallylazy.comparators.Minimum;
 import com.googlecode.totallylazy.numbers.Average;

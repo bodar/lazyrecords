@@ -39,7 +39,7 @@ import static com.googlecode.totallylazy.Closeables.using;
 import static com.googlecode.totallylazy.Pair.pair;
 import static com.googlecode.totallylazy.Sequences.forwardOnly;
 import static com.googlecode.totallylazy.Sequences.sequence;
-import static com.googlecode.totallylazy.callables.TimeCallable.calculateMilliseconds;
+import static com.googlecode.totallylazy.functions.TimeCallable.calculateMilliseconds;
 import static com.googlecode.totallylazy.collections.CloseableList.constructors.closeableList;
 import static com.googlecode.totallylazy.numbers.Numbers.not;
 import static com.googlecode.totallylazy.numbers.Numbers.numbers;

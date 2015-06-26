@@ -20,7 +20,7 @@ import java.util.Map;
 import static com.googlecode.totallylazy.Arrays.containsIndex;
 import static com.googlecode.totallylazy.Closeables.safeClose;
 import static com.googlecode.totallylazy.Pair.pair;
-import static com.googlecode.totallylazy.callables.TimeCallable.calculateMilliseconds;
+import static com.googlecode.totallylazy.functions.TimeCallable.calculateMilliseconds;
 
 public class LuceneIterator extends StatefulIterator<Record> implements Closeable{
     private final LuceneStorage storage;

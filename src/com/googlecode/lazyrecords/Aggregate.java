@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords;
 
 import com.googlecode.totallylazy.Reducer;
 import com.googlecode.totallylazy.Unchecked;
-import com.googlecode.totallylazy.callables.Count;
+import com.googlecode.totallylazy.functions.Count;
 import com.googlecode.totallylazy.numbers.Numbers;
 
 import static java.lang.String.format;

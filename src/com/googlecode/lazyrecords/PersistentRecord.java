@@ -3,9 +3,9 @@ package com.googlecode.lazyrecords;
 import com.googlecode.totallylazy.*;
 import com.googlecode.totallylazy.collections.PersistentMap;
 import com.googlecode.totallylazy.collections.ListMap;
-import com.googlecode.totallylazy.predicates.LogicalPredicate;
+import com.googlecode.totallylazy.functions.Callables;
 
-import static com.googlecode.totallylazy.Callables.second;
+import static com.googlecode.totallylazy.functions.Callables.second;
 import static com.googlecode.totallylazy.Option.option;
 import static com.googlecode.totallylazy.Predicates.is;
 import static com.googlecode.totallylazy.Predicates.where;

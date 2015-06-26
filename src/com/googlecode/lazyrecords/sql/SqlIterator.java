@@ -6,7 +6,7 @@ import com.googlecode.lazyrecords.Loggers;
 import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.sql.expressions.Expression;
 import com.googlecode.lazyrecords.sql.mappings.SqlMappings;
-import com.googlecode.totallylazy.Callables;
+import com.googlecode.totallylazy.functions.Callables;
 import com.googlecode.totallylazy.Lazy;
 import com.googlecode.totallylazy.LazyException;
 import com.googlecode.totallylazy.Maps;
@@ -24,7 +24,7 @@ import java.util.Map;
 
 import static com.googlecode.lazyrecords.Keyword.methods.matchKeyword;
 import static com.googlecode.lazyrecords.Record.constructors.record;
-import static com.googlecode.totallylazy.Callables.second;
+import static com.googlecode.totallylazy.functions.Callables.second;
 import static com.googlecode.totallylazy.Pair.pair;
 import static com.googlecode.totallylazy.Predicates.notNullValue;
 import static com.googlecode.totallylazy.Predicates.where;

@@ -13,6 +13,8 @@ import com.googlecode.totallylazy.*;
 import com.googlecode.totallylazy.collections.PersistentList;
 import com.googlecode.totallylazy.collections.PersistentMap;
 import com.googlecode.totallylazy.collections.PersistentSortedMap;
+import com.googlecode.totallylazy.functions.Callables;
+import com.googlecode.totallylazy.functions.Function1;
 
 import java.util.ConcurrentModificationException;
 

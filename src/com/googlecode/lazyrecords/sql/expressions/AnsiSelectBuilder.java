@@ -7,7 +7,7 @@ import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.sql.grammars.SqlGrammar;
 import com.googlecode.totallylazy.Option;
 import com.googlecode.totallylazy.Predicate;
-import com.googlecode.totallylazy.Reducer;
+import com.googlecode.totallylazy.functions.Reducer;
 import com.googlecode.totallylazy.Sequence;
 
 import java.util.Comparator;

@@ -1,7 +1,7 @@
 package com.googlecode.lazyrecords.sql.expressions;
 
 import com.googlecode.totallylazy.Functor;
-import com.googlecode.totallylazy.UnaryFunction;
+import com.googlecode.totallylazy.functions.UnaryFunction;
 import com.googlecode.totallylazy.multi;
 
 import static com.googlecode.totallylazy.Unchecked.cast;

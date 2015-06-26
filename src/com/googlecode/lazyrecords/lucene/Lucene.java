@@ -7,6 +7,8 @@ import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.mappings.StringMappings;
 import com.googlecode.totallylazy.*;
 import com.googlecode.totallylazy.annotations.multimethod;
+import com.googlecode.totallylazy.functions.CurriedFunction2;
+import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.predicates.*;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.*;

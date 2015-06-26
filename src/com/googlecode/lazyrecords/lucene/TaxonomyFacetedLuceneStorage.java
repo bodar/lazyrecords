@@ -1,12 +1,11 @@
 package com.googlecode.lazyrecords.lucene;
 
 import com.googlecode.lazyrecords.lucene.mappings.DelegatingStorage;
-import com.googlecode.totallylazy.Function2;
+import com.googlecode.totallylazy.functions.Function2;
 import com.googlecode.totallylazy.Callers;
 import com.googlecode.totallylazy.Closeables;
 import com.googlecode.totallylazy.Lazy;
 import com.googlecode.totallylazy.Sequence;
-import com.googlecode.totallylazy.UnaryFunction;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.facet.FacetField;
 import org.apache.lucene.facet.FacetsConfig;

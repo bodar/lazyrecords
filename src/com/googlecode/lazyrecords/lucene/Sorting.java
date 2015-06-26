@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords.lucene;
 
 import com.googlecode.lazyrecords.Named;
 import com.googlecode.lazyrecords.Record;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.annotations.multimethod;
 import com.googlecode.totallylazy.comparators.AscendingComparator;

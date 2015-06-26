@@ -4,6 +4,8 @@ import com.googlecode.lazyrecords.*;
 import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.mappings.StringMappings;
 import com.googlecode.totallylazy.*;
+import com.googlecode.totallylazy.functions.Callables;
+import com.googlecode.totallylazy.functions.Function1;
 
 import java.util.List;
 import java.util.Map;

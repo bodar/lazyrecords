@@ -2,12 +2,14 @@ package com.googlecode.lazyrecords.sql.expressions;
 
 import com.googlecode.lazyrecords.*;
 import com.googlecode.totallylazy.*;
+import com.googlecode.totallylazy.functions.Function1;
+import com.googlecode.totallylazy.functions.UnaryFunction;
 import com.googlecode.totallylazy.regex.Regex;
 
 import static com.googlecode.lazyrecords.Keywords.qualifier;
 import static com.googlecode.lazyrecords.sql.expressions.ColumnReference.columnReference;
 import static com.googlecode.lazyrecords.sql.expressions.TableName.tableName;
-import static com.googlecode.totallylazy.Functions.identity;
+import static com.googlecode.totallylazy.functions.Functions.identity;
 import static com.googlecode.totallylazy.Sequences.sequence;
 import static java.lang.String.format;
 

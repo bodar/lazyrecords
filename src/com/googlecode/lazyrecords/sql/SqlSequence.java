@@ -7,6 +7,10 @@ import com.googlecode.lazyrecords.sql.expressions.Expressible;
 import com.googlecode.lazyrecords.sql.expressions.Expression;
 import com.googlecode.lazyrecords.sql.expressions.ExpressionBuilder;
 import com.googlecode.totallylazy.*;
+import com.googlecode.totallylazy.functions.Function1;
+import com.googlecode.totallylazy.functions.Function2;
+import com.googlecode.totallylazy.functions.Functions;
+import com.googlecode.totallylazy.functions.Reducer;
 
 import java.util.Comparator;
 import java.util.Iterator;

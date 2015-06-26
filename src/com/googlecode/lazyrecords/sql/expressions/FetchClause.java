@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords.sql.expressions;
 
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.functions.Function1;
 
 public interface FetchClause extends Expression {
     int number();

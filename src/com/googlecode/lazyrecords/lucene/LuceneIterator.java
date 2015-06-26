@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords.lucene;
 
 import com.googlecode.lazyrecords.Logger;
 import com.googlecode.lazyrecords.Loggers;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.collections.CloseableList;
 import com.googlecode.totallylazy.Maps;
 import com.googlecode.totallylazy.iterators.StatefulIterator;

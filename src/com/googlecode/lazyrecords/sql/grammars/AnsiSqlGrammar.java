@@ -18,6 +18,8 @@ import com.googlecode.lazyrecords.sql.Merger;
 import com.googlecode.lazyrecords.sql.expressions.*;
 import com.googlecode.totallylazy.*;
 import com.googlecode.totallylazy.annotations.multimethod;
+import com.googlecode.totallylazy.functions.BinaryFunction;
+import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.functions.JoinString;
 import com.googlecode.totallylazy.comparators.AscendingComparator;
 import com.googlecode.totallylazy.comparators.CompositeComparator;

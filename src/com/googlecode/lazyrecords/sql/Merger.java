@@ -2,6 +2,7 @@ package com.googlecode.lazyrecords.sql;
 
 import com.googlecode.lazyrecords.sql.expressions.*;
 import com.googlecode.totallylazy.*;
+import com.googlecode.totallylazy.functions.Function1;
 
 import java.util.Set;
 

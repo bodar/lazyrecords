@@ -1,7 +1,7 @@
 package com.googlecode.lazyrecords.lucene;
 
-import com.googlecode.totallylazy.Block;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.functions.Block;
+import com.googlecode.totallylazy.functions.Function1;
 
 import java.io.Closeable;
 import java.io.IOException;

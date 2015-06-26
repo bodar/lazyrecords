@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords.lucene;
 
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.Sequence;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CheckIndex;

@@ -3,7 +3,7 @@ package com.googlecode.lazyrecords.sql;
 import com.googlecode.lazyrecords.Logger;
 import com.googlecode.lazyrecords.Loggers;
 import com.googlecode.lazyrecords.sql.mappings.SqlMappings;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.LazyException;
 import com.googlecode.totallylazy.Maps;
 
@@ -14,7 +14,7 @@ import java.util.Map;
 
 import static com.googlecode.lazyrecords.sql.SqlFunction.functions.value;
 import static com.googlecode.totallylazy.Closeables.using;
-import static com.googlecode.totallylazy.Functions.constant;
+import static com.googlecode.totallylazy.functions.Functions.constant;
 import static com.googlecode.totallylazy.Option.option;
 import static com.googlecode.totallylazy.Pair.pair;
 import static com.googlecode.totallylazy.Sequences.sequence;

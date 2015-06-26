@@ -1,11 +1,11 @@
 package com.googlecode.lazyrecords;
 
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.Pair;
 
 import java.util.concurrent.Callable;
 
-import static com.googlecode.totallylazy.Callables.returns;
+import static com.googlecode.totallylazy.functions.Callables.returns;
 
 public class FacetRequest extends Pair<Keyword<?>, Integer> {
 

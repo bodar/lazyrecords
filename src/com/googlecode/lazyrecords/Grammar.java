@@ -1,14 +1,14 @@
 package com.googlecode.lazyrecords;
 
-import com.googlecode.totallylazy.Function1;
-import com.googlecode.totallylazy.Callables;
-import com.googlecode.totallylazy.CurriedMonoid;
-import com.googlecode.totallylazy.FirstCombiner;
-import com.googlecode.totallylazy.LastCombiner;
+import com.googlecode.totallylazy.functions.Function1;
+import com.googlecode.totallylazy.functions.Callables;
+import com.googlecode.totallylazy.functions.CurriedMonoid;
+import com.googlecode.totallylazy.functions.FirstCombiner;
+import com.googlecode.totallylazy.functions.LastCombiner;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.Predicate;
 import com.googlecode.totallylazy.Predicates;
-import com.googlecode.totallylazy.CurriedReducer;
+import com.googlecode.totallylazy.functions.CurriedReducer;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Sequences;
 import com.googlecode.totallylazy.Strings;

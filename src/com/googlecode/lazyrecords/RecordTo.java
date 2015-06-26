@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords;
 
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.functions.Function1;
 
 public abstract class RecordTo<R> implements Function1<Record, R>, ClientComputation {
     public static <R> RecordTo<R> recordTo(final Function1<Record, ? extends R> callable) {

@@ -13,14 +13,13 @@ import com.googlecode.lazyrecords.sql.expressions.SelectList;
 import com.googlecode.lazyrecords.sql.expressions.WhereClause;
 import com.googlecode.lazyrecords.sql.grammars.AnsiSqlGrammar;
 import com.googlecode.lazyrecords.sql.grammars.SqlGrammar;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.Maps;
 import com.googlecode.totallylazy.Predicate;
-import com.googlecode.totallylazy.Reducer;
+import com.googlecode.totallylazy.functions.Reducer;
 import com.googlecode.totallylazy.Sequence;
 
 import java.util.Comparator;
-import java.util.List;
 import java.util.Map;
 
 import static com.googlecode.lazyrecords.sql.expressions.AnsiSelectBuilder.from;

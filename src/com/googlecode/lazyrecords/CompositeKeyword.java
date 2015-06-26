@@ -1,6 +1,7 @@
 package com.googlecode.lazyrecords;
 
 import com.googlecode.totallylazy.*;
+import com.googlecode.totallylazy.functions.BinaryFunction;
 import com.googlecode.totallylazy.proxy.Generics;
 
 import static com.googlecode.lazyrecords.Record.constructors.record;

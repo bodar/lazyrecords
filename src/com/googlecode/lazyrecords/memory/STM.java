@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords.memory;
 
 import com.googlecode.lazyrecords.Definition;
 import com.googlecode.totallylazy.Atomic;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.collections.PersistentList;
 import com.googlecode.totallylazy.collections.PersistentMap;

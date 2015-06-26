@@ -1,10 +1,10 @@
 package com.googlecode.lazyrecords.sql.expressions;
 
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Sequences;
 
-import static com.googlecode.totallylazy.Callables.returnArgument;
+import static com.googlecode.totallylazy.functions.Callables.returnArgument;
 import static com.googlecode.totallylazy.Sequences.sequence;
 
 public abstract class AbstractExpression implements Expression {

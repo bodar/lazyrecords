@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords.lucene;
 
-import com.googlecode.totallylazy.Callables;
+import com.googlecode.totallylazy.functions.Callables;
 import org.apache.lucene.analysis.core.KeywordAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;

@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords;
 
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.Sequence;
 
 import static com.googlecode.totallylazy.Unchecked.cast;

@@ -1,8 +1,8 @@
 package com.googlecode.lazyrecords.sql.expressions;
 
 import com.googlecode.lazyrecords.Keyword;
-import com.googlecode.totallylazy.Callables;
-import com.googlecode.totallylazy.Reducer;
+import com.googlecode.totallylazy.functions.Callables;
+import com.googlecode.totallylazy.functions.Reducer;
 import com.googlecode.totallylazy.functions.Count;
 import com.googlecode.totallylazy.comparators.Maximum;
 import com.googlecode.totallylazy.comparators.Minimum;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 import com.googlecode.lazyrecords.JoinStringWithSeparator;
 import static com.googlecode.lazyrecords.sql.expressions.Expressions.textOnly;
-import static com.googlecode.totallylazy.Callables.second;
+import static com.googlecode.totallylazy.functions.Callables.second;
 import static com.googlecode.totallylazy.Maps.pairs;
 import static com.googlecode.totallylazy.Predicates.where;
 import static com.googlecode.totallylazy.Sequences.sequence;

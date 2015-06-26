@@ -3,6 +3,7 @@ package com.googlecode.lazyrecords.lucene;
 import com.googlecode.lazyrecords.Definition;
 import com.googlecode.totallylazy.*;
 import com.googlecode.totallylazy.collections.PersistentMap;
+import com.googlecode.totallylazy.functions.Callables;
 
 import java.io.Closeable;
 import java.io.File;

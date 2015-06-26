@@ -5,7 +5,7 @@ import com.googlecode.lazyrecords.Logger;
 import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.Records;
 import com.googlecode.lazyrecords.lucene.mappings.LuceneMappings;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.collections.CloseableList;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.Predicate;

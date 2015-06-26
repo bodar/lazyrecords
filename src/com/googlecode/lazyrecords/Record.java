@@ -1,11 +1,15 @@
 package com.googlecode.lazyrecords;
 
 import com.googlecode.totallylazy.*;
+import com.googlecode.totallylazy.functions.Callables;
+import com.googlecode.totallylazy.functions.CurriedFunction2;
+import com.googlecode.totallylazy.functions.Function1;
+import com.googlecode.totallylazy.functions.Reducer;
 
 import java.util.Map;
 
 import static com.googlecode.lazyrecords.Record.constructors.record;
-import static com.googlecode.totallylazy.Callables.asString;
+import static com.googlecode.totallylazy.functions.Callables.asString;
 import static com.googlecode.totallylazy.Maps.map;
 import static com.googlecode.totallylazy.Predicates.*;
 import static com.googlecode.totallylazy.Sequences.sequence;

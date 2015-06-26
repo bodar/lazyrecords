@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords.sql.expressions;
 
 import com.googlecode.lazyrecords.Keywords;
 import com.googlecode.lazyrecords.Metadata;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.Option;
 
 import static com.googlecode.lazyrecords.sql.expressions.Expressions.expression;

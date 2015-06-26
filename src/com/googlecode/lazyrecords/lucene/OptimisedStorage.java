@@ -1,6 +1,8 @@
 package com.googlecode.lazyrecords.lucene;
 
 import com.googlecode.totallylazy.*;
+import com.googlecode.totallylazy.functions.CurriedFunction2;
+import com.googlecode.totallylazy.functions.Function1;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CheckIndex;
 import org.apache.lucene.index.IndexCommit;

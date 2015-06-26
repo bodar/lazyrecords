@@ -5,7 +5,7 @@ import com.googlecode.totallylazy.Pair;
 
 import java.util.concurrent.Callable;
 
-import static com.googlecode.totallylazy.Callables.returns;
+import static com.googlecode.totallylazy.functions.Callables.returns;
 
 public class Facet<T extends Pair<Object, Number>> extends Group<Keyword<?>, T> {
 

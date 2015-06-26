@@ -3,8 +3,8 @@ package com.googlecode.lazyrecords.csv;
 import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.RecordTo;
-import com.googlecode.totallylazy.Function1;
-import com.googlecode.totallylazy.CurriedFunction2;
+import com.googlecode.totallylazy.functions.Function1;
+import com.googlecode.totallylazy.functions.CurriedFunction2;
 import com.googlecode.totallylazy.Iterators;
 import com.googlecode.totallylazy.Option;
 import com.googlecode.totallylazy.Sequence;
@@ -12,7 +12,7 @@ import com.googlecode.totallylazy.Sequence;
 import java.io.Writer;
 import java.util.Iterator;
 
-import static com.googlecode.totallylazy.Callables.toString;
+import static com.googlecode.totallylazy.functions.Callables.toString;
 
 public class CsvWriterLegacy {
     private static final String FIELD_SEPARATOR = ",";

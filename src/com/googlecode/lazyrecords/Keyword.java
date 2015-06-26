@@ -1,8 +1,12 @@
 package com.googlecode.lazyrecords;
 
 import com.googlecode.totallylazy.*;
+import com.googlecode.totallylazy.functions.BinaryFunction;
+import com.googlecode.totallylazy.functions.Callables;
+import com.googlecode.totallylazy.functions.Function1;
+import com.googlecode.totallylazy.functions.UnaryFunction;
 
-import static com.googlecode.totallylazy.Functions.returns1;
+import static com.googlecode.totallylazy.functions.Functions.returns1;
 import static com.googlecode.totallylazy.Predicates.where;
 import static com.googlecode.totallylazy.Strings.equalIgnoringCase;
 

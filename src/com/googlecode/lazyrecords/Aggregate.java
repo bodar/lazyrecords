@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords;
 
-import com.googlecode.totallylazy.Reducer;
+import com.googlecode.totallylazy.functions.Reducer;
 import com.googlecode.totallylazy.Unchecked;
 import com.googlecode.totallylazy.functions.Count;
 import com.googlecode.totallylazy.numbers.Numbers;

@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords;
 
-import com.googlecode.totallylazy.Reducer;
+import com.googlecode.totallylazy.functions.Reducer;
 
 public class JoinStringWithSeparator<T> implements Reducer<T, String> {
 

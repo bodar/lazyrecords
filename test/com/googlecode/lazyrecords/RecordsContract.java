@@ -1,8 +1,7 @@
 package com.googlecode.lazyrecords;
 
-import com.googlecode.totallylazy.Callables;
+import com.googlecode.totallylazy.functions.Callables;
 import com.googlecode.totallylazy.Closeables;
-import com.googlecode.totallylazy.Group;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.Predicates;
 import com.googlecode.totallylazy.Sequence;
@@ -25,7 +24,6 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 import java.util.UUID;
 
 import static com.googlecode.lazyrecords.Aggregate.first;

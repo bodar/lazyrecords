@@ -1,16 +1,15 @@
 package com.googlecode.lazyrecords.sql.expressions;
 
 import com.googlecode.lazyrecords.sql.grammars.OracleGrammar;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.Option;
-import com.googlecode.totallylazy.UnaryFunction;
-import com.googlecode.totallylazy.Unchecked;
+import com.googlecode.totallylazy.functions.UnaryFunction;
 import com.googlecode.totallylazy.annotations.multimethod;
 
 import static com.googlecode.lazyrecords.sql.expressions.AnsiAsClause.asClause;
 import static com.googlecode.lazyrecords.sql.expressions.AsClause.functions.alias;
 import static com.googlecode.lazyrecords.sql.expressions.SetFunctionType.setFunctionType;
-import static com.googlecode.totallylazy.Functions.constant;
+import static com.googlecode.totallylazy.functions.Functions.constant;
 import static com.googlecode.totallylazy.Option.none;
 import static com.googlecode.totallylazy.Option.option;
 import static com.googlecode.totallylazy.Option.some;

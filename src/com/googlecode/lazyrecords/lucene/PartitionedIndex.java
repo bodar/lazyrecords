@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords.lucene;
 
 import com.googlecode.lazyrecords.Definition;
 import com.googlecode.totallylazy.Files;
-import com.googlecode.totallylazy.Function1;
+import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.LazyException;
 import com.googlecode.totallylazy.collections.PersistentMap;
 import org.apache.lucene.analysis.Analyzer;

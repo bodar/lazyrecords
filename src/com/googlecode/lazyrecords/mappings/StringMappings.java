@@ -2,8 +2,7 @@ package com.googlecode.lazyrecords.mappings;
 
 import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Record;
-import com.googlecode.totallylazy.CurriedFunction2;
-import com.googlecode.totallylazy.UnaryFunction;
+import com.googlecode.totallylazy.functions.UnaryFunction;
 import com.googlecode.totallylazy.Unchecked;
 import com.googlecode.totallylazy.Uri;
 

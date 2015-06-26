@@ -1,6 +1,8 @@
 package com.googlecode.lazyrecords;
 
 import com.googlecode.totallylazy.*;
+import com.googlecode.totallylazy.functions.CurriedReducer;
+import com.googlecode.totallylazy.functions.Function1;
 
 import static com.googlecode.lazyrecords.Record.constructors.record;
 import static com.googlecode.totallylazy.Sequences.sequence;

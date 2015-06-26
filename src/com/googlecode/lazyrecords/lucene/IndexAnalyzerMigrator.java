@@ -1,7 +1,5 @@
 package com.googlecode.lazyrecords.lucene;
 
-import com.googlecode.totallylazy.Block;
-import com.googlecode.totallylazy.collections.CloseableList;
 import com.googlecode.totallylazy.Sequences;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
@@ -13,7 +11,6 @@ import java.io.File;
 import java.io.IOException;
 
 import static com.googlecode.lazyrecords.lucene.PartitionedIndex.methods.indexWriter;
-import static com.googlecode.totallylazy.Block.block;
 import static com.googlecode.totallylazy.Files.files;
 import static com.googlecode.totallylazy.Files.isDirectory;
 import static java.lang.String.format;

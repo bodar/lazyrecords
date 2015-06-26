@@ -1,6 +1,5 @@
 package com.googlecode.lazyrecords.lucene;
 
-import com.googlecode.totallylazy.Function1;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.FuzzyQuery;
 import org.apache.lucene.search.MultiPhraseQuery;

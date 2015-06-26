@@ -2,8 +2,8 @@ package com.googlecode.lazyrecords.xml;
 
 import com.googlecode.lazyrecords.Definition;
 import com.googlecode.lazyrecords.xml.mappings.XmlMapping;
-import com.googlecode.totallylazy.Callables;
-import com.googlecode.totallylazy.CurriedFunction2;
+import com.googlecode.totallylazy.functions.Callables;
+import com.googlecode.totallylazy.functions.CurriedFunction2;
 import com.googlecode.totallylazy.Predicate;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Value;

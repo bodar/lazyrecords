@@ -5,7 +5,7 @@ import com.googlecode.totallylazy.*;
 import static com.googlecode.lazyrecords.Record.constructors.record;
 import static com.googlecode.totallylazy.Sequences.sequence;
 
-public class Aggregates extends ReducerFunction<Record, Record> implements Value<Sequence<Aggregate<Object, Object>>> {
+public class Aggregates implements Value<Sequence<Aggregate<Object, Object>>>, CurriedReducer<Record, Record> {
     private final Sequence<Aggregate<Object, Object>> aggregates;
 
     private Aggregates(final Sequence<Aggregate<Object, Object>> aggregates) {

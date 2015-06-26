@@ -8,7 +8,7 @@ import com.googlecode.totallylazy.LastCombiner;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.Predicate;
 import com.googlecode.totallylazy.Predicates;
-import com.googlecode.totallylazy.ReducerFunction;
+import com.googlecode.totallylazy.CurriedReducer;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Sequences;
 import com.googlecode.totallylazy.Strings;
@@ -199,7 +199,7 @@ public class Grammar {
         return Aggregate.sum(keyword);
     }
 
-    public static ReducerFunction<Object, Number> count() {
+    public static CurriedReducer<Object, Number> count() {
         return Count.count();
     }
 

@@ -4,7 +4,7 @@ import com.googlecode.lazyrecords.lucene.mappings.DelegatingStorage;
 import com.googlecode.totallylazy.functions.Function2;
 import com.googlecode.totallylazy.Callers;
 import com.googlecode.totallylazy.Closeables;
-import com.googlecode.totallylazy.Lazy;
+import com.googlecode.totallylazy.functions.Lazy;
 import com.googlecode.totallylazy.Sequence;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.facet.FacetField;

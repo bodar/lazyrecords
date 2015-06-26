@@ -5,7 +5,7 @@ import com.googlecode.lazyrecords.Record;
 import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.collections.CloseableList;
 import com.googlecode.totallylazy.Computation;
-import com.googlecode.totallylazy.Lazy;
+import com.googlecode.totallylazy.functions.Lazy;
 import com.googlecode.totallylazy.LazyException;
 import com.googlecode.totallylazy.Predicate;
 import com.googlecode.totallylazy.Sequence;

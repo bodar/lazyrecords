@@ -15,7 +15,7 @@ import com.googlecode.lazyrecords.sql.expressions.ExpressionBuilder;
 import com.googlecode.lazyrecords.sql.expressions.Expressions;
 import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.Computation;
-import com.googlecode.totallylazy.Lazy;
+import com.googlecode.totallylazy.functions.Lazy;
 import com.googlecode.totallylazy.Maps;
 import com.googlecode.totallylazy.Predicate;
 import com.googlecode.totallylazy.Sequence;

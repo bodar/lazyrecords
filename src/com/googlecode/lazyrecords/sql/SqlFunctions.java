@@ -19,7 +19,7 @@ import static com.googlecode.totallylazy.Option.option;
 import static com.googlecode.totallylazy.Pair.pair;
 import static com.googlecode.totallylazy.Sequences.sequence;
 import static com.googlecode.totallylazy.Unchecked.cast;
-import static com.googlecode.totallylazy.functions.TimeFunction0.calculateMilliseconds;
+import static com.googlecode.totallylazy.functions.Time0.calculateMilliseconds;
 import static java.lang.reflect.Proxy.newProxyInstance;
 
 public class SqlFunctions {

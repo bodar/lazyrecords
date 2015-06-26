@@ -3,7 +3,7 @@ package com.googlecode.lazyrecords.sql.expressions;
 import com.googlecode.lazyrecords.*;
 import com.googlecode.totallylazy.*;
 import com.googlecode.totallylazy.functions.Function1;
-import com.googlecode.totallylazy.functions.UnaryFunction;
+import com.googlecode.totallylazy.functions.Unary;
 import com.googlecode.totallylazy.regex.Regex;
 
 import static com.googlecode.lazyrecords.Keywords.qualifier;
@@ -52,7 +52,7 @@ public class Expressions {
 
     private static final Regex legal = Regex.regex("[a-zA-Z0-9_$*#.@]+");
 
-    public static UnaryFunction<String> quote = Expressions::quote;
+    public static Unary<String> quote = Expressions::quote;
 
     public static Function1<String, TextOnlyExpression> quotedText = Expressions::quotedText;
 

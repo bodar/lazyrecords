@@ -3,7 +3,7 @@ package com.googlecode.lazyrecords.xml;
 import com.googlecode.lazyrecords.Definition;
 import com.googlecode.lazyrecords.xml.mappings.XmlMapping;
 import com.googlecode.totallylazy.functions.Callables;
-import com.googlecode.totallylazy.functions.CurriedFunction2;
+import com.googlecode.totallylazy.functions.Curried2;
 import com.googlecode.totallylazy.Predicate;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Value;
@@ -42,7 +42,7 @@ public class XmlRecords extends AbstractRecords {
         return records.size();
     }
 
-    private CurriedFunction2<Element, Keyword<?>, Element> addNodes(final Record record) {
+    private Curried2<Element, Keyword<?>, Element> addNodes(final Record record) {
         return (container, field) -> {
             Object value = record.get(field);
             if (value != null) {

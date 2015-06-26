@@ -3,7 +3,7 @@ package com.googlecode.lazyrecords.sql.expressions;
 import com.googlecode.lazyrecords.sql.grammars.OracleGrammar;
 import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.Option;
-import com.googlecode.totallylazy.functions.UnaryFunction;
+import com.googlecode.totallylazy.functions.Unary;
 import com.googlecode.totallylazy.annotations.multimethod;
 
 import static com.googlecode.lazyrecords.sql.expressions.AnsiAsClause.asClause;
@@ -16,7 +16,7 @@ import static com.googlecode.totallylazy.Option.some;
 
 public class Qualifier extends AbstractQualifier {
     private final String tableAlias;
-    private final UnaryFunction<String> qualified;
+    private final Unary<String> qualified;
 
     protected Qualifier(final String tableAlias, Function1<? super String, String> qualified) {
         this.tableAlias = tableAlias;
@@ -81,7 +81,7 @@ public class Qualifier extends AbstractQualifier {
         return AnsiDerivedColumn.derivedColumn(qualifiedExpression, derivedColumn.asClause(), derivedColumn.forClass());
     }
 
-    private Function1<String, Option<Qualifier>> columnQualifier(final UnaryFunction<String> qualified) {
+    private Function1<String, Option<Qualifier>> columnQualifier(final Unary<String> qualified) {
         return columnAlias -> {
             final Option<String> resolvedQualifier = option(qualified.apply(columnAlias));
             return resolvedQualifier.isDefined() ? some(qualifier(resolvedQualifier.get())) : none(Qualifier.class);

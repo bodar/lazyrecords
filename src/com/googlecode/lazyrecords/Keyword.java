@@ -1,10 +1,10 @@
 package com.googlecode.lazyrecords;
 
 import com.googlecode.totallylazy.*;
-import com.googlecode.totallylazy.functions.BinaryFunction;
+import com.googlecode.totallylazy.functions.Binary;
 import com.googlecode.totallylazy.functions.Callables;
 import com.googlecode.totallylazy.functions.Function1;
-import com.googlecode.totallylazy.functions.UnaryFunction;
+import com.googlecode.totallylazy.functions.Unary;
 
 import static com.googlecode.totallylazy.functions.Functions.returns1;
 import static com.googlecode.totallylazy.Predicates.where;
@@ -28,7 +28,7 @@ public interface Keyword<T> extends Named, Metadata<Keyword<T>>, Function1<Recor
             return keyword(keyword.name(), keyword.forClass()).metadata(keyword.metadata());
         }
 
-        public static <T> CompositeKeyword<T> compose(BinaryFunction<T> combiner, Sequence<? extends Keyword<T>> keywords) {
+        public static <T> CompositeKeyword<T> compose(Binary<T> combiner, Sequence<? extends Keyword<T>> keywords) {
             return CompositeKeyword.compose(combiner, keywords);
         }
     }
@@ -60,15 +60,15 @@ public interface Keyword<T> extends Named, Metadata<Keyword<T>>, Function1<Recor
             return keyword -> keyword.metadata().get(metadataKey);
         }
 
-        public static <T> UnaryFunction<Keyword<T>> metadata(final Record metadata) {
+        public static <T> Unary<Keyword<T>> metadata(final Record metadata) {
             return keyword -> keyword.metadata(metadata);
         }
 
-        public static <T, M> UnaryFunction<Keyword<T>> metadata(final Keyword<M> name, final M value) {
+        public static <T, M> Unary<Keyword<T>> metadata(final Keyword<M> name, final M value) {
             return keyword -> keyword.metadata(name, value);
         }
 
-        public static UnaryFunction<Keyword<?>> replace(Keyword<?> from, Keyword<?> to) {
+        public static Unary<Keyword<?>> replace(Keyword<?> from, Keyword<?> to) {
             return Callables.<Keyword<?>>replace(Predicates.<Keyword<?>>is(from), returns1(to));
         }
     }

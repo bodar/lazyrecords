@@ -4,9 +4,9 @@ import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.mappings.StringMappings;
 import com.googlecode.totallylazy.*;
-import com.googlecode.totallylazy.functions.BinaryFunction;
+import com.googlecode.totallylazy.functions.Binary;
 import com.googlecode.totallylazy.functions.Function1;
-import com.googlecode.totallylazy.functions.UnaryFunction;
+import com.googlecode.totallylazy.functions.Unary;
 import com.googlecode.totallylazy.parser.Parse;
 import com.googlecode.totallylazy.parser.Parser;
 import com.googlecode.totallylazy.parser.Parsers;
@@ -113,10 +113,10 @@ public class Grammar {
     public static final Parser<Void> OPERATORS = Parsers.or(GTE, GT, LTE, LT);
     static final Parser<Void> SEPARATORS = ws(':').or(ws('=')).or(OPERATORS.peek());
 
-    public static final Parser<BinaryFunction<Predicate<Record>>> OR =
+    public static final Parser<Binary<Predicate<Record>>> OR =
             ws("OR ").map(ignore -> Predicates::or);
 
-    public static final Parser<BinaryFunction<Predicate<Record>>> AND =
+    public static final Parser<Binary<Predicate<Record>>> AND =
             Parsers.or(ws("AND"), isChar(' ').many()).map(ignore -> Predicates::and);
 
     public static final Parser<Pair<String, Function1<Object, Predicate>>> TEXT_STARTS_WITH = TEXT_ONLY.followedBy(WILDCARD).
@@ -128,7 +128,7 @@ public class Grammar {
     public static final Parser<Pair<String, Function1<Object, Predicate>>> TEXT_CONTAINS = TEXT_ONLY.between(WILDCARD, WILDCARD).
             map(valueAndPredicateCreator(value -> contains(value.toString())));
 
-    static Parser<UnaryFunction<Predicate<Record>>> NEGATION = ws('-').or(ws("NOT")).
+    static Parser<Unary<Predicate<Record>>> NEGATION = ws('-').or(ws("NOT")).
             map(ignore -> Predicates::not);
 
     public static final Parser<Pair<String, Function1<Object, Predicate>>> DATE_IS = DATE.map(valueAndPredicateCreator(o -> {

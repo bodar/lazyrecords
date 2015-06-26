@@ -1,7 +1,7 @@
 package com.googlecode.lazyrecords.sql.expressions;
 
 import com.googlecode.totallylazy.Functor;
-import com.googlecode.totallylazy.functions.UnaryFunction;
+import com.googlecode.totallylazy.functions.Unary;
 import com.googlecode.totallylazy.multi;
 
 import static com.googlecode.totallylazy.Unchecked.cast;
@@ -17,7 +17,7 @@ public abstract class AbstractQualifier {
         return cast(items.map(this.<T>qualify()));
     }
 
-    private <T extends Expression> UnaryFunction<T> qualify() {
+    private <T extends Expression> Unary<T> qualify() {
         return AbstractQualifier.this::qualify;
     }
 }

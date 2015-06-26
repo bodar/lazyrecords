@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords.mappings;
 
 import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Record;
-import com.googlecode.totallylazy.functions.UnaryFunction;
+import com.googlecode.totallylazy.functions.Unary;
 import com.googlecode.totallylazy.Unchecked;
 import com.googlecode.totallylazy.Uri;
 
@@ -72,7 +72,7 @@ public class StringMappings {
     }
 
     public static class functions {
-        public static UnaryFunction<Record> fromString(final StringMappings mappings, final Iterable<? extends Keyword<?>> keywords) {
+        public static Unary<Record> fromString(final StringMappings mappings, final Iterable<? extends Keyword<?>> keywords) {
             return record -> sequence(keywords).fold(record, (accumulator, keyword) -> {
                 String raw = accumulator.get(keyword(keyword.name(), String.class));
                 Object value = mappings.toValue(keyword.forClass(), raw);

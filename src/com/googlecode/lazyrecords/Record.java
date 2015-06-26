@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords;
 
 import com.googlecode.totallylazy.*;
 import com.googlecode.totallylazy.functions.Callables;
-import com.googlecode.totallylazy.functions.CurriedFunction2;
+import com.googlecode.totallylazy.functions.Curried2;
 import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.functions.Reducer;
 
@@ -100,7 +100,7 @@ public interface Record {
     }
 
     class functions {
-        public static CurriedFunction2<Record, Pair<Keyword<?>, Object>, Record> updateValues() {
+        public static Curried2<Record, Pair<Keyword<?>, Object>, Record> updateValues() {
             return (record, field) -> record.set(Unchecked.<Keyword<Object>>cast(field.first()), field.second());
         }
 
@@ -162,7 +162,7 @@ public interface Record {
             };
         }
 
-        public static CurriedFunction2<Map<String, Object>, Pair<Keyword<?>, Object>, Map<String, Object>> intoMap() {
+        public static Curried2<Map<String, Object>, Pair<Keyword<?>, Object>, Map<String, Object>> intoMap() {
             return (map, pair) -> {
                 map.put(pair.first().toString(), pair.second());
                 return map;

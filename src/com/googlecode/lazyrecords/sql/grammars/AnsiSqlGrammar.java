@@ -18,9 +18,9 @@ import com.googlecode.lazyrecords.sql.Merger;
 import com.googlecode.lazyrecords.sql.expressions.*;
 import com.googlecode.totallylazy.*;
 import com.googlecode.totallylazy.annotations.multimethod;
-import com.googlecode.totallylazy.functions.BinaryFunction;
+import com.googlecode.totallylazy.functions.Binary;
 import com.googlecode.totallylazy.functions.Function1;
-import com.googlecode.totallylazy.functions.JoinString;
+import com.googlecode.totallylazy.functions.ConcatString;
 import com.googlecode.totallylazy.comparators.AscendingComparator;
 import com.googlecode.totallylazy.comparators.CompositeComparator;
 import com.googlecode.totallylazy.comparators.DescendingComparator;
@@ -202,8 +202,8 @@ public class AnsiSqlGrammar implements SqlGrammar {
 
     @Override @multimethod
     public ValueExpression valueExpression(CompositeKeyword<?> composite) {
-        BinaryFunction<?> combiner = composite.combiner();
-        if (combiner instanceof JoinString) {
+        Binary<?> combiner = composite.combiner();
+        if (combiner instanceof ConcatString) {
             return concat(composite.keywords());
         }
         throw new UnsupportedOperationException("Unsupported combiner " + combiner);

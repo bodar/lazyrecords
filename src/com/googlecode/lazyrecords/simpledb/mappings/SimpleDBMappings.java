@@ -10,7 +10,7 @@ import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.ToRecord;
 import com.googlecode.lazyrecords.mappings.StringMappings;
 import com.googlecode.totallylazy.functions.Function1;
-import com.googlecode.totallylazy.functions.CurriedFunction2;
+import com.googlecode.totallylazy.functions.Curried2;
 import com.googlecode.totallylazy.Pair;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Unchecked;
@@ -47,7 +47,7 @@ public class SimpleDBMappings {
         };
     }
 
-    public CurriedFunction2<Record, Attribute, Record> asField(final Sequence<Keyword<?>> definitions) {
+    public Curried2<Record, Attribute, Record> asField(final Sequence<Keyword<?>> definitions) {
         return (mapRecord, attribute) -> {
             Keyword<?> keyword = Keyword.methods.matchKeyword(attribute.getName(), definitions);
             return mapRecord.set(Unchecked.<Keyword<Object>>cast(keyword), stringMappings.toValue(keyword.forClass(), attribute.getValue()));

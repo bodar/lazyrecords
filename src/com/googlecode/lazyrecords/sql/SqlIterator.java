@@ -28,7 +28,7 @@ import static com.googlecode.totallylazy.functions.Callables.second;
 import static com.googlecode.totallylazy.Pair.pair;
 import static com.googlecode.totallylazy.Predicates.notNullValue;
 import static com.googlecode.totallylazy.Predicates.where;
-import static com.googlecode.totallylazy.functions.TimeFunction0.calculateMilliseconds;
+import static com.googlecode.totallylazy.functions.Time0.calculateMilliseconds;
 import static com.googlecode.totallylazy.numbers.Numbers.range;
 
 public class SqlIterator extends StatefulIterator<Record> implements Closeable {

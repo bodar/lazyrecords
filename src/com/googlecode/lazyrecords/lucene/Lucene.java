@@ -7,7 +7,7 @@ import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.mappings.StringMappings;
 import com.googlecode.totallylazy.*;
 import com.googlecode.totallylazy.annotations.multimethod;
-import com.googlecode.totallylazy.functions.CurriedFunction2;
+import com.googlecode.totallylazy.functions.Curried2;
 import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.predicates.*;
 import org.apache.lucene.index.Term;
@@ -69,7 +69,7 @@ public class Lucene {
         return sequence(queries).fold(seed, add(occur));
     }
 
-    private static CurriedFunction2<BooleanQuery, Query, BooleanQuery> add(final BooleanClause.Occur occur) {
+    private static Curried2<BooleanQuery, Query, BooleanQuery> add(final BooleanClause.Occur occur) {
         return (booleanQuery, query) -> {
             booleanQuery.add(query, occur);
             return booleanQuery;

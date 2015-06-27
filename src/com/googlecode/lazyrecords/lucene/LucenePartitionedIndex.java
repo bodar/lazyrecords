@@ -17,8 +17,8 @@ import static com.googlecode.totallylazy.Callers.call;
 import static com.googlecode.totallylazy.Closeables.safeClose;
 import static com.googlecode.totallylazy.Files.directory;
 import static com.googlecode.totallylazy.Sequences.sequence;
-import static com.googlecode.totallylazy.Zip.unzip;
-import static com.googlecode.totallylazy.Zip.zip;
+import static com.googlecode.totallylazy.io.Zip.unzip;
+import static com.googlecode.totallylazy.io.Zip.zip;
 import static com.googlecode.totallylazy.collections.PersistentSortedMap.constructors.sortedMap;
 
 public class LucenePartitionedIndex implements Closeable, Persistence, PartitionedIndex {

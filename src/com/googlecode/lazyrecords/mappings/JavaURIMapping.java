@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords.mappings;
 
 import java.net.URI;
 
-import static com.googlecode.totallylazy.http.URLs.uri;
+import static com.googlecode.totallylazy.io.URLs.uri;
 
 public class JavaURIMapping implements StringMapping<URI> {
     public URI toValue(String value) {

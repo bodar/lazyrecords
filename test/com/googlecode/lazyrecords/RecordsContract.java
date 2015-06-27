@@ -83,7 +83,7 @@ import static com.googlecode.lazyrecords.RecordsContract.Trades.trades;
 import static com.googlecode.totallylazy.Pair.pair;
 import static com.googlecode.totallylazy.Sequences.sequence;
 import static com.googlecode.totallylazy.Streams.streams;
-import static com.googlecode.totallylazy.http.URLs.uri;
+import static com.googlecode.totallylazy.io.URLs.uri;
 import static com.googlecode.totallylazy.comparators.Comparators.comparators;
 import static com.googlecode.totallylazy.matchers.IterableMatcher.hasExactly;
 import static com.googlecode.totallylazy.matchers.Matchers.matcher;

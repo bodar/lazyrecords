@@ -10,7 +10,7 @@ import com.googlecode.totallylazy.functions.Function2;
 import com.googlecode.totallylazy.Group;
 import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.Pair;
-import com.googlecode.totallylazy.Predicate;
+import com.googlecode.totallylazy.predicates.Predicate;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Sequences;
 import org.apache.lucene.facet.DrillDownQuery;

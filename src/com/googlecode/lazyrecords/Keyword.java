@@ -5,9 +5,10 @@ import com.googlecode.totallylazy.functions.Binary;
 import com.googlecode.totallylazy.functions.Callables;
 import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.functions.Unary;
+import com.googlecode.totallylazy.predicates.Predicates;
 
 import static com.googlecode.totallylazy.functions.Functions.returns1;
-import static com.googlecode.totallylazy.Predicates.where;
+import static com.googlecode.totallylazy.predicates.Predicates.where;
 import static com.googlecode.totallylazy.Strings.equalIgnoringCase;
 
 public interface Keyword<T> extends Named, Metadata<Keyword<T>>, Function1<Record, T>, GenericType<T>, Comparable<Keyword<T>> {

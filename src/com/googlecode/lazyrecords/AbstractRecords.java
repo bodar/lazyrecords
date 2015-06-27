@@ -2,10 +2,10 @@ package com.googlecode.lazyrecords;
 
 import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.Pair;
-import com.googlecode.totallylazy.Predicate;
+import com.googlecode.totallylazy.predicates.Predicate;
 import com.googlecode.totallylazy.Sequence;
 
-import static com.googlecode.totallylazy.Predicates.all;
+import static com.googlecode.totallylazy.predicates.Predicates.all;
 import static com.googlecode.totallylazy.Sequences.sequence;
 import static com.googlecode.totallylazy.numbers.Numbers.sum;
 import static com.googlecode.lazyrecords.Record.functions.merge;

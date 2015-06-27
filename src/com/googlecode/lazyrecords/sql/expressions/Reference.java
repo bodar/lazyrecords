@@ -4,7 +4,7 @@ import com.googlecode.totallylazy.*;
 
 import static com.googlecode.lazyrecords.sql.expressions.Expressions.quote;
 import static com.googlecode.totallylazy.Option.some;
-import static com.googlecode.totallylazy.Predicates.not;
+import static com.googlecode.totallylazy.predicates.Predicates.not;
 import static com.googlecode.totallylazy.Strings.empty;
 import static java.lang.String.format;
 

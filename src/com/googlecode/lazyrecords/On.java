@@ -5,7 +5,7 @@ import com.googlecode.totallylazy.predicates.LogicalBinaryPredicate;
 import com.googlecode.totallylazy.predicates.LogicalPredicate;
 
 import static com.googlecode.totallylazy.LazyException.lazyException;
-import static com.googlecode.totallylazy.Predicates.where;
+import static com.googlecode.totallylazy.predicates.Predicates.where;
 
 public class On<T> implements Joiner {
     private final Keyword<T> left, right;

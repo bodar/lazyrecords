@@ -11,9 +11,9 @@ import java.lang.reflect.Proxy;
 
 import static com.googlecode.lazyrecords.Definition.constructors.definition;
 import static com.googlecode.lazyrecords.Record.constructors.record;
-import static com.googlecode.totallylazy.Predicates.classAssignableTo;
-import static com.googlecode.totallylazy.Predicates.is;
-import static com.googlecode.totallylazy.Predicates.where;
+import static com.googlecode.totallylazy.predicates.Predicates.classAssignableTo;
+import static com.googlecode.totallylazy.predicates.Predicates.is;
+import static com.googlecode.totallylazy.predicates.Predicates.where;
 import static com.googlecode.totallylazy.Sequences.indexIn;
 import static com.googlecode.totallylazy.Sequences.sequence;
 

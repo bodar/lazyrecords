@@ -1,13 +1,8 @@
 package com.googlecode.lazyrecords.sql.expressions;
 
-import com.googlecode.lazyrecords.Definition;
-import com.googlecode.totallylazy.Predicate;
-import com.googlecode.lazyrecords.Record;
-
 import static com.googlecode.lazyrecords.sql.expressions.Expressions.expression;
 import static com.googlecode.lazyrecords.sql.expressions.Expressions.columnReference;
 import static com.googlecode.lazyrecords.sql.expressions.Expressions.textOnly;
-import static com.googlecode.lazyrecords.sql.expressions.AnsiWhereClause.whereClause;
 
 public class AnsiUpdateStatement extends CompoundExpression implements UpdateStatement {
     private final TableName tableName;

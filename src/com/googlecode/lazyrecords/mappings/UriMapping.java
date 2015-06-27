@@ -1,6 +1,6 @@
 package com.googlecode.lazyrecords.mappings;
 
-import com.googlecode.totallylazy.Uri;
+import com.googlecode.totallylazy.http.Uri;
 
 public class UriMapping implements StringMapping<Uri> {
     public Uri toValue(String value) {

@@ -17,7 +17,7 @@ import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.Computation;
 import com.googlecode.totallylazy.functions.Lazy;
 import com.googlecode.totallylazy.Maps;
-import com.googlecode.totallylazy.Predicate;
+import com.googlecode.totallylazy.predicates.Predicate;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Sequences;
 import com.googlecode.totallylazy.Unchecked;

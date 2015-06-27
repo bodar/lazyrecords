@@ -5,13 +5,14 @@ import com.googlecode.totallylazy.functions.Callables;
 import com.googlecode.totallylazy.functions.Curried2;
 import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.functions.Reducer;
+import com.googlecode.totallylazy.predicates.Predicate;
 
 import java.util.Map;
 
 import static com.googlecode.lazyrecords.Record.constructors.record;
 import static com.googlecode.totallylazy.functions.Callables.asString;
 import static com.googlecode.totallylazy.Maps.map;
-import static com.googlecode.totallylazy.Predicates.*;
+import static com.googlecode.totallylazy.predicates.Predicates.*;
 import static com.googlecode.totallylazy.Sequences.sequence;
 import static com.googlecode.totallylazy.collections.ListMap.listMap;
 

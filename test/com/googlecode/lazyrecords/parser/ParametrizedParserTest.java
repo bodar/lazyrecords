@@ -2,8 +2,8 @@ package com.googlecode.lazyrecords.parser;
 
 import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Record;
-import com.googlecode.totallylazy.Predicate;
-import com.googlecode.totallylazy.Predicates;
+import com.googlecode.totallylazy.predicates.Predicate;
+import com.googlecode.totallylazy.predicates.Predicates;
 import com.googlecode.totallylazy.Strings;
 import com.googlecode.totallylazy.time.Dates;
 import org.junit.Test;

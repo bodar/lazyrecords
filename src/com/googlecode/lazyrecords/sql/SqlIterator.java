@@ -26,8 +26,8 @@ import static com.googlecode.lazyrecords.Keyword.methods.matchKeyword;
 import static com.googlecode.lazyrecords.Record.constructors.record;
 import static com.googlecode.totallylazy.functions.Callables.second;
 import static com.googlecode.totallylazy.Pair.pair;
-import static com.googlecode.totallylazy.Predicates.notNullValue;
-import static com.googlecode.totallylazy.Predicates.where;
+import static com.googlecode.totallylazy.predicates.Predicates.notNullValue;
+import static com.googlecode.totallylazy.predicates.Predicates.where;
 import static com.googlecode.totallylazy.functions.Time0.calculateMilliseconds;
 import static com.googlecode.totallylazy.numbers.Numbers.range;
 

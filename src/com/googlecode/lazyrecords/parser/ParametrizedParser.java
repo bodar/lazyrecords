@@ -2,14 +2,14 @@ package com.googlecode.lazyrecords.parser;
 
 import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Record;
-import com.googlecode.totallylazy.Predicate;
+import com.googlecode.totallylazy.predicates.Predicate;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.template.Template;
 import com.googlecode.totallylazy.template.Templates;
 
 import java.util.Date;
 
-import static com.googlecode.totallylazy.Predicates.instanceOf;
+import static com.googlecode.totallylazy.predicates.Predicates.instanceOf;
 import static com.googlecode.totallylazy.Sequences.sequence;
 import static com.googlecode.totallylazy.time.DateConverter.functions.format;
 

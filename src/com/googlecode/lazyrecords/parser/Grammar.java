@@ -11,6 +11,8 @@ import com.googlecode.totallylazy.parser.Parse;
 import com.googlecode.totallylazy.parser.Parser;
 import com.googlecode.totallylazy.parser.Parsers;
 import com.googlecode.totallylazy.predicates.OrPredicate;
+import com.googlecode.totallylazy.predicates.Predicate;
+import com.googlecode.totallylazy.predicates.Predicates;
 import com.googlecode.totallylazy.time.Dates;
 import com.googlecode.totallylazy.time.Seconds;
 
@@ -19,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import static com.googlecode.totallylazy.Predicates.*;
+import static com.googlecode.totallylazy.predicates.Predicates.*;
 import static com.googlecode.totallylazy.Strings.contains;
 import static com.googlecode.totallylazy.Strings.*;
 import static com.googlecode.totallylazy.parser.Parsers.*;

@@ -2,8 +2,8 @@ package com.googlecode.lazyrecords.sql.expressions;
 
 import com.googlecode.totallylazy.Sequence;
 
-import static com.googlecode.totallylazy.Predicates.instanceOf;
-import static com.googlecode.totallylazy.Predicates.not;
+import static com.googlecode.totallylazy.predicates.Predicates.instanceOf;
+import static com.googlecode.totallylazy.predicates.Predicates.not;
 import static com.googlecode.totallylazy.Sequences.sequence;
 
 public class CompoundExpression extends AbstractExpression {

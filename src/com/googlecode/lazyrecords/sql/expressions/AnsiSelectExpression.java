@@ -3,9 +3,9 @@ package com.googlecode.lazyrecords.sql.expressions;
 import com.googlecode.totallylazy.Option;
 
 import static com.googlecode.lazyrecords.sql.expressions.Expressions.expression;
-import static com.googlecode.totallylazy.Predicates.is;
-import static com.googlecode.totallylazy.Predicates.not;
-import static com.googlecode.totallylazy.Predicates.where;
+import static com.googlecode.totallylazy.predicates.Predicates.is;
+import static com.googlecode.totallylazy.predicates.Predicates.not;
+import static com.googlecode.totallylazy.predicates.Predicates.where;
 import static com.googlecode.totallylazy.Strings.equalIgnoringCase;
 import static java.lang.String.format;
 

@@ -4,11 +4,12 @@ import com.googlecode.totallylazy.*;
 import com.googlecode.totallylazy.collections.PersistentMap;
 import com.googlecode.totallylazy.collections.ListMap;
 import com.googlecode.totallylazy.functions.Callables;
+import com.googlecode.totallylazy.predicates.Predicates;
 
 import static com.googlecode.totallylazy.functions.Callables.second;
 import static com.googlecode.totallylazy.Option.option;
-import static com.googlecode.totallylazy.Predicates.is;
-import static com.googlecode.totallylazy.Predicates.where;
+import static com.googlecode.totallylazy.predicates.Predicates.is;
+import static com.googlecode.totallylazy.predicates.Predicates.where;
 
 public class PersistentRecord implements Record {
     private final PersistentMap<Keyword<?>, Object> fields;

@@ -2,7 +2,7 @@ package com.googlecode.lazyrecords;
 
 import com.googlecode.totallylazy.Group;
 import com.googlecode.totallylazy.Pair;
-import com.googlecode.totallylazy.Predicate;
+import com.googlecode.totallylazy.predicates.Predicate;
 import com.googlecode.totallylazy.Sequence;
 
 import java.io.IOException;

@@ -4,7 +4,7 @@ import com.googlecode.lazyrecords.Keyword;
 import com.googlecode.lazyrecords.Record;
 import com.googlecode.totallylazy.functions.Unary;
 import com.googlecode.totallylazy.Unchecked;
-import com.googlecode.totallylazy.Uri;
+import com.googlecode.totallylazy.http.Uri;
 
 import java.net.URI;
 import java.util.Date;

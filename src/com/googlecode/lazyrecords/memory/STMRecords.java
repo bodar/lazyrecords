@@ -15,6 +15,7 @@ import com.googlecode.totallylazy.collections.PersistentMap;
 import com.googlecode.totallylazy.collections.PersistentSortedMap;
 import com.googlecode.totallylazy.functions.Callables;
 import com.googlecode.totallylazy.functions.Function1;
+import com.googlecode.totallylazy.predicates.Predicate;
 
 import java.util.ConcurrentModificationException;
 

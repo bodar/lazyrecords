@@ -7,7 +7,7 @@ import com.googlecode.totallylazy.collections.CloseableList;
 import com.googlecode.totallylazy.Computation;
 import com.googlecode.totallylazy.functions.Lazy;
 import com.googlecode.totallylazy.LazyException;
-import com.googlecode.totallylazy.Predicate;
+import com.googlecode.totallylazy.predicates.Predicate;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Sequences;
 import org.apache.lucene.document.Document;

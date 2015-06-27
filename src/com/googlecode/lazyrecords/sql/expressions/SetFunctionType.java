@@ -17,7 +17,7 @@ import com.googlecode.lazyrecords.JoinStringWithSeparator;
 import static com.googlecode.lazyrecords.sql.expressions.Expressions.textOnly;
 import static com.googlecode.totallylazy.functions.Callables.second;
 import static com.googlecode.totallylazy.Maps.pairs;
-import static com.googlecode.totallylazy.Predicates.where;
+import static com.googlecode.totallylazy.predicates.Predicates.where;
 import static com.googlecode.totallylazy.Sequences.sequence;
 
 public class SetFunctionType extends CompoundExpression implements ValueExpression {

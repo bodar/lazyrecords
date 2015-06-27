@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 import static com.googlecode.lazyrecords.Keyword.constructors.keyword;
 import static com.googlecode.lazyrecords.sql.expressions.AnsiSelectBuilder.from;
-import static com.googlecode.totallylazy.Predicates.alwaysFalse;
+import static com.googlecode.totallylazy.predicates.Predicates.alwaysFalse;
 
 public class SqlSchema implements Schema {
     private final SqlRecords records;

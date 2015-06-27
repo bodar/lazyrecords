@@ -19,9 +19,9 @@ import java.util.UUID;
 
 import static com.googlecode.lazyrecords.SourceRecord.record;
 import static com.googlecode.totallylazy.functions.Callables.second;
-import static com.googlecode.totallylazy.Predicates.is;
-import static com.googlecode.totallylazy.Predicates.notNullValue;
-import static com.googlecode.totallylazy.Predicates.where;
+import static com.googlecode.totallylazy.predicates.Predicates.is;
+import static com.googlecode.totallylazy.predicates.Predicates.notNullValue;
+import static com.googlecode.totallylazy.predicates.Predicates.where;
 import static com.googlecode.totallylazy.Sequences.sequence;
 
 public class SimpleDBMappings {

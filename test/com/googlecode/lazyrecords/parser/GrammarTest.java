@@ -1,19 +1,14 @@
 package com.googlecode.lazyrecords.parser;
 
 import com.googlecode.lazyrecords.Keyword;
-import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.mappings.StringMappings;
-import com.googlecode.totallylazy.Predicate;
-import com.googlecode.totallylazy.parser.Result;
 import org.junit.Test;
 
 import static com.googlecode.lazyrecords.Keyword.constructors.keyword;
-import static com.googlecode.totallylazy.Assert.assertEquals;
 import static com.googlecode.totallylazy.Assert.assertThat;
 import static com.googlecode.totallylazy.Assert.assertTrue;
-import static com.googlecode.totallylazy.Predicates.is;
-import static com.googlecode.totallylazy.Predicates.not;
-import static com.googlecode.totallylazy.Predicates.where;
+import static com.googlecode.totallylazy.predicates.Predicates.is;
+import static com.googlecode.totallylazy.predicates.Predicates.not;
 import static com.googlecode.totallylazy.Sequences.sequence;
 
 public class GrammarTest {

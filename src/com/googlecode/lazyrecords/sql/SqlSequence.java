@@ -8,6 +8,7 @@ import com.googlecode.lazyrecords.sql.expressions.Expression;
 import com.googlecode.lazyrecords.sql.expressions.ExpressionBuilder;
 import com.googlecode.totallylazy.*;
 import com.googlecode.totallylazy.functions.*;
+import com.googlecode.totallylazy.predicates.Predicate;
 
 import java.util.Comparator;
 import java.util.Iterator;

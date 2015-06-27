@@ -12,7 +12,7 @@ import com.googlecode.totallylazy.collections.CloseableList;
 import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.LazyException;
 import com.googlecode.totallylazy.Pair;
-import com.googlecode.totallylazy.Predicate;
+import com.googlecode.totallylazy.predicates.Predicate;
 import com.googlecode.totallylazy.Sequence;
 import org.apache.lucene.search.Query;
 

@@ -11,8 +11,8 @@ import org.junit.Test;
 import static com.googlecode.lazyrecords.Definition.constructors.definition;
 import static com.googlecode.lazyrecords.Keyword.constructors.keyword;
 import static com.googlecode.lazyrecords.Record.constructors.record;
-import static com.googlecode.totallylazy.Predicates.is;
-import static com.googlecode.totallylazy.Predicates.where;
+import static com.googlecode.totallylazy.predicates.Predicates.is;
+import static com.googlecode.totallylazy.predicates.Predicates.where;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class MemoryRecordsTest extends SchemaBasedRecordContract<MemoryRecords> {

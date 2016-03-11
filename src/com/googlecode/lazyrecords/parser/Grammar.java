@@ -7,7 +7,6 @@ import com.googlecode.totallylazy.*;
 import com.googlecode.totallylazy.functions.Binary;
 import com.googlecode.totallylazy.functions.Function1;
 import com.googlecode.totallylazy.functions.Unary;
-import com.googlecode.totallylazy.parser.Parse;
 import com.googlecode.totallylazy.parser.Parser;
 import com.googlecode.totallylazy.parser.Parsers;
 import com.googlecode.totallylazy.predicates.OrPredicate;
@@ -31,9 +30,9 @@ import static java.util.Calendar.MILLISECOND;
 public class Grammar {
     final Sequence<? extends Keyword<?>> keywords;
     final StringMappings mappings;
-    final Parser<Predicate<Record>> GROUP = Parsers.lazy(new Callable<Parse<Predicate<Record>>>() {
+    final Parser<Predicate<Record>> GROUP = Parsers.lazy(new Callable<Parser<Predicate<Record>>>() {
         @Override
-        public Parse<Predicate<Record>> call() throws Exception {
+        public Parser<Predicate<Record>> call() throws Exception {
             return PARTS.between(ws('('), ws(')'));
         }
     });

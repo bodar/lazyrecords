@@ -15,11 +15,11 @@ import static java.lang.String.format;
 
 public class Expressions {
     public static Function1<? super Expression, Iterable<Object>> parameters() {
-        return expression -> expression.parameters();
+        return Expression::parameters;
     }
 
     public static Function1<? super Expression, String> text() {
-        return expression -> expression.text();
+        return Expression::text;
     }
 
     public static TextOnlyExpression textOnly(String expression, Object... args) {

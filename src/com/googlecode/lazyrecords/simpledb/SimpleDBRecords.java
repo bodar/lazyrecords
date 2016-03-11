@@ -15,9 +15,11 @@ import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.Sequences;
 import com.googlecode.totallylazy.Value;
 import com.googlecode.totallylazy.numbers.Numbers;
+import org.junit.Ignore;
 
 import java.util.List;
 
+import static com.googlecode.lazyrecords.Keyword.constructors.keyword;
 import static com.googlecode.lazyrecords.SelectFunction.select;
 import static com.googlecode.lazyrecords.sql.expressions.AnsiSelectBuilder.from;
 import static com.googlecode.totallylazy.numbers.Numbers.sum;
@@ -73,7 +75,7 @@ public class SimpleDBRecords extends AbstractRecords {
 
     @Override
     public Number remove(Definition definition) {
-        Record head = get(definition).map(select(Keyword.constructors.keyword("count(*)", String.class))).head();
+        Record head = get(definition).map(select(Aggregate.count(keyword("*", String.class)).as(""))).head();
         Number result = Numbers.valueOf(head.get(Keyword.constructors.keyword("Count", String.class))).get();
         schema.undefine(definition);
         schema.define(definition);

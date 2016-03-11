@@ -1,6 +1,7 @@
 package com.googlecode.lazyrecords.simpledb;
 
 import com.amazonaws.ClientConfiguration;
+import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.PropertiesCredentials;
 import com.amazonaws.services.simpledb.AmazonSimpleDBClient;
 import com.googlecode.lazyrecords.Logger;
@@ -8,9 +9,11 @@ import com.googlecode.lazyrecords.MemoryLogger;
 import com.googlecode.lazyrecords.Record;
 import com.googlecode.lazyrecords.SchemaBasedRecordContract;
 import com.googlecode.lazyrecords.simpledb.mappings.SimpleDBMappings;
+import com.googlecode.totallylazy.Option;
 import com.googlecode.totallylazy.Sequence;
 import com.googlecode.totallylazy.matchers.Matchers;
 import com.googlecode.totallylazy.matchers.NumberMatcher;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -20,19 +23,32 @@ import java.util.Map;
 import static com.googlecode.lazyrecords.RecordsContract.Books.books;
 import static com.googlecode.lazyrecords.RecordsContract.People.age;
 import static com.googlecode.lazyrecords.RecordsContract.People.people;
+import static com.googlecode.totallylazy.Option.some;
 import static com.googlecode.totallylazy.Sequences.repeat;
 import static com.googlecode.totallylazy.matchers.NumberMatcher.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@Ignore
+@Ignore("Manual Test -- Not fully working")
 public class SimpleDBRecordsTest extends SchemaBasedRecordContract<SimpleDBRecords> {
     private AmazonSimpleDBClient amazonSimpleDBClient;
+    private static Option<AWSCredentials> credentials = credentials();
+
+    @BeforeClass
+    public static void checkCredentials() {
+        org.junit.Assume.assumeTrue(!credentials.isEmpty());
+    }
+
+    private static Option<AWSCredentials> credentials() {
+        try {
+            return some(AwsEnvironmentCredentials.awsCredentials());
+        } catch (Exception e) {
+            return Option.none();
+        }
+    }
 
     @Override
     protected SimpleDBRecords createRecords() throws Exception {
-        InputStream credentials = getClass().getResourceAsStream("AwsCredentials.properties");
-        System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
-        amazonSimpleDBClient = new AmazonSimpleDBClient(new PropertiesCredentials(credentials), new ClientConfiguration().withMaxErrorRetry(5));
+        amazonSimpleDBClient = new AmazonSimpleDBClient(credentials.get(), new ClientConfiguration().withMaxErrorRetry(5));
         schema = new SimpleDBSchema(amazonSimpleDBClient);
         return simpleDbRecords(logger);
     }

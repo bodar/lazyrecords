@@ -73,7 +73,7 @@ public class STMRecords extends AbstractRecords implements Transaction {
         return modifyReturn(database -> {
             PersistentList<PersistentMap<String, String>> table = listFor(database, definition);
             final int[] count = {0};
-            PersistentList<PersistentMap<String, String>> result = table.map(row -> {
+            PersistentList<PersistentMap<String, String>> result = table.toSequence().map(row -> {
                 for (Pair<? extends Predicate<? super Record>, Record> pair : records) {
                     Record original = asRecord(definition, row);
                     if (pair.first().matches(original)) {
@@ -82,7 +82,7 @@ public class STMRecords extends AbstractRecords implements Transaction {
                     }
                 }
                 return row;
-            });
+            }).toPersistentList();
 
             return Pair.pair(database.insert(definition, result), count[0]);
         });
@@ -166,7 +166,7 @@ public class STMRecords extends AbstractRecords implements Transaction {
     private Function1<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Pair<PersistentMap<Definition, PersistentList<PersistentMap<String, String>>>, Integer>> removeAll(final Definition definition, final Predicate<? super Record> predicate) {
         return data -> {
             PersistentList<PersistentMap<String, String>> rows = matches(data, definition, predicate);
-            return pair(data.insert(definition, listFor(data, definition).deleteAll(rows)), rows.size());
+            return pair(data.insert(definition, listFor(data, definition).toSequence().deleteAll(rows).toPersistentList()), rows.size());
         };
     }
 

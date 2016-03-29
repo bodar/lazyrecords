@@ -36,8 +36,8 @@ public class ParametrizedParserTest {
     @Test
     public void canInjectFunctions() {
         ParserFunctions parserFunctions = new ParserFunctions().
-                add("name", Predicates.always(), (CharSequence characters) -> Strings.reverse(characters.toString())).
-                add("shoeSize", Predicates.always(), (CharSequence characters) -> Strings.reverse(characters.toString()));
+                add("name", (CharSequence characters) -> Strings.reverse(characters.toString())).
+                add("shoeSize", (CharSequence characters) -> Strings.reverse(characters.toString()));
 
         ParserDateConverter dateConverter = new ParserDateConverter();
         PredicateParser parser = new ParametrizedParser(new StandardParser(), dateConverter, parserFunctions, new ParserParameters());

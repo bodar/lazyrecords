@@ -11,6 +11,7 @@ import java.util.Date;
 
 import static com.googlecode.totallylazy.predicates.Predicates.instanceOf;
 import static com.googlecode.totallylazy.Sequences.sequence;
+import static com.googlecode.totallylazy.template.Templates.templates;
 import static com.googlecode.totallylazy.time.DateConverter.functions.format;
 
 public class ParametrizedParser implements PredicateParser {
@@ -32,7 +33,7 @@ public class ParametrizedParser implements PredicateParser {
 
     public Predicate<Record> parse(String query, Sequence<? extends Keyword<?>> implicits) throws IllegalArgumentException {
         try {
-            Templates templates = Templates.defaultTemplates();
+            Templates templates = templates().addDefault();
             templates.add(instanceOf(Date.class), format(dateConverter));
             parserFunctions.addTo(templates);
 
